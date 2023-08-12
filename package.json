@@ -27,6 +27,7 @@
     "@types/validator": "^13.11.1",
     "prettier": "^3.0.1",
     "reflect-metadata": "^0.1.13",
+    "sequelize-cli": "^6.6.1",
     "sequelize-typescript": "^2.1.5"
   }
 }

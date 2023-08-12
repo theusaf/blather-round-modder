@@ -8,7 +8,7 @@ import {
 import { BaseWrapper } from "../base";
 
 export class WordList
-  extends BaseWrapper<WordListType, WordListModel, NumberedString>
+  extends BaseWrapper<WordListModel, NumberedString>
   implements WordListType
 {
   get amount(): OptionalNumberedString {

@@ -8,7 +8,6 @@ import { FindOptions } from "sequelize";
 
 export class SentenceStructure
   extends BaseWrapper<
-    SentenceStructureType,
     SentenceStructureModel,
     NumberedString
   >

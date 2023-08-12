@@ -4,12 +4,7 @@ import {
   ListString,
   NumberedString,
   PromptType,
-  SentenceStructureType,
 } from "@/lib/types";
-import {
-  SentenceStructureModel,
-  SentenceStructureStringModel,
-} from "../../models/blather/structure";
 import { BaseWrapper } from "../base";
 import { FindOptions } from "sequelize";
 import {
@@ -20,7 +15,7 @@ import {
 } from "../../models/blather/password";
 
 export class Prompt
-  extends BaseWrapper<PromptType, PromptModel, NumberedString>
+  extends BaseWrapper<PromptModel, NumberedString>
   implements PromptType
 {
   get category(): PromptType["category"] {

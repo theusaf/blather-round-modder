@@ -1,6 +1,6 @@
 import { Model } from "sequelize-typescript";
 
-export class BaseWrapper<I, T extends Model, ID = number> {
+export class BaseWrapper<T extends Model = Model, ID = number> {
   protected model: T;
 
   constructor(model: T) {
