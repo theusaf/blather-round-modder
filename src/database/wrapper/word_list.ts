@@ -1,8 +1,9 @@
+import { FindOptions } from "sequelize";
 import { WordListWordModel, WordListModel } from "../models/word_list";
 import {
   NumberedString,
   OptionalNumberedString,
-  WordList as WordListType,
+  WordListType,
 } from "@/lib/types";
 
 export class WordList implements WordListType {
@@ -91,9 +92,10 @@ export class WordList implements WordListType {
     return new WordList(model);
   }
 
-  static async findAll(): Promise<WordList[]> {
+  static async findAll(opts: FindOptions = {}): Promise<WordList[]> {
     const models = await WordListModel.findAll({
       include: WordListWordModel,
+      ...opts,
     });
     return models.map((model) => new WordList(model));
   }

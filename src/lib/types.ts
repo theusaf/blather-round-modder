@@ -8,7 +8,7 @@ export type Difficulty = "easy" | "medium" | "hard";
 /**
  * A list of words that can be used to fill in a blank in a clue phrase.
  */
-export interface WordList {
+export interface WordListType {
   /**
    * TODO: Determine what this does. Current assumption: maximum times per round this word list can be used.
    */
@@ -51,7 +51,7 @@ export interface WordList {
 /**
  * A sentence structure that can be used for multiple prompts in a row.
  */
-export interface SentenceStructure {
+export interface SentenceStructureType {
   /**
    * The category for the sentence structure.
    */
@@ -71,7 +71,7 @@ export interface SentenceStructure {
 /**
  * A prompt that players need to describe.
  */
-export interface Prompt {
+export interface PromptType {
   /**
    * Alternate spellings of the prompt.
    * Useful for thing like "The Beatles" / "Beatles".
@@ -132,7 +132,7 @@ export interface Prompt {
   us: boolean;
 }
 
-export type SentenceStructureField = [
+export type SentenceStructureFieldType = [
   {
     t: "S";
     v: Category;
@@ -145,7 +145,7 @@ export type SentenceStructureField = [
   },
 ];
 
-export type PromptField = [
+export type PromptFieldType = [
   {
     t: "S";
     v: string;
@@ -178,7 +178,7 @@ export type PromptField = [
   },
 ];
 
-export type WordListField = [
+export type WordListFieldType = [
   {
     t: "S";
     v: string;
