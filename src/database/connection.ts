@@ -1,16 +1,8 @@
 import { Sequelize } from "sequelize-typescript";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
-import models from "./models";
+import models from "./models/models.js";
+import config from "./config/config.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage:
-    process.env["DB_PATH"] ||
-    join(__dirname, "../../../data/database-dev.sqlite"),
-});
+const sequelize = new Sequelize(config[process.env.NODE_ENV.toLowerCase() || "development"]);
 
 sequelize.addModels(models);
 

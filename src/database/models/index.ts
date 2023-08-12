@@ -1,24 +1,20 @@
-import { Model, ModelStatic } from "sequelize-typescript";
-import {
-  SentenceStructureModel,
-  SentenceStructureStringModel,
-} from "./blather/structure";
-import { WordListModel, WordListWordModel } from "./blather/word_list";
-import { PromptAlternateSpellingModel, PromptForbiddenWordModel, PromptModel, PromptTailoredWordModel } from "./blather/password";
-import { ProjectModel } from "./system/project";
-import { UserModel } from "./system/user";
+import models from "./models";
+import { Model, Sequelize } from "sequelize-typescript";
+import sequelize from "../connection";
 
-const models: ModelStatic<Model>[] = [
-  WordListModel,
-  WordListWordModel,
-  SentenceStructureModel,
-  SentenceStructureStringModel,
-  PromptAlternateSpellingModel,
-  PromptForbiddenWordModel,
-  PromptTailoredWordModel,
-  PromptModel,
+interface DB {
+  [key: string]: Model | unknown;
+  sequelize?: Sequelize;
+  Sequelize?: typeof Sequelize;
+}
 
-  ProjectModel,
-  UserModel,
-];
-export default models;
+const db: DB = {};
+
+for (const model of models) {
+  db[model.name] = model;
+}
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+export default db;
