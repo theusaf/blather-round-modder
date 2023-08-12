@@ -1,72 +1,66 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../connection";
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  HasMany,
+  Model,
+  Table,
+} from "sequelize-typescript";
 import { Category, Difficulty } from "@/lib/types";
 
-export const PromptTailoredWord = sequelize.define("PromptTailoredWord", {
-  list: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  word: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+@Table
+export class PromptTailoredWordModel extends Model {
+  @Column(DataType.STRING)
+  list: string;
 
-export const PromptAlternateSpelling = sequelize.define(
-  "PromptAlternateSpelling",
-  {
-    spelling: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-);
+  @Column(DataType.STRING)
+  word: string;
 
-export const PromptForbiddenWord = sequelize.define("PromptForbiddenWord", {
-  word: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+  @BelongsTo(() => PromptModel)
+  prompt: PromptModel;
+}
 
-export const Prompt = sequelize.define("Password", {
-  alternateSpellings: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  category: {
-    type: DataTypes.ENUM<Category>("person", "place", "thing", "story"),
-    allowNull: false,
-  },
-  difficulty: {
-    type: DataTypes.ENUM<Difficulty>("easy", "medium", "hard"),
-    allowNull: false,
-  },
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  subcategory: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  us: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-});
+@Table
+export class PromptAlternateSpellingModel extends Model {
+  @Column(DataType.STRING)
+  spelling: string;
 
-Prompt.hasMany(PromptTailoredWord);
-PromptTailoredWord.belongsTo(Prompt);
+  @BelongsTo(() => PromptModel)
+  prompt: PromptModel;
+}
 
-Prompt.hasMany(PromptAlternateSpelling);
-PromptAlternateSpelling.belongsTo(Prompt);
+@Table
+export class PromptForbiddenWordModel extends Model {
+  @Column(DataType.STRING)
+  word: string;
 
-Prompt.hasMany(PromptForbiddenWord);
-PromptForbiddenWord.belongsTo(Prompt);
+  @BelongsTo(() => PromptModel)
+  prompt: PromptModel;
+}
+
+@Table
+export class PromptModel extends Model {
+  @Column(DataType.ENUM<Category>("person", "place", "thing", "story"))
+  category: string;
+
+  @Column(DataType.ENUM<Difficulty>("easy", "medium", "hard"))
+  difficulty: string;
+
+  @Column(DataType.STRING)
+  password: string;
+
+  @Column(DataType.STRING)
+  subcategory: string;
+
+  @Column(DataType.BOOLEAN)
+  us: boolean;
+
+  @HasMany(() => PromptTailoredWordModel)
+  tailoredWords: PromptTailoredWordModel[];
+
+  @HasMany(() => PromptAlternateSpellingModel)
+  alternateSpellings: PromptAlternateSpellingModel[];
+
+  @HasMany(() => PromptForbiddenWordModel)
+  forbiddenWords: PromptForbiddenWordModel[];
+}
