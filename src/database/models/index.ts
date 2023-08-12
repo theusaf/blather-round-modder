@@ -2,9 +2,11 @@ import { Model, ModelStatic } from "sequelize-typescript";
 import {
   SentenceStructureModel,
   SentenceStructureStringModel,
-} from "./structure";
-import { WordListModel, WordListWordModel } from "./word_list";
-import { PromptAlternateSpellingModel, PromptForbiddenWordModel, PromptModel, PromptTailoredWordModel } from "./password";
+} from "./blather/structure";
+import { WordListModel, WordListWordModel } from "./blather/word_list";
+import { PromptAlternateSpellingModel, PromptForbiddenWordModel, PromptModel, PromptTailoredWordModel } from "./blather/password";
+import { ProjectModel } from "./system/project";
+import { UserModel } from "./system/user";
 
 const models: ModelStatic<Model>[] = [
   WordListModel,
@@ -15,5 +17,8 @@ const models: ModelStatic<Model>[] = [
   PromptForbiddenWordModel,
   PromptTailoredWordModel,
   PromptModel,
+
+  ProjectModel,
+  UserModel,
 ];
 export default models;

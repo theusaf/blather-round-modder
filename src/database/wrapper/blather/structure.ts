@@ -2,8 +2,8 @@ import { NumberedString, SentenceStructureType } from "@/lib/types";
 import {
   SentenceStructureModel,
   SentenceStructureStringModel,
-} from "../models/structure";
-import { BaseWrapper } from "./base";
+} from "../../models/blather/structure";
+import { BaseWrapper } from "../base";
 import { FindOptions } from "sequelize";
 
 export class SentenceStructure

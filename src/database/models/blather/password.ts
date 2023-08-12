@@ -1,5 +1,6 @@
 import {
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   HasMany,
@@ -7,6 +8,7 @@ import {
   Table,
 } from "sequelize-typescript";
 import { Category, Difficulty } from "@/lib/types";
+import { ProjectModel } from "../system/project";
 
 @Table
 export class PromptTailoredWordModel extends Model {
@@ -63,4 +65,7 @@ export class PromptModel extends Model {
 
   @HasMany(() => PromptForbiddenWordModel)
   forbiddenWords: PromptForbiddenWordModel[];
+
+  @BelongsToMany(() => ProjectModel, () => ProjectModel)
+  projects: ProjectModel[];
 }

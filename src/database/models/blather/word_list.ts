@@ -6,7 +6,9 @@ import {
   AllowNull,
   BelongsTo,
   HasMany,
+  BelongsToMany,
 } from "sequelize-typescript";
+import { ProjectModel } from "../system/project";
 
 @Table
 export class WordListWordModel extends Model {
@@ -42,4 +44,7 @@ export class WordListModel extends Model {
 
   @HasMany(() => WordListWordModel)
   words: WordListWordModel[];
+
+  @BelongsToMany(() => ProjectModel, () => ProjectModel)
+  projects: ProjectModel[];
 }

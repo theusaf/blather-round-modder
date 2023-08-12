@@ -9,15 +9,15 @@ import {
 import {
   SentenceStructureModel,
   SentenceStructureStringModel,
-} from "../models/structure";
-import { BaseWrapper } from "./base";
+} from "../../models/blather/structure";
+import { BaseWrapper } from "../base";
 import { FindOptions } from "sequelize";
 import {
   PromptAlternateSpellingModel,
   PromptForbiddenWordModel,
   PromptModel,
   PromptTailoredWordModel,
-} from "../models/password";
+} from "../../models/blather/password";
 
 export class Prompt
   extends BaseWrapper<PromptType, PromptModel, NumberedString>

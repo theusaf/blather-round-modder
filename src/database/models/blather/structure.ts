@@ -1,5 +1,6 @@
 import {
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   HasMany,
@@ -7,6 +8,7 @@ import {
   Table,
 } from "sequelize-typescript";
 import { Category } from "@/lib/types";
+import { ProjectModel } from "../system/project";
 
 @Table
 export class SentenceStructureStringModel extends Model {
@@ -32,4 +34,7 @@ export class SentenceStructureModel extends Model {
 
   @HasMany(() => SentenceStructureStringModel)
   structures: SentenceStructureStringModel[];
+
+  @BelongsToMany(() => ProjectModel, () => ProjectModel)
+  projects: ProjectModel[];
 }
