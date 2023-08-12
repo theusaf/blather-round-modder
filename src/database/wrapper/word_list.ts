@@ -5,21 +5,12 @@ import {
   OptionalNumberedString,
   WordListType,
 } from "@/lib/types";
+import { BaseWrapper } from "./base";
 
-export class WordList implements WordListType {
-  private model: WordListModel;
-
-  constructor(model: WordListModel) {
-    this.model = model;
-  }
-
-  get id(): NumberedString {
-    return `${this.model.id}`;
-  }
-  set id(value: NumberedString) {
-    this.model.id = parseInt(value);
-  }
-
+export class WordList
+  extends BaseWrapper<WordListType, WordListModel, NumberedString>
+  implements WordListType
+{
   get amount(): OptionalNumberedString {
     return this.model.amount ? `${this.model.amount}` : "";
   }

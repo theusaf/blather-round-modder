@@ -1,33 +1,35 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../connection";
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  HasMany,
+  Model,
+  Table,
+} from "sequelize-typescript";
 import { Category } from "@/lib/types";
 
-export const SentenceStructureString = sequelize.define(
-  "SentenceStructureString",
-  {
-    string: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-  },
-);
+@Table
+export class SentenceStructureStringModel extends Model {
+  @Column(DataType.TEXT)
+  string: string;
 
-export const SentenceStructure = sequelize.define("SentenceStructure", {
-  category: {
-    type: DataTypes.ENUM<Category | "response">(
+  @BelongsTo(() => SentenceStructureModel)
+  structure: SentenceStructureModel;
+}
+
+@Table
+export class SentenceStructureModel extends Model {
+  @Column(
+    DataType.ENUM<Category | "response">(
       "person",
       "place",
       "thing",
       "story",
       "response",
     ),
-    allowNull: false,
-  },
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-  },
-});
+  )
+  category: Category | "response";
 
-SentenceStructure.hasMany(SentenceStructureString);
-SentenceStructureString.belongsTo(SentenceStructure);
+  @HasMany(() => SentenceStructureStringModel)
+  structures: SentenceStructureStringModel[];
+}

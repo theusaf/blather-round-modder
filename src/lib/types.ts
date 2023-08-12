@@ -65,7 +65,7 @@ export interface SentenceStructureType {
    *
    * Ex: `The <thing> was <adjective>.`
    */
-  strucutres: string[];
+  structures: string[];
 }
 
 /**
