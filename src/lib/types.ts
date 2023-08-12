@@ -1,6 +1,6 @@
-type NumberedString = `${number}`;
-type OptionalNumberedString = `${number}` | "";
-type ListString = `<${string}>`;
+export type NumberedString = `${number}`;
+export type OptionalNumberedString = `${number}` | "";
+export type ListString = `<${string}>`;
 
 export type Category = "thing" | "person" | "place" | "story";
 export type Difficulty = "easy" | "medium" | "hard";
@@ -12,27 +12,27 @@ export interface WordList {
   /**
    * TODO: Determine what this does. Current assumption: maximum times per round this word list can be used.
    */
-  amount: OptionalNumberedString,
+  amount: OptionalNumberedString;
   /**
    * The ID of the word list.
    */
-  id: NumberedString,
+  id: NumberedString;
   /**
    * The maximum number of words to choose from the list.
    */
-  maxChoices: OptionalNumberedString,
+  maxChoices: OptionalNumberedString;
   /**
    * The name of the word list.
    */
-  name: string,
+  name: string;
   /**
    * Whether or not this word list is optional. TODO: Determine what this does.
    */
-  optional: boolean,
+  optional: boolean;
   /**
    * Placeholder text for the list. Seems to be internal only?
    */
-  placeholder: string,
+  placeholder: string;
   /**
    * The words in the list. Can link to other lists.
    */
@@ -40,12 +40,12 @@ export interface WordList {
     /**
      * TODO: Determine what `alwaysChoose` does and how linked lists work.
      */
-    alwaysChoose: boolean,
+    alwaysChoose: boolean;
     /**
      * The word or list name.
      */
-    word: string | ListString,
-  }[],
+    word: string | ListString;
+  }[];
 }
 
 /**
@@ -55,17 +55,17 @@ export interface SentenceStructure {
   /**
    * The category for the sentence structure.
    */
-  category: Category | "response",
+  category: Category | "response";
   /**
    * The ID of the sentence structure.
    */
-  id: NumberedString,
+  id: NumberedString;
   /**
    * The template for the sentence structure.
    *
    * Ex: `The <thing> was <adjective>.`
    */
-  strucutres: string[],
+  strucutres: string[];
 }
 
 /**
@@ -76,15 +76,15 @@ export interface Prompt {
    * Alternate spellings of the prompt.
    * Useful for thing like "The Beatles" / "Beatles".
    */
-  alternateSpellings: string[],
+  alternateSpellings: string[];
   /**
    * The category of the prompt.
    */
-  category: Category,
+  category: Category;
   /**
    * The difficulty of the prompt.
    */
-  difficulty: Difficulty,
+  difficulty: Difficulty;
   /**
    * Words that cannot be used in the prompt.
    *
@@ -92,21 +92,21 @@ export interface Prompt {
    * * Example for a password 'The White House', the word 'white' could be forbidden.
    * * Does not affect alternate spellings. (Things like 'Car' will still be valid for 'Kart')
    */
-  forbiddenWords: string[],
+  forbiddenWords: string[];
   /**
    * The ID of the prompt.
    */
-  id: NumberedString,
+  id: NumberedString;
   /**
    * The prompt word.
    */
-  password: string,
+  password: string;
   /**
    * The subcategory of the prompt.
    *
    * Seems to be mainly for internal use.
    */
-  subcategory: string,
+  subcategory: string;
   /**
    * A list of related words that may be helpful for the prompt.
    */
@@ -117,91 +117,91 @@ export interface Prompt {
      * This can be used to make certain words more likely
      * or add new words to the list.
      */
-    list: ListString,
+    list: ListString;
     /**
      * The word.
      */
-    word: string,
-  }[],
+    word: string;
+  }[];
   /**
    * Whether or not the prompt is a US-centric prompt.
    *
    * Used for the US-centric filter setting.
    * * Example: "The White House" is a US-centric prompt.
    */
-  us: boolean,
+  us: boolean;
 }
 
 export type SentenceStructureField = [
   {
-    t: "S",
-    v: Category,
-    n: "Category",
+    t: "S";
+    v: Category;
+    n: "Category";
   },
   {
-    t: "S",
-    v: string,
-    n: "Structures",
-  }
+    t: "S";
+    v: string;
+    n: "Structures";
+  },
 ];
 
 export type PromptField = [
   {
-    t: "S",
-    v: string,
-    n: "Password",
+    t: "S";
+    v: string;
+    n: "Password";
   },
   {
-    t: "S",
-    v: Category,
-    n: "Category",
+    t: "S";
+    v: Category;
+    n: "Category";
   },
   {
-    t: "S",
-    v: string,
-    n: "Subcategory",
+    t: "S";
+    v: string;
+    n: "Subcategory";
   },
   {
-    t: "S",
-    v: Difficulty,
-    n: "Difficulty",
+    t: "S";
+    v: Difficulty;
+    n: "Difficulty";
   },
   {
-    t: "S",
-    v: string,
-    n: "ForbiddenWords",
+    t: "S";
+    v: string;
+    n: "ForbiddenWords";
   },
   {
-    t: "S",
-    v: string,
-    n: "AlternateSpellings",
+    t: "S";
+    v: string;
+    n: "AlternateSpellings";
   },
-]
+];
 
 export type WordListField = [
   {
-    t: "S",
-    v: string,
-    n: "Name",
+    t: "S";
+    v: string;
+    n: "Name";
   },
   {
-    t: "B",
-    v: "true" | "false",
-    n: "Optional",
+    t: "B";
+    v: "true" | "false";
+    n: "Optional";
   },
   {
-    t: "S",
-    v: OptionalNumberedString,
-    n: "Amount",
+    t: "S";
+    v: OptionalNumberedString;
+    n: "Amount";
   },
   {
-    t: "S",
-    v: OptionalNumberedString,
-    n: "MaxChoices",
+    t: "S";
+    v: OptionalNumberedString;
+    n: "MaxChoices";
   },
   {
-    t: "S",
-    v: string,
-    n: "Placeholder",
+    t: "S";
+    v: string;
+    n: "Placeholder";
   },
-]
+];
