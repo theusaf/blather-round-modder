@@ -4,15 +4,15 @@ import {
   ListString,
   NumberedString,
   PromptType,
-} from "@/lib/types";
-import { BaseWrapper } from "../base";
+} from "@/lib/types.js";
+import { BaseWrapper } from "../base.js";
 import { FindOptions } from "sequelize";
 import {
   PromptAlternateSpellingModel,
   PromptForbiddenWordModel,
   PromptModel,
   PromptTailoredWordModel,
-} from "../../models/blather/password";
+} from "../../models/blather/password.js";
 
 export class Prompt
   extends BaseWrapper<PromptModel, NumberedString>

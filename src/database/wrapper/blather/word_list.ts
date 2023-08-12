@@ -1,11 +1,11 @@
 import { FindOptions } from "sequelize";
-import { WordListWordModel, WordListModel } from "../../models/blather/word_list";
+import { WordListWordModel, WordListModel } from "../../models/blather/word_list.js";
 import {
   NumberedString,
   OptionalNumberedString,
   WordListType,
-} from "@/lib/types";
-import { BaseWrapper } from "../base";
+} from "@/lib/types.js";
+import { BaseWrapper } from "../base.js";
 
 export class WordList
   extends BaseWrapper<WordListModel, NumberedString>

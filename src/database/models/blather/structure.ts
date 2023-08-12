@@ -7,8 +7,8 @@ import {
   Model,
   Table,
 } from "sequelize-typescript";
-import { Category } from "@/lib/types";
-import { ProjectModel } from "../system/project";
+import { Category } from "@/lib/types.js";
+import { ProjectModel } from "../system/project.js";
 
 @Table
 export class SentenceStructureStringModel extends Model {
@@ -16,7 +16,7 @@ export class SentenceStructureStringModel extends Model {
   string: string;
 
   @BelongsTo(() => SentenceStructureModel)
-  structure: SentenceStructureModel;
+  structure: ReturnType<() => SentenceStructureModel>;
 }
 
 @Table

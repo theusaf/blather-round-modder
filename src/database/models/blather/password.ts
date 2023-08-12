@@ -7,8 +7,8 @@ import {
   Model,
   Table,
 } from "sequelize-typescript";
-import { Category, Difficulty } from "@/lib/types";
-import { ProjectModel } from "../system/project";
+import { Category, Difficulty } from "@/lib/types.js";
+import { ProjectModel } from "../system/project.js";
 
 @Table
 export class PromptTailoredWordModel extends Model {
@@ -19,7 +19,7 @@ export class PromptTailoredWordModel extends Model {
   word: string;
 
   @BelongsTo(() => PromptModel)
-  prompt: PromptModel;
+  prompt: ReturnType<() => PromptModel>;
 }
 
 @Table
@@ -28,7 +28,7 @@ export class PromptAlternateSpellingModel extends Model {
   spelling: string;
 
   @BelongsTo(() => PromptModel)
-  prompt: PromptModel;
+  prompt: ReturnType<() => PromptModel>;
 }
 
 @Table
@@ -37,7 +37,7 @@ export class PromptForbiddenWordModel extends Model {
   word: string;
 
   @BelongsTo(() => PromptModel)
-  prompt: PromptModel;
+  prompt: ReturnType<() => PromptModel>;
 }
 
 @Table

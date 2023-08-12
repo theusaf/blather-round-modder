@@ -8,7 +8,7 @@ import {
   HasMany,
   BelongsToMany,
 } from "sequelize-typescript";
-import { ProjectModel } from "../system/project";
+import { ProjectModel } from "../system/project.js";
 
 @Table
 export class WordListWordModel extends Model {
@@ -19,7 +19,7 @@ export class WordListWordModel extends Model {
   alwaysChoose: boolean;
 
   @BelongsTo(() => WordListModel)
-  wordList: WordListModel;
+  wordList: ReturnType<() => WordListModel>;
 }
 
 @Table

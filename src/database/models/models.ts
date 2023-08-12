@@ -1,12 +1,12 @@
-import { Model, ModelCtor, ModelStatic } from "sequelize-typescript";
+import { Model, ModelCtor } from "sequelize-typescript";
 import {
   SentenceStructureModel,
   SentenceStructureStringModel,
-} from "./blather/structure";
-import { WordListModel, WordListWordModel } from "./blather/word_list";
-import { PromptAlternateSpellingModel, PromptForbiddenWordModel, PromptModel, PromptTailoredWordModel } from "./blather/password";
-import { ProjectModel } from "./system/project";
-import { UserModel } from "./system/user";
+} from "./blather/structure.js";
+import { WordListModel, WordListWordModel } from "./blather/word_list.js";
+import { PromptAlternateSpellingModel, PromptForbiddenWordModel, PromptModel, PromptTailoredWordModel } from "./blather/password.js";
+import { ProjectModel } from "./system/project.js";
+import { UserModel } from "./system/user.js";
 
 const models: ModelCtor<Model>[] = [
   WordListModel,

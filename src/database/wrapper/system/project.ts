@@ -1,9 +1,9 @@
-import { ProjectModel } from "@/database/models/system/project";
-import { BaseWrapper } from "../base";
-import { User } from "./user";
-import { Prompt } from "../blather/password";
-import { SentenceStructure } from "../blather/structure";
-import { WordList } from "../blather/word_list";
+import { ProjectModel } from "@/database/models/system/project.js";
+import { BaseWrapper } from "../base.js";
+import { User } from "./user.js";
+import { Prompt } from "../blather/password.js";
+import { SentenceStructure } from "../blather/structure.js";
+import { WordList } from "../blather/word_list.js";
 
 export class Project extends BaseWrapper<ProjectModel> {
 

@@ -1,6 +1,6 @@
-import models from "./models";
+import models from "./models.js";
 import { Model, Sequelize } from "sequelize-typescript";
-import sequelize from "../connection";
+import sequelize from "../connection.js";
 
 interface DB {
   [key: string]: Model | unknown;

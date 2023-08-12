@@ -1,8 +1,8 @@
 import { AllowNull, BelongsTo, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
-import { UserModel } from "./user";
-import { PromptModel } from "../blather/password";
-import { SentenceStructureModel } from "../blather/structure";
-import { WordListModel } from "../blather/word_list";
+import { UserModel } from "./user.js";
+import { PromptModel } from "../blather/password.js";
+import { SentenceStructureModel } from "../blather/structure.js";
+import { WordListModel } from "../blather/word_list.js";
 
 @Table
 export class ProjectModel extends Model {
@@ -14,7 +14,7 @@ export class ProjectModel extends Model {
   description: string;
 
   @BelongsTo(() => UserModel)
-  user: UserModel;
+  user: ReturnType<() => UserModel>;
 
   @HasMany(() => PromptModel)
   prompts: PromptModel[];

@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize-typescript";
 import models from "./models/models.js";
 import config from "./config/config.js";
 
-const sequelize = new Sequelize(config[process.env.NODE_ENV.toLowerCase() || "development"]);
+const sequelize = new Sequelize(config[process.env.NODE_ENV?.toLowerCase() || "development"]);
 
 sequelize.addModels(models);
 

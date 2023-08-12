@@ -1,5 +1,5 @@
 import { Column, DataType, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
-import { ProjectModel } from "./project";
+import { ProjectModel } from "./project.js";
 
 @Table
 export class UserModel extends Model {

@@ -2,6 +2,7 @@
   "name": "blather-round-modder",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -21,6 +22,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sequelize": "^6.32.1",
+    "sqlite3": "^5.1.6",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
   },

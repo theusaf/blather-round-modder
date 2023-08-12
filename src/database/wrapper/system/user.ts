@@ -1,6 +1,6 @@
-import { UserModel } from "@/database/models/system/user";
-import { BaseWrapper } from "../base";
-import { Project } from "./project";
+import { UserModel } from "@/database/models/system/user.js";
+import { BaseWrapper } from "../base.js";
+import { Project } from "./project.js";
 
 export class User extends BaseWrapper<UserModel> {
 
