@@ -7,10 +7,7 @@ import { BaseWrapper } from "../base.js";
 import { FindOptions } from "sequelize";
 
 export class SentenceStructure
-  extends BaseWrapper<
-    SentenceStructureModel,
-    NumberedString
-  >
+  extends BaseWrapper<SentenceStructureModel, NumberedString>
   implements SentenceStructureType
 {
   get category(): SentenceStructureType["category"] {

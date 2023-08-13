@@ -8,8 +8,6 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./cmp/",
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
     "module": "esnext",
     "moduleResolution": "node",

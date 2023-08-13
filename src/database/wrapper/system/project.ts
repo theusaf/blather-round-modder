@@ -6,7 +6,6 @@ import { SentenceStructure } from "../blather/structure.js";
 import { WordList } from "../blather/word_list.js";
 
 export class Project extends BaseWrapper<ProjectModel> {
-
   get name(): string {
     return this.model.name;
   }
@@ -54,5 +53,4 @@ export class Project extends BaseWrapper<ProjectModel> {
       "Cannot set wordLists directly, use `setWordLists()` instead",
     );
   }
-
 }

@@ -10,18 +10,18 @@ interface Config {
 }
 
 const config: Record<string, Config> = {
-  "development": {
-    "storage": join(__dirname, "../../../data/database-dev.sqlite"),
-    "dialect": "sqlite"
+  development: {
+    storage: join(__dirname, "../../../data/database-dev.sqlite"),
+    dialect: "sqlite",
   },
-  "test": {
-    "storage": join(__dirname, "../../../data/database-test.sqlite"),
-    "dialect": "sqlite"
+  test: {
+    storage: join(__dirname, "../../../data/database-test.sqlite"),
+    dialect: "sqlite",
   },
-  "production": {
-    "storage": "/data/database-prod.sqlite",
-    "dialect": "sqlite"
-  }
-}
+  production: {
+    storage: "/data/database-prod.sqlite",
+    dialect: "sqlite",
+  },
+};
 
 export default config;

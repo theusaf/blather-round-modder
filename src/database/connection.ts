@@ -1,16 +1,10 @@
-import { Sequelize } from "sequelize-typescript";
-import models from "./models/models.js";
-import config from "./config/config.js";
+import Database from "better-sqlite3";
+import configs from "./config/config.js";
 
-const sequelize = new Sequelize(config[process.env.NODE_ENV?.toLowerCase() || "development"]);
+const env = process.env.NODE_ENV?.toLowerCase() || "development",
+  config = configs[env];
 
-sequelize.addModels(models);
+const db = new Database(config.storage);
+db.pragma("jounal_mode = WAL");
 
-try {
-  await sequelize.authenticate();
-  console.log("Connection has been established successfully.");
-} catch (error) {
-  console.error("Unable to connect to the database:", error);
-}
-
-export default sequelize;
+export default db;

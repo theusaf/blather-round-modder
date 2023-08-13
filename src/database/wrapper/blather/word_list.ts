@@ -1,5 +1,8 @@
 import { FindOptions } from "sequelize";
-import { WordListWordModel, WordListModel } from "../../models/blather/word_list.js";
+import {
+  WordListWordModel,
+  WordListModel,
+} from "../../models/blather/word_list.js";
 import {
   NumberedString,
   OptionalNumberedString,
