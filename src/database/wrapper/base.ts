@@ -1,9 +1,10 @@
 import db from "../connection";
-import { select } from "sql-bricks";
+import { deleteFrom, insert, select, update } from "sql-bricks";
 
 export interface WrapperRelationship {
   attribute: string;
   mapper: (input: any) => any;
+  setMapper: (input: any) => void;
   cls: typeof BaseWrapper;
   type: "hasOne" | "hasMany" | "belongsTo";
   foreignKey: string;
@@ -16,10 +17,16 @@ export interface WrapperQueryOptions {
   order?: string;
 }
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
+export function doTransaction(callback: () => void): void {
+  db.transaction(callback);
+}
+
 export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
   private changedAttributes: Set<string> = new Set();
 
-  protected data: T = {} as T;
+  protected data: Record<string, BaseWrapper | any> = {};
 
   static attributeNames: string[];
   static tableName: string;
@@ -44,12 +51,14 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
   protected static hasMany({
     attribute,
     mapper,
+    setMapper,
     cls,
     foreignKey,
   }: WrapperRelationship): void {
     this.relationships[attribute] = {
       attribute,
       mapper,
+      setMapper,
       cls,
       type: "hasMany",
       foreignKey,
@@ -59,12 +68,14 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
   protected static hasOne({
     attribute,
     mapper,
+    setMapper,
     cls,
     foreignKey,
   }: WrapperRelationship): void {
     this.relationships[attribute] = {
       attribute,
       mapper,
+      setMapper,
       cls,
       type: "hasOne",
       foreignKey,
@@ -74,53 +85,98 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
   protected static belongsTo({
     attribute,
     mapper,
+    setMapper,
     cls,
     foreignKey,
   }: WrapperRelationship): void {
     this.relationships[attribute] = {
       attribute,
       mapper,
+      setMapper,
       cls,
       type: "belongsTo",
       foreignKey,
     };
   }
 
-  async save(): Promise<boolean> {
-    return false;
+  async save(): Promise<void> {
+    if (this.id !== null) {
+      await this.update();
+    } else {
+      await this.create();
+    }
   }
 
-  async create(): Promise<boolean> {
-    return false;
+  async create(): Promise<void> {
+    const constructor = this.getConstructor(),
+      relationships = constructor.relationships,
+      query = insert(constructor.tableName),
+      insertedAttributes: Record<string, any>[] = [];
+    for (const attr of constructor.attributeNames) {
+      if (hasOwnProperty.call(relationships, attr)) {
+        this.data[attr].save();
+      } else {
+        insertedAttributes.push({ [attr]: this.data[attr] });
+      }
+    }
+    query.values(insertedAttributes);
+    const { text, values } = query.toParams(),
+      result = db.prepare(text).run(...values);
+    this.id = Number(result.lastInsertRowid);
+    this.changedAttributes.clear();
   }
 
-  async update(): Promise<boolean> {
-    return false;
+  async update(): Promise<void> {
+    const constructor = this.getConstructor(),
+      relationships = constructor.relationships,
+      query = update(constructor.tableName),
+      insertedAttributes: Record<string, any>[] = [];
+    for (const attr of constructor.attributeNames) {
+      if (hasOwnProperty.call(relationships, attr)) {
+        this.data[attr].save();
+      } else if (this.changedAttributes.has(attr)) {
+        insertedAttributes.push({ [attr]: this.data[attr] });
+      }
+    }
+    query.values(insertedAttributes);
+    const { text, values } = query.toParams();
+    db.prepare(text).run(...values);
+    this.changedAttributes.clear();
   }
 
-  async delete(): Promise<boolean> {
-    return false;
+  async delete(): Promise<void> {
+    const constructor = this.getConstructor();
+    const query = deleteFrom(constructor.tableName)
+      .where({ id: this.id })
+      .toParams();
+    db.prepare(query.text).run(...query.values);
+    this.id = null;
+    this.changedAttributes.clear();
   }
 
-  async reload(): Promise<boolean> {
+  async reload(): Promise<void> {
     for (const key of this.getConstructor().attributeNames) {
       this.changedAttributes.add(key);
     }
     await this.getMany(this.getConstructor().attributeNames);
-    return false;
   }
 
   set(attribute: string, value: any): void {
-    this.data[attribute as keyof T] = value;
+    const relationship = this.getConstructor().relationships[attribute];
+    if (relationship) {
+      relationship.setMapper(value);
+    } else {
+      this.data[attribute] = value;
+    }
     this.changedAttributes.add(attribute);
   }
 
   async get<D = unknown>(attribute: string): Promise<D> {
     if (!this.changedAttributes.has(attribute)) return this.data[attribute];
     const relationships = this.getConstructor().relationships;
-    let data;
+    let data: any;
     if (relationships[attribute]) {
-      const { type, cls, mapper } = relationships[attribute];
+      const { type, cls } = relationships[attribute];
       switch (type) {
         case "hasOne": {
           const obj = await cls.find({
@@ -128,7 +184,7 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
               [relationships[attribute].foreignKey]: this.id,
             },
           });
-          data = mapper(obj);
+          data = obj;
           break;
         }
         case "hasMany": {
@@ -137,7 +193,7 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
               [relationships[attribute].foreignKey]: this.id,
             },
           });
-          data = objs.map(mapper);
+          data = objs;
           break;
         }
         case "belongsTo": {
@@ -146,7 +202,7 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
               id: this.get(relationships[attribute].foreignKey),
             },
           });
-          data = mapper(obj);
+          data = obj;
           break;
         }
       }
@@ -161,7 +217,7 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
         .get(...params);
       data = result;
     }
-    this.data[attribute as keyof T] = data;
+    this.data[attribute] = data;
     this.changedAttributes.delete(attribute);
     return data;
   }
@@ -256,10 +312,19 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
     return true;
   }
 
+  async toJSONAttribute<A = any>(attribute: string): Promise<A> {
+    const relationship = this.getConstructor().relationships[attribute];
+    if (relationship) {
+      return relationship.mapper(await this.get(attribute));
+    } else {
+      return this.get(attribute);
+    }
+  }
+
   async toJSON(): Promise<T> {
     const json: Record<string, any> = {};
     for (const attribute of this.getConstructor().attributeNames) {
-      json[attribute] = await this.get(attribute);
+      json[attribute] = await this.toJSONAttribute(attribute);
     }
     return json as T;
   }
