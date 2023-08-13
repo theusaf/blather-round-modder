@@ -2,18 +2,35 @@ import { readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import db from "./connection.js";
+import { stripIndent } from "common-tags";
 
 const args = process.argv.slice(2),
   __dirname = dirname(fileURLToPath(import.meta.url)),
   migrationsPath = join(__dirname, "migrations");
 
+db.prepare(
+  stripIndent`
+    CREATE TABLE IF NOT EXISTS _migration_version (
+      version INTEGER NOT NULL
+    );
+  `,
+).run();
+
+// make sure there is a row in the _migration_version table
+if (db.prepare("SELECT COUNT(*) FROM _migration_version").pluck().get() === 0) {
+  db.prepare("INSERT INTO _migration_version (version) VALUES (0)").run();
+}
+
 function getMigrationVersion(): string {
-  const version: any = db.prepare("PRAGMA user_version").get();
-  return version.user_version;
+  const version = db
+    .prepare("SELECT version FROM _migration_version LIMIT 1")
+    .pluck()
+    .get() as string;
+  return `${version}`;
 }
 
 function setMigrationVersion(version: string): void {
-  db.prepare(`PRAGMA user_version = ${version}`).run();
+  db.prepare("UPDATE _migration_version SET version = ? LIMIT 1").run(version);
 }
 
 interface Migration {
@@ -64,12 +81,16 @@ async function migrate(): Promise<void> {
         getMigrationVersionFromFileName(migration.name) === currentVersion,
     ),
     migrationsToRun = migrations.slice(currentVersionIndex + 1);
+  console.log(`Current version: ${currentVersion}`);
 
   migrationsToRun.forEach((migration) => {
     console.log(`Running '${migration.name}'`);
     migrateUp(migration);
     setMigrationVersion(getMigrationVersionFromFileName(migration.name));
   });
+  if (migrationsToRun.length === 0) {
+    console.log("No migrations to run");
+  }
 }
 
 async function rollback(): Promise<void> {

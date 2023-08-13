@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "prestart": "npm run migrate",
     "lint": "next lint",
     "compile": "tsc --noEmit false",
     "copyAssets": "cp -r ./src/database/seeds/jackbox_data ./dist/src/database/seeds/ && cp ./src/package.json ./dist/src/",
