@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "compile": "tsc"
+    "compile": "tsc",
+    "migrate": "npm run compile && node ./dist/src/database/migrate.js"
   },
   "dependencies": {
     "@types/node": "20.4.10",

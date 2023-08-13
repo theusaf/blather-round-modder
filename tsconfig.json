@@ -6,7 +6,7 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./cmp/",
+    "outDir": "./dist/",
     "esModuleInterop": true,
     "strictPropertyInitialization": false,
     "module": "esnext",

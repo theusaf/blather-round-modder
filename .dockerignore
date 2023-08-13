@@ -16,7 +16,7 @@
 /build
 
 # development
-/cmp/
+/dist/
 
 # misc
 .DS_Store

@@ -12,7 +12,6 @@ export function up(): string[] {
       FOREIGN KEY ("project_id")
         REFERENCES "project" ("id")
         ON DELETE CASCADE,
-      PRIMARY KEY ("id"),
       UNIQUE ("password", "project_id")
     )
     `,

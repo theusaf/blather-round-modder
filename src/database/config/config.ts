@@ -1,15 +1,14 @@
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { Dialect } from "sequelize";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-interface Config {
-  storage: string;
-  dialect: Dialect;
-}
-
-const config: Record<string, Config> = {
+const config: {
+  [key: string]: {
+    storage: string;
+    dialect: "sqlite";
+  };
+} = {
   development: {
     storage: join(__dirname, "../../../data/database-dev.sqlite"),
     dialect: "sqlite",
