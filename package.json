@@ -2,14 +2,14 @@
   "name": "blather-round-modder",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "compile": "tsc",
-    "migrate": "npm run compile && node ./dist/src/database/migrate.js"
+    "compile": "tsc --noEmit false",
+    "copyAssets": "cp -r ./src/database/seeds/jackbox_data ./dist/src/database/seeds/ && cp ./src/package.json ./dist/src/",
+    "migrate": "npm run compile && npm run copyAssets && node ./dist/src/database/migrate.js"
   },
   "dependencies": {
     "@types/node": "20.4.10",

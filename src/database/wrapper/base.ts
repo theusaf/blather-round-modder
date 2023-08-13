@@ -16,7 +16,7 @@ export interface WrapperQueryOptions {
   order?: string;
 }
 
-export class BaseWrapper<T extends Record<string, any>> {
+export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
   private changedAttributes: Set<string> = new Set();
 
   protected data: T = {} as T;
@@ -41,7 +41,7 @@ export class BaseWrapper<T extends Record<string, any>> {
     }
   }
 
-  protected static hasMany<M extends BaseWrapper<any>, R>({
+  protected static hasMany({
     attribute,
     mapper,
     cls,
@@ -56,7 +56,7 @@ export class BaseWrapper<T extends Record<string, any>> {
     };
   }
 
-  protected static hasOne<M extends BaseWrapper<any>, R>({
+  protected static hasOne({
     attribute,
     mapper,
     cls,
@@ -71,7 +71,7 @@ export class BaseWrapper<T extends Record<string, any>> {
     };
   }
 
-  protected static belongsTo<M extends BaseWrapper<any>, R>({
+  protected static belongsTo({
     attribute,
     mapper,
     cls,
@@ -231,21 +231,12 @@ export class BaseWrapper<T extends Record<string, any>> {
   static async find<E extends BaseWrapper<any>>(
     options: WrapperQueryOptions,
   ): Promise<E> {
-    const initialQuery = select("*").from(this.tableName);
-    if (options.where) initialQuery.where(options.where);
-    if (options.order) initialQuery.orderBy(options.order);
-    let query = initialQuery.toParams();
-    if (options.limit) {
-      query.text += " LIMIT ?";
-      query.values.push(options.limit);
-    }
-    if (options.offset) {
-      query.text += " OFFSET ?";
-      query.values.push(options.offset);
-    }
-    return new this(
-      db.prepare(query.text).get(...query.values) as Record<string, any>,
-    ) as E;
+    return (
+      await this.findAll<E>({
+        ...options,
+        limit: 1,
+      })
+    )[0];
   }
 
   /**
