@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "ts-node src/index.ts",
+    "start": "next start",
     "prestart": "$npm_execpath migrate",
     "lint": "next lint",
     "typeorm": "typeorm-ts-node-esm",
+    "migrate": "$npm_execpath migrate:run",
     "migrate:generate": "$npm_execpath typeorm migration:generate -d ./src/database/config/config.ts",
     "migrate:run": "$npm_execpath typeorm migration:run -d ./src/database/config/config.ts",
     "migrate:revert": "$npm_execpath typeorm migration:revert -d ./src/database/config/config.ts"
