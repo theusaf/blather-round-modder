@@ -7,6 +7,7 @@ import {
   type Relation,
   Unique,
   OneToMany,
+  UpdateDateColumn,
 } from "typeorm";
 import { UserEntity } from "./User.js";
 import { PromptEntity } from "../blather/Prompt.js";
@@ -18,9 +19,18 @@ export class ProjectEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @UpdateDateColumn()
+  lastUpdated: Date;
+
   @Unique(["name", "owner"])
   @Column({ length: 255 })
   name: string;
+
+  @Column({ type: "text", nullable: true })
+  description: string;
+
+  @Column()
+  public: boolean;
 
   @ManyToOne(() => UserEntity, (user) => user.projects, {
     onDelete: "CASCADE",

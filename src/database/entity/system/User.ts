@@ -9,6 +9,12 @@ export class UserEntity extends BaseEntity {
   @Column({ length: 255 })
   password: string;
 
+  @Column({ length: 255 })
+  email: string;
+
+  @Column()
+  emailVerified: boolean;
+
   @OneToMany(() => ProjectEntity, (project) => project.owner)
   projects: ProjectEntity[];
 }
