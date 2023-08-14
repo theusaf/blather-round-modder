@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   type Relation,
 } from "typeorm";
@@ -19,7 +20,10 @@ export class PromptEntity extends BaseEntity {
   @Column({ length: 255 })
   password: string;
 
-  @Column({ length: 255 })
+  @Column({
+    length: 255,
+    nullable: true,
+  })
   subcategory: string;
 
   @Column()
@@ -31,4 +35,74 @@ export class PromptEntity extends BaseEntity {
     orphanedRowAction: "delete",
   })
   project: Relation<ProjectEntity>;
+
+  @OneToMany(() => PromptSpellingEntity, (spelling) => spelling.prompt, {
+    eager: true,
+  })
+  alternateSpellings: PromptSpellingEntity[];
+
+  @OneToMany(() => PromptForbiddenWordEntity, (word) => word.prompt, {
+    eager: true,
+  })
+  forbiddenWords: PromptForbiddenWordEntity[];
+
+  @OneToMany(
+    () => PromptTailoredWordEntity,
+    (tailoredWord) => tailoredWord.prompt,
+    {
+      eager: true,
+    },
+  )
+  tailoredWords: PromptTailoredWordEntity[];
+}
+
+@Entity({ name: "prompt_alternate_spelling" })
+export class PromptSpellingEntity extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ length: 255 })
+  value: string;
+
+  @ManyToOne(() => PromptEntity, (prompt) => prompt.alternateSpellings, {
+    onDelete: "CASCADE",
+    nullable: false,
+    orphanedRowAction: "delete",
+  })
+  prompt: Relation<PromptEntity>;
+}
+
+@Entity({ name: "prompt_forbidden_word" })
+export class PromptForbiddenWordEntity extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ length: 255 })
+  value: string;
+
+  @ManyToOne(() => PromptEntity, (prompt) => prompt.forbiddenWords, {
+    onDelete: "CASCADE",
+    nullable: false,
+    orphanedRowAction: "delete",
+  })
+  prompt: Relation<PromptEntity>;
+}
+
+@Entity({ name: "prompt_tailored_word" })
+export class PromptTailoredWordEntity extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ length: 255 })
+  list: string;
+
+  @Column({ length: 255 })
+  word: string;
+
+  @ManyToOne(() => PromptEntity, (prompt) => prompt.tailoredWords, {
+    onDelete: "CASCADE",
+    nullable: false,
+    orphanedRowAction: "delete",
+  })
+  prompt: Relation<PromptEntity>;
 }

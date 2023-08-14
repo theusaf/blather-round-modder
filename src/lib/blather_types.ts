@@ -30,7 +30,7 @@ export interface WordListType {
    */
   optional: boolean;
   /**
-   * Placeholder text for the list. Seems to be internal only?
+   * Placeholder text for the list. The text that is displayed if no words are chosen.
    */
   placeholder: string;
   /**
