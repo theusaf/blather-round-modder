@@ -12,5 +12,5 @@ User.hasMany({
   cls: Project,
   mapper(model: Project) {
     return model.toJSON();
-  }
+  },
 });

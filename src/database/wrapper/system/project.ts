@@ -13,7 +13,7 @@ Project.belongsTo({
   foreignKey: "user_id",
   cls: User,
   mapper(model: User) {
-    return model.get("username")
+    return model.get("username");
   },
 });
 
@@ -32,7 +32,7 @@ Project.hasMany({
   cls: SentenceStructure,
   mapper(model: SentenceStructure) {
     return model.toJSON();
-  }
+  },
 });
 
 Project.hasMany({
@@ -41,5 +41,5 @@ Project.hasMany({
   cls: WordList,
   mapper(model: WordList) {
     return model.toJSON();
-  }
+  },
 });

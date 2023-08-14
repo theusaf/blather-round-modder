@@ -16,7 +16,7 @@ SentenceStructure.belongsTo({
   cls: Project,
   mapper(model: Project) {
     return model.toJSON();
-  }
+  },
 });
 
 SentenceStructure.hasMany({
@@ -25,7 +25,7 @@ SentenceStructure.hasMany({
   cls: SentenceStructureString,
   mapper(model: SentenceStructureString) {
     return model.get("string");
-  }
+  },
 });
 
 // SentenceStructureString
@@ -38,6 +38,5 @@ SentenceStructureString.belongsTo({
   cls: SentenceStructure,
   mapper(model: SentenceStructure) {
     return model.toJSON();
-  }
+  },
 });
-

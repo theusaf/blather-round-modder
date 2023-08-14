@@ -8,7 +8,14 @@ export class WordList extends BaseWrapper<WordListType> {}
 
 // WordList
 WordList.tableName = "word_list";
-WordList.attributeNames = ["amount", "max_choices", "name", "placeholder", "project", "words"];
+WordList.attributeNames = [
+  "amount",
+  "max_choices",
+  "name",
+  "placeholder",
+  "project",
+  "words",
+];
 
 WordList.belongsTo({
   attribute: "project",
@@ -16,7 +23,7 @@ WordList.belongsTo({
   cls: Project,
   mapper(model: Project) {
     return model.toJSON();
-  }
+  },
 });
 
 WordList.hasMany({
@@ -25,7 +32,7 @@ WordList.hasMany({
   cls: WordListWord,
   mapper(model: WordListWord) {
     return model.toJSON();
-  }
+  },
 });
 
 // WordListWord
@@ -38,5 +45,5 @@ WordListWord.belongsTo({
   cls: WordList,
   mapper(model: WordList) {
     return model.toJSON();
-  }
+  },
 });

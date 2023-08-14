@@ -186,10 +186,12 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
     if (relationship) {
       if (value instanceof relationship.cls) {
         this.data[attribute] = value;
-        this.data[relationship.foreignKey] = value.get(relationship.cls.primaryKey);
+        this.data[relationship.foreignKey] = value.get(
+          relationship.cls.primaryKey,
+        );
       } else {
         throw new InvalidValueError(
-          `Invalid value for ${attribute}: ${value} is not an instance of ${relationship.cls.name}`
+          `Invalid value for ${attribute}: ${value} is not an instance of ${relationship.cls.name}`,
         );
       }
     } else {

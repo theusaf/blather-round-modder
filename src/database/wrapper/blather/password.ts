@@ -29,8 +29,8 @@ Prompt.belongsTo({
   foreignKey: "project_id",
   cls: Project,
   mapper(model: Project) {
-    return model.get("id")
-  }
+    return model.get("id");
+  },
 });
 
 Prompt.hasMany({
@@ -39,7 +39,7 @@ Prompt.hasMany({
   cls: PromptAlternateSpelling,
   mapper(model: PromptAlternateSpelling) {
     return model.get("spelling");
-  }
+  },
 });
 
 Prompt.hasMany({
@@ -48,7 +48,7 @@ Prompt.hasMany({
   cls: PromptForbiddenWord,
   mapper(model: PromptForbiddenWord) {
     return model.get("word");
-  }
+  },
 });
 
 Prompt.hasMany({
@@ -57,7 +57,7 @@ Prompt.hasMany({
   cls: PromptTailoredWord,
   mapper(model: PromptTailoredWord) {
     return model.toJSON();
-  }
+  },
 });
 
 // PromptAlternateSpelling
@@ -70,7 +70,7 @@ PromptAlternateSpelling.belongsTo({
   cls: Prompt,
   mapper(model: Prompt) {
     return model.get("spelling");
-  }
+  },
 });
 
 // PromptForbiddenWord
@@ -83,7 +83,7 @@ PromptForbiddenWord.belongsTo({
   cls: Prompt,
   mapper(model: Prompt) {
     return model.get("word");
-  }
+  },
 });
 
 // PromptTailoredWord
@@ -98,6 +98,6 @@ PromptTailoredWord.belongsTo({
     return {
       list: model.get("list"),
       word: model.get("word"),
-    }
-  }
+    };
+  },
 });

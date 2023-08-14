@@ -1,26 +1,24 @@
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import "reflect-metadata";
+import { DataSource } from "typeorm";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url)),
+  databaseLocations: Record<string, string> = {
+    development: join(__dirname, "../../../data/database-dev.sqlite"),
+    production: join(__dirname, "/data/database.sqlite"),
+    test: join(__dirname, "/data/database-test.sqlite"),
+  },
+  env = process.env.NODE_ENV || "development",
+  migrationFolder = join(__dirname, "../migrations"),
+  entityFolder = join(__dirname, "../entity");
 
-const config: {
-  [key: string]: {
-    storage: string;
-    dialect: "sqlite";
-  };
-} = {
-  development: {
-    storage: join(__dirname, "../../../data/database-dev.sqlite"),
-    dialect: "sqlite",
-  },
-  test: {
-    storage: join(__dirname, "../../../data/database-test.sqlite"),
-    dialect: "sqlite",
-  },
-  production: {
-    storage: "/data/database-prod.sqlite",
-    dialect: "sqlite",
-  },
-};
-
-export default config;
+export const AppDataSource = new DataSource({
+  type: "sqlite",
+  database: databaseLocations[env],
+  synchronize: false,
+  logging: true,
+  entities: [join(entityFolder, "**/*.ts")],
+  migrations: [join(migrationFolder, "**/*.ts")],
+  subscribers: [],
+});
