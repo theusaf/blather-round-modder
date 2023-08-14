@@ -6,8 +6,10 @@ import {
   PrimaryGeneratedColumn,
   type Relation,
   Unique,
+  OneToMany,
 } from "typeorm";
 import { UserEntity } from "./User.js";
+import { PromptEntity } from "../blather/Prompt.js";
 
 @Entity({ name: "project" })
 export class ProjectEntity extends BaseEntity {
@@ -24,4 +26,7 @@ export class ProjectEntity extends BaseEntity {
     orphanedRowAction: "delete",
   })
   owner: Relation<UserEntity>;
+
+  @OneToMany(() => PromptEntity, (prompt) => prompt.project)
+  prompts: PromptEntity[];
 }
