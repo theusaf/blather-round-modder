@@ -1,12 +1,34 @@
-import db from "../connection";
+import db from "../connection.js";
 import { deleteFrom, insert, select, update } from "sql-bricks";
 
+export class InvalidValueError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "InvalidValueError";
+  }
+}
+
 export interface WrapperRelationship {
+  /**
+   * The name of the attribute that this relationship is for.
+   */
   attribute: string;
+  /**
+   * A function that maps an input (Wrapper) to an output for JSON purposes.
+   */
   mapper: (input: any) => any;
-  setMapper: (input: any) => void;
-  cls: typeof BaseWrapper;
-  type: "hasOne" | "hasMany" | "belongsTo";
+  /**
+   * The class that this relationship is for.
+   */
+  cls: typeof BaseWrapper<any>;
+  type?: "hasOne" | "hasMany" | "belongsTo";
+  /**
+   * The name of the foreign key for this relationship.
+   *
+   * If this is a `belongs...` relationship, this is the name of the foreign key on the current model for the other model.
+   *
+   * If this is a `has...` relationship, this is the name of the foreign key on the other model for this model.
+   */
   foreignKey: string;
 }
 
@@ -31,6 +53,7 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
   static attributeNames: string[];
   static tableName: string;
   static relationships: Record<string, WrapperRelationship> = {};
+  static primaryKey: string = "id";
 
   id: number | null = null;
 
@@ -39,8 +62,9 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
    * @param attributes    The names of the attributes of this model
    */
   constructor(data: Record<string, any>) {
+    const constructor = this.getConstructor();
     this.data = data as T;
-    this.id = data.id ?? null;
+    this.id = data[constructor.primaryKey] ?? null;
     if (this.id !== null) {
       for (const key of this.getConstructor().attributeNames) {
         this.changedAttributes.add(key);
@@ -48,51 +72,45 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
     }
   }
 
-  protected static hasMany({
+  static hasMany({
     attribute,
     mapper,
-    setMapper,
     cls,
     foreignKey,
   }: WrapperRelationship): void {
     this.relationships[attribute] = {
       attribute,
       mapper,
-      setMapper,
       cls,
       type: "hasMany",
       foreignKey,
     };
   }
 
-  protected static hasOne({
+  static hasOne({
     attribute,
     mapper,
-    setMapper,
     cls,
     foreignKey,
   }: WrapperRelationship): void {
     this.relationships[attribute] = {
       attribute,
       mapper,
-      setMapper,
       cls,
       type: "hasOne",
       foreignKey,
     };
   }
 
-  protected static belongsTo({
+  static belongsTo({
     attribute,
     mapper,
-    setMapper,
     cls,
     foreignKey,
   }: WrapperRelationship): void {
     this.relationships[attribute] = {
       attribute,
       mapper,
-      setMapper,
       cls,
       type: "belongsTo",
       foreignKey,
@@ -164,7 +182,14 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
   set(attribute: string, value: any): void {
     const relationship = this.getConstructor().relationships[attribute];
     if (relationship) {
-      relationship.setMapper(value);
+      if (value instanceof relationship.cls) {
+        this.data[attribute] = value;
+        this.data[relationship.foreignKey] = value.get(relationship.cls.primaryKey);
+      } else {
+        throw new InvalidValueError(
+          `Invalid value for ${attribute}: ${value} is not an instance of ${relationship.cls.name}`
+        );
+      }
     } else {
       this.data[attribute] = value;
     }
@@ -176,12 +201,12 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
     const relationships = this.getConstructor().relationships;
     let data: any;
     if (relationships[attribute]) {
-      const { type, cls } = relationships[attribute];
+      const { type, cls, foreignKey } = relationships[attribute];
       switch (type) {
         case "hasOne": {
           const obj = await cls.find({
             where: {
-              [relationships[attribute].foreignKey]: this.id,
+              [foreignKey]: this.id,
             },
           });
           data = obj;
@@ -190,7 +215,7 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
         case "hasMany": {
           const objs = await cls.findAll({
             where: {
-              [relationships[attribute].foreignKey]: this.id,
+              [foreignKey]: this.id,
             },
           });
           data = objs;
@@ -199,7 +224,7 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
         case "belongsTo": {
           const obj = await cls.find({
             where: {
-              id: this.get(relationships[attribute].foreignKey),
+              [cls.primaryKey]: this.get(foreignKey),
             },
           });
           data = obj;
@@ -322,6 +347,7 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
   }
 
   async toJSON(): Promise<T> {
+    // TODO: Prevent infinite recursion
     const json: Record<string, any> = {};
     for (const attribute of this.getConstructor().attributeNames) {
       json[attribute] = await this.toJSONAttribute(attribute);
