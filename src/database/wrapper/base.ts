@@ -15,6 +15,8 @@ export interface WrapperRelationship {
   attribute: string;
   /**
    * A function that maps an input (Wrapper) to an output for JSON purposes.
+   *
+   * Warning: Ensure that this function does not cause an infinite loop.
    */
   mapper: (input: any) => any;
   /**
@@ -347,7 +349,6 @@ export class BaseWrapper<T extends Record<string, any> = Record<string, any>> {
   }
 
   async toJSON(): Promise<T> {
-    // TODO: Prevent infinite recursion
     const json: Record<string, any> = {};
     for (const attribute of this.getConstructor().attributeNames) {
       json[attribute] = await this.toJSONAttribute(attribute);

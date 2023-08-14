@@ -29,7 +29,7 @@ Prompt.belongsTo({
   foreignKey: "project_id",
   cls: Project,
   mapper(model: Project) {
-    return model.toJSON();
+    return model.get("id")
   }
 });
 
@@ -69,7 +69,7 @@ PromptAlternateSpelling.belongsTo({
   foreignKey: "password_id",
   cls: Prompt,
   mapper(model: Prompt) {
-    return model.toJSON();
+    return model.get("spelling");
   }
 });
 
@@ -82,7 +82,7 @@ PromptForbiddenWord.belongsTo({
   foreignKey: "password_id",
   cls: Prompt,
   mapper(model: Prompt) {
-    return model.toJSON();
+    return model.get("word");
   }
 });
 
@@ -95,6 +95,9 @@ PromptTailoredWord.belongsTo({
   foreignKey: "password_id",
   cls: Prompt,
   mapper(model: Prompt) {
-    return model.toJSON();
+    return {
+      list: model.get("list"),
+      word: model.get("word"),
+    }
   }
 });

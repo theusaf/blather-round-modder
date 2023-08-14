@@ -8,30 +8,26 @@
     "start": "next start",
     "prestart": "npm run migrate",
     "lint": "next lint",
-    "compile": "tsc --noEmit false",
-    "copyAssets": "cp -r ./src/database/seeds/jackbox_data ./dist/src/database/seeds/ && cp ./src/package.json ./dist/src/",
-    "migrate": "npm run compile && npm run copyAssets && node ./dist/src/database/migrate.js"
+    "typeorm": "typeorm-ts-node-esm"
   },
   "dependencies": {
-    "@types/better-sqlite3": "^7.6.4",
     "@types/common-tags": "^1.8.1",
     "@types/node": "20.4.10",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
-    "better-sqlite3": "^8.5.0",
     "common-tags": "^1.8.2",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.13",
     "next": "13.4.13",
     "postcss": "8.4.27",
+    "prettier": "^3.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sql-bricks": "^3.0.1",
+    "sqlite3": "^5.1.6",
     "tailwindcss": "3.3.3",
+    "ts-node": "^10.9.1",
+    "typeorm": "^0.3.17",
     "typescript": "5.1.6"
-  },
-  "devDependencies": {
-    "prettier": "^3.0.1"
   }
 }
