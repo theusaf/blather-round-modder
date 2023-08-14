@@ -11,6 +11,7 @@ import {
 import { UserEntity } from "./User.js";
 import { PromptEntity } from "../blather/Prompt.js";
 import { SentenceStructureEntity } from "../blather/SentenceStructure.js";
+import { WordListEntity } from "../blather/WordList.js";
 
 @Entity({ name: "project" })
 export class ProjectEntity extends BaseEntity {
@@ -33,4 +34,7 @@ export class ProjectEntity extends BaseEntity {
 
   @OneToMany(() => SentenceStructureEntity, (structure) => structure.project)
   sentenceStructures: SentenceStructureEntity[];
+
+  @OneToMany(() => WordListEntity, (wordList) => wordList.project)
+  wordLists: WordListEntity[];
 }
