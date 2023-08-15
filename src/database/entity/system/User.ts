@@ -13,9 +13,11 @@ export class UserEntity extends BaseEntityWrapper {
   @Column({ length: 255 })
   email: string;
 
-  @Column()
+  @Column({ default: false })
   emailVerified: boolean;
 
-  @OneToMany(() => ProjectEntity, (project) => project.owner)
+  @OneToMany(() => ProjectEntity, (project) => project.owner, {
+    cascade: true,
+  })
   projects: Promise<ProjectEntity[]>;
 }

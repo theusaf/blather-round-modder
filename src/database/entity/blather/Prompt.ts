@@ -28,6 +28,7 @@ export class PromptEntity extends BaseEntityWrapper {
   @Column({
     length: 255,
     nullable: true,
+    type: "varchar",
   })
   subcategory: string | null;
 
@@ -43,20 +44,20 @@ export class PromptEntity extends BaseEntityWrapper {
 
   @OneToMany(() => PromptSpellingEntity, (spelling) => spelling.prompt, {
     eager: true,
+    cascade: true,
   })
   alternateSpellings: PromptSpellingEntity[];
 
   @OneToMany(() => PromptForbiddenWordEntity, (word) => word.prompt, {
     eager: true,
+    cascade: true,
   })
   forbiddenWords: PromptForbiddenWordEntity[];
 
   @OneToMany(
     () => PromptTailoredWordEntity,
     (tailoredWord) => tailoredWord.prompt,
-    {
-      eager: true,
-    },
+    { eager: true, cascade: true },
   )
   tailoredWords: PromptTailoredWordEntity[];
 }

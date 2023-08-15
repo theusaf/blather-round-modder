@@ -13,12 +13,17 @@ const __dirname = dirname(fileURLToPath(import.meta.url)),
   migrationFolder = join(__dirname, "../migrations"),
   entityFolder = join(__dirname, "../entity");
 
-export const AppDataSource = new DataSource({
+const dataSource = new DataSource({
   type: "sqlite",
   database: databaseLocations[env],
   synchronize: false,
   logging: true,
-  entities: [join(entityFolder, "**/*.ts")],
-  migrations: [join(migrationFolder, "**/*.ts")],
+  entities: [join(entityFolder, "**/*.ts"), join(entityFolder, "**/*.js")],
+  migrations: [
+    join(migrationFolder, "**/*.ts"),
+    join(migrationFolder, "**/*.js"),
+  ],
   subscribers: [],
 });
+
+export const AppDataSource = dataSource;

@@ -8,6 +8,8 @@
     "start": "next start",
     "prestart": "$npm_execpath migrate",
     "lint": "next lint",
+    "compile": "tsc -p ./src/tsconfig.json && $npm_execpath copyfiles",
+    "copyfiles": "cpy './src/**/*' '!**/*.ts' dist --parents",
     "typeorm": "typeorm-ts-node-esm",
     "migrate": "$npm_execpath migrate:run",
     "migrate:generate": "$npm_execpath typeorm migration:generate -d ./src/database/config/config.ts",
@@ -15,26 +17,29 @@
     "migrate:revert": "$npm_execpath typeorm migration:revert -d ./src/database/config/config.ts"
   },
   "dependencies": {
-    "@types/common-tags": "^1.8.1",
-    "@types/node": "20.4.10",
-    "@types/react": "18.2.20",
-    "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
     "common-tags": "^1.8.2",
-    "eslint": "8.47.0",
-    "eslint-config-next": "13.4.13",
+    "cpy-cli": "^5.0.0",
     "jszip": "^3.10.1",
     "next": "13.4.13",
     "postcss": "8.4.27",
-    "prettier": "^3.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "reflect-metadata": "^0.1.13",
     "server-only": "^0.0.1",
     "sqlite3": "^5.1.6",
     "tailwindcss": "3.3.3",
+    "typeorm": "0.3.17"
+  },
+  "devDependencies": {
+    "@types/common-tags": "^1.8.1",
+    "@types/node": "20.4.10",
+    "@types/react": "18.2.20",
+    "@types/react-dom": "18.2.7",
+    "eslint": "8.47.0",
+    "eslint-config-next": "13.4.13",
+    "prettier": "^3.0.1",
     "ts-node": "^10.9.1",
-    "typeorm": "0.3.17",
     "typescript": "5.1.6"
   }
 }

@@ -39,12 +39,18 @@ export class ProjectEntity extends BaseEntityWrapper {
   })
   owner: Relation<UserEntity>;
 
-  @OneToMany(() => PromptEntity, (prompt) => prompt.project)
+  @OneToMany(() => PromptEntity, (prompt) => prompt.project, {
+    cascade: true,
+  })
   prompts: PromptEntity[];
 
-  @OneToMany(() => SentenceStructureEntity, (structure) => structure.project)
+  @OneToMany(() => SentenceStructureEntity, (structure) => structure.project, {
+    cascade: true,
+  })
   sentenceStructures: SentenceStructureEntity[];
 
-  @OneToMany(() => WordListEntity, (wordList) => wordList.project)
+  @OneToMany(() => WordListEntity, (wordList) => wordList.project, {
+    cascade: true,
+  })
   wordLists: WordListEntity[];
 }

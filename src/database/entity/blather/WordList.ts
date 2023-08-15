@@ -15,10 +15,16 @@ export class WordListEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
+  @Column({
+    nullable: true,
+    type: "integer",
+  })
   amount: number | null;
 
-  @Column({ nullable: true })
+  @Column({
+    nullable: true,
+    type: "integer",
+  })
   maxChoices: number | null;
 
   @Unique(["name", "project"])
@@ -28,11 +34,16 @@ export class WordListEntity extends BaseEntityWrapper {
   @Column()
   optional: boolean;
 
-  @Column({ nullable: true, length: 255 })
+  @Column({
+    nullable: true,
+    length: 255,
+    type: "varchar",
+  })
   placeholder: string | null;
 
   @OneToMany(() => WordListWordEntity, (word) => word.wordList, {
     eager: true,
+    cascade: true,
   })
   words: WordListWordEntity[];
 

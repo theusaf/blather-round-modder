@@ -20,7 +20,7 @@ export class SentenceStructureEntity extends BaseEntityWrapper {
   @OneToMany(
     () => SentenceStructureStructureEntity,
     (structure) => structure.sentenceStructure,
-    { eager: true },
+    { eager: true, cascade: true },
   )
   structures: SentenceStructureStructureEntity[];
 
