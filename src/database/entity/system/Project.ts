@@ -29,7 +29,7 @@ export class ProjectEntity extends BaseEntityWrapper {
   @Column({ type: "text", nullable: true })
   description: string;
 
-  @Column()
+  @Column({ default: false })
   public: boolean;
 
   @ManyToOne(() => UserEntity, (user) => user.projects, {

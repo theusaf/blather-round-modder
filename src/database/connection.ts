@@ -8,8 +8,6 @@ if (!AppDataSource.isInitialized) {
 
 const jackboxUser = await UserEntity.findOneBy({ username: "jackbox" });
 
-if (!jackboxUser) {
-  await seed();
-}
+if (!jackboxUser) await seed();
 
 export default AppDataSource;

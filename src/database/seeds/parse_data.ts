@@ -48,7 +48,18 @@ export async function seed() {
     await readFile(join(jackboxDataDir, "BlankyBlankWordLists.jet"), "utf-8"),
   );
 
-  const promptEntities = [];
+  const user = new UserEntity();
+  user.username = "jackbox";
+  user.password = "";
+  user.email = "null";
+  await user.save();
+
+  const project = new ProjectEntity();
+  project.name = "BlankyBlank Main";
+  project.description = "The default project imported from Jackbox Games.";
+  project.owner = user;
+  await project.save();
+
   for (const prompt of jackboxPrompts.content) {
     const {
       category,
@@ -66,42 +77,41 @@ export async function seed() {
     promptEntity.subcategory = subcategory || null;
     promptEntity.us = !!us;
     promptEntity.password = password;
-    const forbiddenWordEntities = forbiddenWords.map((word) => {
+    await promptEntity.save();
+
+    for (const word of forbiddenWords) {
       const entity = new PromptForbiddenWordEntity();
       entity.value = word;
-      return entity;
-    });
-    promptEntity.forbiddenWords = forbiddenWordEntities;
-    const tailoredWordEntities = tailoredWords.map(({ word, list }) => {
+      entity.prompt = Promise.resolve(promptEntity);
+      await entity.save();
+    }
+    for (const { word, list } of tailoredWords) {
       const entity = new PromptTailoredWordEntity();
       entity.word = word;
       entity.list = list;
-      return entity;
-    });
-    promptEntity.tailoredWords = tailoredWordEntities;
-    const alternateSpellingEntities = alternateSpellings.map((word) => {
+      entity.prompt = Promise.resolve(promptEntity);
+      await entity.save();
+    }
+    for (const word of alternateSpellings) {
       const entity = new PromptSpellingEntity();
-      entity.value;
-      return entity;
-    });
-    promptEntity.alternateSpellings = alternateSpellingEntities;
-    promptEntities.push(promptEntity);
+      entity.value = word;
+      entity.prompt = Promise.resolve(promptEntity);
+      await entity.save();
+    }
   }
 
-  const sentenceEntities = [];
   for (const sentence of jackboxSentences.content) {
     const { category, structures } = sentence;
     const sentenceEntity = new SentenceStructureEntity();
     sentenceEntity.category = category;
-    sentenceEntity.structures = structures.map((word) => {
+    await sentenceEntity.save();
+    for (const word of structures) {
       const structure = new SentenceStructureStructureEntity();
       structure.value = word;
-      return structure;
-    });
-    sentenceEntities.push(sentenceEntity);
+      await structure.save();
+    }
   }
 
-  const wordListEntities = [];
   for (const wordList of jackboxWordLists.content) {
     const { amount, maxChoices, name, optional, placeholder, words } = wordList;
     const wordListEntity = new WordListEntity();
@@ -110,27 +120,12 @@ export async function seed() {
     wordListEntity.name = name;
     wordListEntity.optional = !!optional;
     wordListEntity.placeholder = placeholder || null;
-    const wordEntities = words.map(({ word, alwaysChoose }) => {
+    await wordListEntity.save();
+    for (const { word, alwaysChoose } of words) {
       const entity = new WordListWordEntity();
       entity.word = word;
       entity.alwaysChoose = !!alwaysChoose;
-      return entity;
-    });
-    wordListEntity.words = wordEntities;
-    wordListEntities.push(wordListEntity);
+      await entity.save();
+    }
   }
-
-  const project = new ProjectEntity();
-  project.name = "BlankyBlank Main";
-  project.prompts = promptEntities;
-  project.sentenceStructures = sentenceEntities;
-  project.wordLists = wordListEntities;
-  project.description = "The default project imported from Jackbox Games.";
-
-  const user = new UserEntity();
-  user.username = "jackbox";
-  user.password = "";
-  user.email = "null";
-  user.projects = Promise.resolve([project]);
-  await user.save();
 }
