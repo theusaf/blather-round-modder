@@ -131,6 +131,6 @@ export async function seed() {
   user.username = "jackbox";
   user.password = "";
   user.email = "null";
-  user.projects = [project];
+  user.projects = Promise.resolve([project]);
   await user.save();
 }

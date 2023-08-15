@@ -29,7 +29,7 @@ export class SentenceStructureEntity extends BaseEntityWrapper {
     nullable: false,
     orphanedRowAction: "delete",
   })
-  project: Relation<ProjectEntity>;
+  project: Promise<Relation<ProjectEntity>>;
 }
 
 @Entity({ name: "sentence_structure_structure" })
@@ -49,5 +49,5 @@ export class SentenceStructureStructureEntity extends BaseEntityWrapper {
       orphanedRowAction: "delete",
     },
   )
-  sentenceStructure: Relation<SentenceStructureEntity>;
+  sentenceStructure: Promise<Relation<SentenceStructureEntity>>;
 }

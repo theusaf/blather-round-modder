@@ -41,7 +41,7 @@ export class WordListEntity extends BaseEntityWrapper {
     nullable: false,
     orphanedRowAction: "delete",
   })
-  project: Relation<ProjectEntity>;
+  project: Promise<Relation<ProjectEntity>>;
 }
 
 @Entity({ name: "word_list_word" })
@@ -61,5 +61,5 @@ export class WordListWordEntity extends BaseEntityWrapper {
     nullable: false,
     orphanedRowAction: "delete",
   })
-  wordList: Relation<WordListEntity>;
+  wordList: Promise<Relation<WordListEntity>>;
 }

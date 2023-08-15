@@ -39,7 +39,7 @@ export class PromptEntity extends BaseEntityWrapper {
     nullable: false,
     orphanedRowAction: "delete",
   })
-  project: Relation<ProjectEntity>;
+  project: Promise<Relation<ProjectEntity>>;
 
   @OneToMany(() => PromptSpellingEntity, (spelling) => spelling.prompt, {
     eager: true,
@@ -75,7 +75,7 @@ export class PromptSpellingEntity extends BaseEntityWrapper {
     nullable: false,
     orphanedRowAction: "delete",
   })
-  prompt: Relation<PromptEntity>;
+  prompt: Promise<Relation<PromptEntity>>;
 }
 
 @Entity({ name: "prompt_forbidden_word" })
@@ -92,7 +92,7 @@ export class PromptForbiddenWordEntity extends BaseEntityWrapper {
     nullable: false,
     orphanedRowAction: "delete",
   })
-  prompt: Relation<PromptEntity>;
+  prompt: Promise<Relation<PromptEntity>>;
 }
 
 @Entity({ name: "prompt_tailored_word" })
@@ -111,5 +111,5 @@ export class PromptTailoredWordEntity extends BaseEntityWrapper {
     nullable: false,
     orphanedRowAction: "delete",
   })
-  prompt: Relation<PromptEntity>;
+  prompt: Promise<Relation<PromptEntity>>;
 }

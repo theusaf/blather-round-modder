@@ -17,5 +17,5 @@ export class UserEntity extends BaseEntityWrapper {
   emailVerified: boolean;
 
   @OneToMany(() => ProjectEntity, (project) => project.owner)
-  projects: ProjectEntity[];
+  projects: Promise<ProjectEntity[]>;
 }
