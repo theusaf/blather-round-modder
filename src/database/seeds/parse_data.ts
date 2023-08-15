@@ -20,12 +20,18 @@ import {
   WordListEntity,
   WordListWordEntity,
 } from "../entity/blather/WordList.js";
+import { ProjectEntity } from "../entity/system/Project.js";
+import { UserEntity } from "../entity/system/User.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url)),
   jackboxDataDir = join(__dirname, "jackbox_data");
 
-interface JackboxJET<E> {
+export interface JackboxJET<E> {
   content: E[];
+}
+
+export interface JackboxJET2<E> {
+  fields: E[];
 }
 
 export async function seed() {
@@ -42,6 +48,7 @@ export async function seed() {
     await readFile(join(jackboxDataDir, "BlankyBlankWordLists.jet"), "utf-8"),
   );
 
+  const promptEntities = [];
   for (const prompt of jackboxPrompts.content) {
     const {
       category,
@@ -78,9 +85,10 @@ export async function seed() {
       return entity;
     });
     promptEntity.alternateSpellings = alternateSpellingEntities;
-    await promptEntity.save();
+    promptEntities.push(promptEntity);
   }
 
+  const sentenceEntities = [];
   for (const sentence of jackboxSentences.content) {
     const { category, structures } = sentence;
     const sentenceEntity = new SentenceStructureEntity();
@@ -90,9 +98,10 @@ export async function seed() {
       structure.value = word;
       return structure;
     });
-    await sentenceEntity.save();
+    sentenceEntities.push(sentenceEntity);
   }
 
+  const wordListEntities = [];
   for (const wordList of jackboxWordLists.content) {
     const { amount, maxChoices, name, optional, placeholder, words } = wordList;
     const wordListEntity = new WordListEntity();
@@ -108,6 +117,20 @@ export async function seed() {
       return entity;
     });
     wordListEntity.words = wordEntities;
-    await wordListEntity.save();
+    wordListEntities.push(wordListEntity);
   }
+
+  const project = new ProjectEntity();
+  project.name = "BlankyBlank Main";
+  project.prompts = promptEntities;
+  project.sentenceStructures = sentenceEntities;
+  project.wordLists = wordListEntities;
+  project.description = "The default project imported from Jackbox Games.";
+
+  const user = new UserEntity();
+  user.username = "jackbox";
+  user.password = "";
+  user.email = "null";
+  user.projects = [project];
+  await user.save();
 }

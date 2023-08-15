@@ -132,76 +132,8 @@ export interface PromptType {
   us: boolean;
 }
 
-export type SentenceStructureFieldType = [
-  {
-    t: "S";
-    v: Category;
-    n: "Category";
-  },
-  {
-    t: "S";
-    v: string;
-    n: "Structures";
-  },
-];
-
-export type PromptFieldType = [
-  {
-    t: "S";
-    v: string;
-    n: "Password";
-  },
-  {
-    t: "S";
-    v: Category;
-    n: "Category";
-  },
-  {
-    t: "S";
-    v: string;
-    n: "Subcategory";
-  },
-  {
-    t: "S";
-    v: Difficulty;
-    n: "Difficulty";
-  },
-  {
-    t: "S";
-    v: string;
-    n: "ForbiddenWords";
-  },
-  {
-    t: "S";
-    v: string;
-    n: "AlternateSpellings";
-  },
-];
-
-export type WordListFieldType = [
-  {
-    t: "S";
-    v: string;
-    n: "Name";
-  },
-  {
-    t: "B";
-    v: "true" | "false";
-    n: "Optional";
-  },
-  {
-    t: "S";
-    v: OptionalNumberedString;
-    n: "Amount";
-  },
-  {
-    t: "S";
-    v: OptionalNumberedString;
-    n: "MaxChoices";
-  },
-  {
-    t: "S";
-    v: string;
-    n: "Placeholder";
-  },
-];
+export interface FieldType {
+  t: "S" | "B";
+  v: string;
+  n: string;
+}
