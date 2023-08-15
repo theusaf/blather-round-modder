@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   Column,
   Entity,
   ManyToOne,
@@ -13,9 +12,10 @@ import { UserEntity } from "./User.js";
 import { PromptEntity } from "../blather/Prompt.js";
 import { SentenceStructureEntity } from "../blather/SentenceStructure.js";
 import { WordListEntity } from "../blather/WordList.js";
+import { BaseEntityWrapper } from "../base_wrapper.js";
 
 @Entity({ name: "project" })
-export class ProjectEntity extends BaseEntity {
+export class ProjectEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 

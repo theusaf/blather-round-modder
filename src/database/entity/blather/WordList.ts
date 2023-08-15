@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   Column,
   Entity,
   ManyToOne,
@@ -9,17 +8,18 @@ import {
   type Relation,
 } from "typeorm";
 import { ProjectEntity } from "../system/Project.js";
+import { BaseEntityWrapper } from "../base_wrapper.js";
 
 @Entity({ name: "word_list" })
-export class WordListEntity extends BaseEntity {
+export class WordListEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ nullable: true })
-  amount: number;
+  amount: number | null;
 
   @Column({ nullable: true })
-  maxChoices: number;
+  maxChoices: number | null;
 
   @Unique(["name", "project"])
   @Column({ length: 255 })
@@ -29,7 +29,7 @@ export class WordListEntity extends BaseEntity {
   optional: boolean;
 
   @Column({ nullable: true, length: 255 })
-  placeholder: string;
+  placeholder: string | null;
 
   @OneToMany(() => WordListWordEntity, (word) => word.wordList, {
     eager: true,
@@ -45,7 +45,7 @@ export class WordListEntity extends BaseEntity {
 }
 
 @Entity({ name: "word_list_word" })
-export class WordListWordEntity extends BaseEntity {
+export class WordListWordEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 

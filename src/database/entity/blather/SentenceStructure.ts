@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   Column,
   Entity,
   ManyToOne,
@@ -8,9 +7,10 @@ import {
   type Relation,
 } from "typeorm";
 import { ProjectEntity } from "../system/Project.js";
+import { BaseEntityWrapper } from "../base_wrapper.js";
 
 @Entity({ name: "sentence_structure" })
-export class SentenceStructureEntity extends BaseEntity {
+export class SentenceStructureEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -33,7 +33,7 @@ export class SentenceStructureEntity extends BaseEntity {
 }
 
 @Entity({ name: "sentence_structure_structure" })
-export class SentenceStructureStructureEntity extends BaseEntity {
+export class SentenceStructureStructureEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 

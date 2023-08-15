@@ -1,16 +1,11 @@
-import { dirname } from "node:path";
-import { existsSync, mkdirSync } from "node:fs";
-import Database from "better-sqlite3";
-import configs from "./config/config.js";
+import { AppDataSource } from "./config/config.js";
+import { UserEntity } from "./entity/system/User";
+import { seed } from "./seeds/parse_data.js";
 
-const env = process.env.NODE_ENV?.toLowerCase() || "development",
-  config = configs[env];
+const jackboxUser = await UserEntity.findOneBy({ username: "jackbox" });
 
-if (!existsSync(dirname(config.storage))) {
-  mkdirSync(dirname(config.storage));
+if (!jackboxUser) {
+  await seed();
 }
 
-const db = new Database(config.storage);
-db.pragma("jounal_mode = WAL");
-
-export default db;
+export default AppDataSource;

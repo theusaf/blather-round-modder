@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   Column,
   Entity,
   ManyToOne,
@@ -9,14 +8,18 @@ import {
   type Relation,
 } from "typeorm";
 import { ProjectEntity } from "../system/Project.js";
+import { BaseEntityWrapper } from "../base_wrapper.js";
 
 @Entity({ name: "prompt" })
-export class PromptEntity extends BaseEntity {
+export class PromptEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ length: 16 })
   category: string;
+
+  @Column({ length: 16 })
+  difficulty: string;
 
   @Unique(["password", "project"])
   @Column({ length: 255 })
@@ -26,7 +29,7 @@ export class PromptEntity extends BaseEntity {
     length: 255,
     nullable: true,
   })
-  subcategory: string;
+  subcategory: string | null;
 
   @Column()
   us: boolean;
@@ -59,7 +62,7 @@ export class PromptEntity extends BaseEntity {
 }
 
 @Entity({ name: "prompt_alternate_spelling" })
-export class PromptSpellingEntity extends BaseEntity {
+export class PromptSpellingEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -76,7 +79,7 @@ export class PromptSpellingEntity extends BaseEntity {
 }
 
 @Entity({ name: "prompt_forbidden_word" })
-export class PromptForbiddenWordEntity extends BaseEntity {
+export class PromptForbiddenWordEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -93,7 +96,7 @@ export class PromptForbiddenWordEntity extends BaseEntity {
 }
 
 @Entity({ name: "prompt_tailored_word" })
-export class PromptTailoredWordEntity extends BaseEntity {
+export class PromptTailoredWordEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 
