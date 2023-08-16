@@ -6,6 +6,7 @@ import {
   type Relation,
   OneToMany,
   UpdateDateColumn,
+  Unique,
 } from "typeorm";
 import { UserEntity } from "./User.js";
 import { PromptEntity } from "../blather/Prompt.js";
@@ -14,6 +15,7 @@ import { WordListEntity } from "../blather/WordList.js";
 import { BaseEntityWrapper } from "../base_wrapper.js";
 
 @Entity({ name: "project" })
+@Unique(["owner", "name"])
 export class ProjectEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;

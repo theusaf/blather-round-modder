@@ -4,12 +4,14 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  Unique,
   type Relation,
 } from "typeorm";
 import { ProjectEntity } from "../system/Project.js";
 import { BaseEntityWrapper } from "../base_wrapper.js";
 
 @Entity({ name: "word_list" })
+@Unique(["project", "name"])
 export class WordListEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
@@ -54,6 +56,7 @@ export class WordListEntity extends BaseEntityWrapper {
 }
 
 @Entity({ name: "word_list_word" })
+@Unique(["wordList", "word"])
 export class WordListWordEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;

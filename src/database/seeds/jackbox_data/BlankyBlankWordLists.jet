@@ -3423,10 +3423,6 @@
     {
      "alwaysChoose": false,
      "word": "appreciate"
-    },
-    {
-     "alwaysChoose": false,
-     "word": "enjoy"
     }
    ]
   },
@@ -4131,10 +4127,6 @@
     {
      "alwaysChoose": false,
      "word": "<creature>"
-    },
-    {
-     "alwaysChoose": false,
-     "word": "<idea>"
     }
    ]
   },
@@ -7235,10 +7227,6 @@
     {
      "alwaysChoose": false,
      "word": "<issues>"
-    },
-    {
-     "alwaysChoose": false,
-     "word": "<place-complex>"
     },
     {
      "alwaysChoose": false,

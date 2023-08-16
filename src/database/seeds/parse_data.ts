@@ -124,7 +124,7 @@ export async function seed() {
   user.username = "jackbox";
   user.password = "";
   user.email = "null@null.null";
-  await user.save()
+  await user.save();
 
   try {
     const project = new ProjectEntity();
@@ -139,5 +139,4 @@ export async function seed() {
     console.error(e);
     await user.remove();
   }
-
 }
