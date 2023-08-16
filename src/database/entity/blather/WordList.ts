@@ -4,7 +4,6 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  Unique,
   type Relation,
 } from "typeorm";
 import { ProjectEntity } from "../system/Project.js";
@@ -27,7 +26,6 @@ export class WordListEntity extends BaseEntityWrapper {
   })
   maxChoices: number | null;
 
-  @Unique(["name", "project"])
   @Column({ length: 255 })
   name: string;
 
@@ -63,7 +61,6 @@ export class WordListWordEntity extends BaseEntityWrapper {
   @Column()
   alwaysChoose: boolean;
 
-  @Unique(["word", "wordList"])
   @Column({ length: 255 })
   word: string;
 

@@ -4,7 +4,6 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   type Relation,
-  Unique,
   OneToMany,
   UpdateDateColumn,
 } from "typeorm";
@@ -22,7 +21,6 @@ export class ProjectEntity extends BaseEntityWrapper {
   @UpdateDateColumn()
   lastUpdated: Date;
 
-  @Unique(["name", "owner"])
   @Column({ length: 255 })
   name: string;
 

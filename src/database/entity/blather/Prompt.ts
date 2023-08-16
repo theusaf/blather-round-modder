@@ -4,7 +4,6 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  Unique,
   type Relation,
 } from "typeorm";
 import { ProjectEntity } from "../system/Project.js";
@@ -21,7 +20,6 @@ export class PromptEntity extends BaseEntityWrapper {
   @Column({ length: 16 })
   difficulty: string;
 
-  @Unique(["password", "project"])
   @Column({ length: 255 })
   password: string;
 
@@ -67,7 +65,6 @@ export class PromptSpellingEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Unique(["value", "prompt"])
   @Column({ length: 255 })
   value: string;
 
@@ -84,7 +81,6 @@ export class PromptForbiddenWordEntity extends BaseEntityWrapper {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Unique(["value", "prompt"])
   @Column({ length: 255 })
   value: string;
 
