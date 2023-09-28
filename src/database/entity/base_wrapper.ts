@@ -6,7 +6,7 @@ export class BaseEntityWrapper extends BaseEntity {
       /^validate[A-Z]/.test(key),
     );
     for (const validation of validations) {
-      if (!(await this[validation as keyof this]())) {
+      if (!(await (this[validation as keyof this] as CallableFunction)())) {
         return false;
       }
     }

@@ -2,12 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function NavigationItem({children, location}) {
-  return <div className="flex-1 flex flex-row items-center">
-    <Link href={location} className="flex-1 flex flex-row items-center">
-      {children}
-    </Link>
-  </div>
+function NavigationItem({ children, location }) {
+  return (
+    <div className="flex-1 flex flex-row items-center">
+      <Link href={location} className="flex-1 flex flex-row items-center">
+        {children}
+      </Link>
+    </div>
+  );
 }
 
 export default function Navbar() {
@@ -25,5 +27,5 @@ export default function Navbar() {
         </NavigationItem>
       </div>
     </div>
-  )
+  );
 }
