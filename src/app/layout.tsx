@@ -5,7 +5,10 @@ import React from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  weight: "500",
+});
 
 export const metadata: Metadata = {
   title: "Blather 'Round Editor",
@@ -28,7 +31,7 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className={`bg-white ${inter.className} min-h-full flex flex-col`}>
         <Navbar />
-        <div className="flex-1">{children}</div>
+        <div className="flex-1 p-2">{children}</div>
         <Footer />
       </body>
     </html>
