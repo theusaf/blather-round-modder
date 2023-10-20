@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
-import { ProjectEntity } from "./Project.js";
-import { BaseEntityWrapper } from "../base_wrapper.js";
+import { ProjectEntity } from "./Project";
+import { BaseEntityWrapper } from "../base_wrapper";
 
 @Entity({ name: "user" })
 export class UserEntity extends BaseEntityWrapper {

@@ -9,12 +9,15 @@ const inter = Labrada({
 export default function Home() {
   return (
     <>
+      <p className="sm:hidden">This application is best viewed on a desktop screen size.</p>
       <header className={`${inter.className} uppercase flex px-2`}>
         <div className="flex-1 flex flex-row items-center pt-6 pb-6">
-          <h1 className="lg:text-5xl md:text-3xl text-2xl">
-            <span>Blather 'Round</span>
-            <br />
-            <span>Editor</span>
+          <h1 className="lg:text-5xl md:text-3xl text-2xl text-center flex-1">
+            <div className="rounded-2xl border-solid border-4 flex-1 w-9/12 m-auto py-8">
+              <span>Blather 'Round</span>
+              <br />
+              <span>Editor</span>
+            </div>
           </h1>
         </div>
         <div className="flex-1">

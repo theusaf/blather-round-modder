@@ -8,11 +8,11 @@ import {
   UpdateDateColumn,
   Unique,
 } from "typeorm";
-import { UserEntity } from "./User.js";
-import { PromptEntity } from "../blather/Prompt.js";
-import { SentenceStructureEntity } from "../blather/SentenceStructure.js";
-import { WordListEntity } from "../blather/WordList.js";
-import { BaseEntityWrapper } from "../base_wrapper.js";
+import { UserEntity } from "./User";
+import { PromptEntity } from "../blather/Prompt";
+import { SentenceStructureEntity } from "../blather/SentenceStructure";
+import { WordListEntity } from "../blather/WordList";
+import { BaseEntityWrapper } from "../base_wrapper";
 
 @Entity({ name: "project" })
 @Unique(["owner", "name"])

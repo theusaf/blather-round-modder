@@ -6,8 +6,8 @@ import {
   PrimaryGeneratedColumn,
   type Relation,
 } from "typeorm";
-import { ProjectEntity } from "../system/Project.js";
-import { BaseEntityWrapper } from "../base_wrapper.js";
+import { ProjectEntity } from "../system/Project";
+import { BaseEntityWrapper } from "../base_wrapper";
 
 @Entity({ name: "sentence_structure" })
 export class SentenceStructureEntity extends BaseEntityWrapper {
