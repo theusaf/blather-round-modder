@@ -5,9 +5,8 @@ import { PrismaClient } from "@prisma/client";
 const SESSION_COOKIE_NAME = "session_id";
 
 export async function getCurrentUser() {
-  const prisma = new PrismaClient();
-
-  const sessionCookie = cookies().get(SESSION_COOKIE_NAME)?.value;
+  const prisma = new PrismaClient(),
+    sessionCookie = cookies().get(SESSION_COOKIE_NAME)?.value;
   if (!sessionCookie) return null;
   const sessionUser = await prisma.user_sesion.findUnique({
     where: { session_id: sessionCookie },

@@ -15,13 +15,13 @@ function stringify(obj: any, indent: number = 1) {
 }
 
 export async function exportProject(project: ProjectEntity): Promise<Blob> {
-  const prisma = new PrismaClient();
-  const zipper = new JSZip();
-  const manifest = {
-    id: "Main",
-    name: project.name,
-    types: ["BlankyBlankPasswords"],
-  };
+  const prisma = new PrismaClient(),
+    zipper = new JSZip(),
+    manifest = {
+      id: "Main",
+      name: project.name,
+      types: ["BlankyBlankPasswords"],
+    };
 
   zipper.file("manifest.jet", stringify(manifest, 4));
 
@@ -45,51 +45,50 @@ export async function exportProject(project: ProjectEntity): Promise<Blob> {
   let objectId = 70571; // the lowest number listed in jackbox games. unsure if this matters or not.
 
   const prompts: PromptType[] = promptEntities.map((entity) => {
-    const prompt: PromptType = {
-      id: `${objectId++}`,
-      category: entity.category as Category,
-      difficulty: entity.difficulty as Difficulty,
-      password: entity.password,
-      subcategory: entity.subcategory ?? "",
-      alternateSpellings: entity.prompt_alternate_spelling.map((e) => e.value),
-      forbiddenWords: entity.prompt_forbidden_word.map((e) => e.value),
-      tailoredWords: entity.prompt_tailored_word.map((e) => ({
-        list: e.list as ListString,
-        word: e.word,
-      })),
-      us: entity.us,
-    };
-    return prompt;
-  });
-
-  const sentenceStructures = sentenceStructureEntities.map((entity) => {
-    const sentenceStructure: SentenceStructureType = {
-      id: `${objectId++}`,
-      category: entity.category as Category,
-      structures: entity.sentence_structure_structure.map((e) => e.value),
-    };
-    return sentenceStructure;
-  });
-
-  const wordLists = wordListEntities.map((entity) => {
-    const wordList: WordListType = {
-      id: `${objectId++}`,
-      amount: entity.amount ? `${entity.amount}` : "",
-      maxChoices: entity.maxChoices ? `${entity.maxChoices}` : "",
-      name: entity.name,
-      optional: entity.optional,
-      placeholder: entity.placeholder ?? "",
-      words: entity.word_list_word.map((e) => ({
-        alwaysChoose: e.alwaysChoose,
-        word: e.word,
-      })),
-    };
-    return wordList;
-  });
-
-  const promptContent = { content: prompts };
-  const sentenceStructureContent = { content: sentenceStructures };
-  const wordListContent = { content: wordLists };
+      const prompt: PromptType = {
+        id: `${objectId++}`,
+        category: entity.category as Category,
+        difficulty: entity.difficulty as Difficulty,
+        password: entity.password,
+        subcategory: entity.subcategory ?? "",
+        alternateSpellings: entity.prompt_alternate_spelling.map(
+          (e) => e.value,
+        ),
+        forbiddenWords: entity.prompt_forbidden_word.map((e) => e.value),
+        tailoredWords: entity.prompt_tailored_word.map((e) => ({
+          list: e.list as ListString,
+          word: e.word,
+        })),
+        us: entity.us,
+      };
+      return prompt;
+    }),
+    sentenceStructures = sentenceStructureEntities.map((entity) => {
+      const sentenceStructure: SentenceStructureType = {
+        id: `${objectId++}`,
+        category: entity.category as Category,
+        structures: entity.sentence_structure_structure.map((e) => e.value),
+      };
+      return sentenceStructure;
+    }),
+    wordLists = wordListEntities.map((entity) => {
+      const wordList: WordListType = {
+        id: `${objectId++}`,
+        amount: entity.amount ? `${entity.amount}` : "",
+        maxChoices: entity.maxChoices ? `${entity.maxChoices}` : "",
+        name: entity.name,
+        optional: entity.optional,
+        placeholder: entity.placeholder ?? "",
+        words: entity.word_list_word.map((e) => ({
+          alwaysChoose: e.alwaysChoose,
+          word: e.word,
+        })),
+      };
+      return wordList;
+    }),
+    promptContent = { content: prompts },
+    sentenceStructureContent = { content: sentenceStructures },
+    wordListContent = { content: wordLists };
 
   zipper.file("BlankyBlankPasswords.jet", stringify(promptContent));
   zipper.file(
@@ -100,8 +99,8 @@ export async function exportProject(project: ProjectEntity): Promise<Blob> {
 
   const passwordFolder = zipper.folder("BlankyBlankPasswords");
   for (const prompt of prompts) {
-    const folder = passwordFolder!.folder(prompt.id);
-    const fields: FieldType[] = [];
+    const folder = passwordFolder!.folder(prompt.id),
+      fields: FieldType[] = [];
     fields.push({ t: "S", v: prompt.password, n: "Password" });
     fields.push({ t: "S", v: prompt.category, n: "Category" });
     if (prompt.subcategory)
@@ -124,8 +123,8 @@ export async function exportProject(project: ProjectEntity): Promise<Blob> {
     "BlankyBlankSentenceStructures",
   );
   for (const sentenceStructure of sentenceStructures) {
-    const folder = sentenceStructureFolder!.folder(sentenceStructure.id);
-    const fields: FieldType[] = [];
+    const folder = sentenceStructureFolder!.folder(sentenceStructure.id),
+      fields: FieldType[] = [];
     fields.push({ t: "S", v: sentenceStructure.category, n: "Category" });
     fields.push({
       t: "S",
@@ -137,8 +136,8 @@ export async function exportProject(project: ProjectEntity): Promise<Blob> {
 
   const wordListFolder = zipper.folder("BlankyBlankWordLists");
   for (const wordList of wordLists) {
-    const folder = wordListFolder!.folder(wordList.id);
-    const fields: FieldType[] = [];
+    const folder = wordListFolder!.folder(wordList.id),
+      fields: FieldType[] = [];
     fields.push({ t: "S", v: wordList.name, n: "Name" });
     fields.push({ t: "B", v: `${wordList.optional}`, n: "Optional" });
     fields.push({ t: "S", v: wordList.amount, n: "Amount" });

@@ -1,3 +1,18 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "no-var": ["error"],
+    "no-unneeded-ternary": ["error"],
+    "one-var": [
+      "error",
+      {
+        "separateRequires": false,
+        "var": "consecutive",
+        "let": "consecutive",
+        "const": "consecutive"
+      }
+    ],
+    "operator-assignment": ["error"],
+    "prefer-const": ["error"]
+  }
 }

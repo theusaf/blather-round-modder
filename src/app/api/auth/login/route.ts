@@ -4,12 +4,12 @@ import { v4 as uuid } from "uuid";
 import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
-  const prisma = new PrismaClient();
-  const backLink = req.headers.get("Referer") ?? "/";
-  const body = await req.formData();
-  const username = body.get("username") as string;
-  const password = body.get("password") as string;
-  const user = await prisma.user.findUnique({ where: { username } });
+  const prisma = new PrismaClient(),
+    backLink = req.headers.get("Referer") ?? "/",
+    body = await req.formData(),
+    username = body.get("username") as string,
+    password = body.get("password") as string,
+    user = await prisma.user.findUnique({ where: { username } });
   if (!user) return Response.redirect(backLink, 303);
   const verified = await verifyPassword(user, password);
   if (!verified) return Response.redirect(backLink, 303);

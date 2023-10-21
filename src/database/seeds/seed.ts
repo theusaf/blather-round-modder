@@ -20,25 +20,23 @@ export interface JackboxJET2<E> {
 }
 
 async function main() {
-  const prisma = new PrismaClient();
-
-  const jackboxPrompts: JackboxJET<PromptType> = JSON.parse(
-    await readFile(join(jackboxDataDir, "BlankyBlankPasswords.jet"), "utf-8"),
-  );
-  const jackboxSentences: JackboxJET<SentenceStructureType> = JSON.parse(
-    await readFile(
-      join(jackboxDataDir, "BlankyBlankSentenceStructures.jet"),
-      "utf-8",
+  const prisma = new PrismaClient(),
+    jackboxPrompts: JackboxJET<PromptType> = JSON.parse(
+      await readFile(join(jackboxDataDir, "BlankyBlankPasswords.jet"), "utf-8"),
     ),
-  );
-  const jackboxWordLists: JackboxJET<WordListType> = JSON.parse(
-    await readFile(join(jackboxDataDir, "BlankyBlankWordLists.jet"), "utf-8"),
-  );
-
-  // check if the user already exists
-  const user = await prisma.user.findUnique({
-    where: { username: "jackbox" },
-  });
+    jackboxSentences: JackboxJET<SentenceStructureType> = JSON.parse(
+      await readFile(
+        join(jackboxDataDir, "BlankyBlankSentenceStructures.jet"),
+        "utf-8",
+      ),
+    ),
+    jackboxWordLists: JackboxJET<WordListType> = JSON.parse(
+      await readFile(join(jackboxDataDir, "BlankyBlankWordLists.jet"), "utf-8"),
+    ),
+    // check if the user already exists
+    user = await prisma.user.findUnique({
+      where: { username: "jackbox" },
+    });
   if (user) {
     console.log("Jackbox user already exists, skipping seed.");
     return;
