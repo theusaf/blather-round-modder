@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prestart": "$npm_execpath migrate",
     "lint": "next lint",
     "compile": "tsc -p ./src/tsconfig.json && $npm_execpath copyfiles",
     "copyfiles": "cpy './src/**/*' '!**/*.ts' dist --parents",

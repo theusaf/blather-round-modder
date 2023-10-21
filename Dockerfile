@@ -12,4 +12,7 @@ RUN pnpm install
 
 COPY . .
 
+RUN pnpm run build
+RUN pnpm run migrate
+
 CMD ["npm", "start"]
