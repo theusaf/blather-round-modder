@@ -10,13 +10,14 @@
     "lint": "next lint",
     "compile": "tsc -p ./src/tsconfig.json && $npm_execpath copyfiles",
     "copyfiles": "cpy './src/**/*' '!**/*.ts' dist --parents",
-    "migrate": "$npm_execpath migrate:run && $npm_execpath prisma db seed",
+    "migrate": "$npm_execpath migrate:run && $npm_execpath migrate:seed",
+    "migrate:seed": "$npm_execpath prisma db seed",
     "migrate:generate": "$npm_execpath prisma migrate dev",
     "migrate:run": "$npm_execpath prisma migrate deploy",
     "migrate:revert": "$npm_execpath primsa migrate resolve --rolled-back"
   },
   "prisma": {
-    "seed": "ts-node ./src/database/seeds/seed.ts"
+    "seed": "ts-node --esm ./src/database/seeds/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "5.4.2",
