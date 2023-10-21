@@ -10,10 +10,13 @@
     "lint": "next lint",
     "compile": "tsc -p ./src/tsconfig.json && $npm_execpath copyfiles",
     "copyfiles": "cpy './src/**/*' '!**/*.ts' dist --parents",
-    "migrate": "$npm_execpath migrate:run",
+    "migrate": "$npm_execpath migrate:run && $npm_execpath prisma db seed",
     "migrate:generate": "$npm_execpath prisma migrate dev",
     "migrate:run": "$npm_execpath prisma migrate deploy",
     "migrate:revert": "$npm_execpath primsa migrate resolve --rolled-back"
+  },
+  "prisma": {
+    "seed": "ts-node ./src/database/seeds/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "5.4.2",
@@ -24,15 +27,16 @@
     "jszip": "^3.10.1",
     "next": "13.4.13",
     "postcss": "8.4.27",
+    "prisma": "^5.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "reflect-metadata": "^0.1.13",
     "server-only": "^0.0.1",
     "sqlite3": "^5.1.6",
     "tailwindcss": "3.3.3",
-    "uuid": "^9.0.1",
-    "prisma": "^5.4.2",
-    "typescript": "5.1.6"
+    "ts-node": "^10.9.1",
+    "typescript": "5.1.6",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/common-tags": "^1.8.3",

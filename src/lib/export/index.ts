@@ -1,4 +1,4 @@
-import { ProjectEntity } from "@/database/entity/system/Project.js";
+import { type project as ProjectEntity, PrismaClient } from "@prisma/client";
 import JSZip from "jszip";
 import {
   Category,
@@ -15,6 +15,7 @@ function stringify(obj: any, indent: number = 1) {
 }
 
 export async function exportProject(project: ProjectEntity): Promise<Blob> {
+  const prisma = new PrismaClient();
   const zipper = new JSZip();
   const manifest = {
     id: "Main",
@@ -24,9 +25,22 @@ export async function exportProject(project: ProjectEntity): Promise<Blob> {
 
   zipper.file("manifest.jet", stringify(manifest, 4));
 
-  const promptEntities = project.prompts,
-    sentenceStructureEntities = project.sentenceStructures,
-    wordListEntities = project.wordLists;
+  const promptEntities = await prisma.prompt.findMany({
+      where: { projectId: project.id },
+      include: {
+        prompt_alternate_spelling: true,
+        prompt_forbidden_word: true,
+        prompt_tailored_word: true,
+      },
+    }),
+    sentenceStructureEntities = await prisma.sentence_structure.findMany({
+      where: { projectId: project.id },
+      include: { sentence_structure_structure: true },
+    }),
+    wordListEntities = await prisma.word_list.findMany({
+      where: { projectId: project.id },
+      include: { word_list_word: true },
+    });
 
   let objectId = 70571; // the lowest number listed in jackbox games. unsure if this matters or not.
 
@@ -37,9 +51,9 @@ export async function exportProject(project: ProjectEntity): Promise<Blob> {
       difficulty: entity.difficulty as Difficulty,
       password: entity.password,
       subcategory: entity.subcategory ?? "",
-      alternateSpellings: entity.alternateSpellings.map((e) => e.value),
-      forbiddenWords: entity.forbiddenWords.map((e) => e.value),
-      tailoredWords: entity.tailoredWords.map((e) => ({
+      alternateSpellings: entity.prompt_alternate_spelling.map((e) => e.value),
+      forbiddenWords: entity.prompt_forbidden_word.map((e) => e.value),
+      tailoredWords: entity.prompt_tailored_word.map((e) => ({
         list: e.list as ListString,
         word: e.word,
       })),
@@ -52,7 +66,7 @@ export async function exportProject(project: ProjectEntity): Promise<Blob> {
     const sentenceStructure: SentenceStructureType = {
       id: `${objectId++}`,
       category: entity.category as Category,
-      structures: entity.structures.map((e) => e.value),
+      structures: entity.sentence_structure_structure.map((e) => e.value),
     };
     return sentenceStructure;
   });
@@ -65,7 +79,7 @@ export async function exportProject(project: ProjectEntity): Promise<Blob> {
       name: entity.name,
       optional: entity.optional,
       placeholder: entity.placeholder ?? "",
-      words: entity.words.map((e) => ({
+      words: entity.word_list_word.map((e) => ({
         alwaysChoose: e.alwaysChoose,
         word: e.word,
       })),

@@ -1,5 +1,5 @@
-import { UserEntity } from '@/database/entity/system/User';
-import argon2 from 'argon2';
+import { type user as UserEntity } from "@prisma/client";
+import argon2 from "argon2";
 
 export async function hashPassword(user: UserEntity, password: string) {
   const salt = user.salt ?? "";
