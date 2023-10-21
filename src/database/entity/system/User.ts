@@ -10,6 +10,9 @@ export class UserEntity extends BaseEntityWrapper {
   @Column({ length: 255 })
   password: string;
 
+  @Column({ length: 255, nullable: true })
+  salt: string;
+
   @Column({ length: 255 })
   email: string;
 

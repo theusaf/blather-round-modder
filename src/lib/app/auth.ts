@@ -1,7 +1,5 @@
 import "server-only";
 import { cookies } from "next/headers";
-import "@/database/config/config";
-import "@/database/config/sessionConfig";
 import { UserSessionEntity } from "@/database/session/entity/userSession";
 import { UserEntity } from "@/database/entity/system/User";
 
