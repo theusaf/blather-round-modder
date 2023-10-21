@@ -10,13 +10,13 @@
     "lint": "next lint",
     "compile": "tsc -p ./src/tsconfig.json && $npm_execpath copyfiles",
     "copyfiles": "cpy './src/**/*' '!**/*.ts' dist --parents",
-    "typeorm": "typeorm-ts-node-esm",
     "migrate": "$npm_execpath migrate:run",
-    "migrate:generate": "$npm_execpath typeorm migration:generate -d ./src/database/config/config.ts",
-    "migrate:run": "$npm_execpath typeorm migration:run -d ./src/database/config/config.ts",
-    "migrate:revert": "$npm_execpath typeorm migration:revert -d ./src/database/config/config.ts"
+    "migrate:generate": "$npm_execpath prisma migrate dev",
+    "migrate:run": "$npm_execpath prisma migrate deploy",
+    "migrate:revert": "$npm_execpath primsa migrate resolve --rolled-back"
   },
   "dependencies": {
+    "@prisma/client": "5.4.2",
     "argon2": "^0.31.1",
     "autoprefixer": "10.4.14",
     "common-tags": "^1.8.2",
@@ -30,8 +30,9 @@
     "server-only": "^0.0.1",
     "sqlite3": "^5.1.6",
     "tailwindcss": "3.3.3",
-    "typeorm": "0.3.17",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "prisma": "^5.4.2",
+    "typescript": "5.1.6"
   },
   "devDependencies": {
     "@types/common-tags": "^1.8.3",
@@ -41,8 +42,6 @@
     "@types/uuid": "^9.0.6",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.13",
-    "prettier": "^3.0.3",
-    "ts-node": "^10.9.1",
-    "typescript": "5.1.6"
+    "prettier": "^3.0.3"
   }
 }

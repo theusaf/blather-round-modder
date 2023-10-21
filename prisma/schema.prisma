@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model project {
+  id                 Int                  @id @default(autoincrement())
+  lastUpdated        DateTime             @default(now())
+  name               String
+  description        String?
+  public             Boolean              @default(false)
+  ownerUsername      String
+  user               user                 @relation(fields: [ownerUsername], references: [username], onDelete: Cascade, onUpdate: NoAction)
+  prompt             prompt[]
+  sentence_structure sentence_structure[]
+  word_list          word_list[]
+
+  @@unique([ownerUsername, name], map: "sqlite_autoindex_project_1")
+}
+
+model prompt {
+  id                        Int                         @id @default(autoincrement())
+  category                  String
+  difficulty                String
+  password                  String
+  subcategory               String?
+  us                        Boolean
+  projectId                 Int
+  project                   project                     @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  prompt_alternate_spelling prompt_alternate_spelling[]
+  prompt_forbidden_word     prompt_forbidden_word[]
+  prompt_tailored_word      prompt_tailored_word[]
+
+  @@unique([projectId, password], map: "sqlite_autoindex_prompt_1")
+}
+
+model prompt_alternate_spelling {
+  id       Int    @id @default(autoincrement())
+  value    String
+  promptId Int
+  prompt   prompt @relation(fields: [promptId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([promptId, value], map: "sqlite_autoindex_prompt_alternate_spelling_1")
+}
+
+model prompt_forbidden_word {
+  id       Int    @id @default(autoincrement())
+  value    String
+  promptId Int
+  prompt   prompt @relation(fields: [promptId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([promptId, value], map: "sqlite_autoindex_prompt_forbidden_word_1")
+}
+
+model prompt_tailored_word {
+  id       Int    @id @default(autoincrement())
+  list     String
+  word     String
+  promptId Int
+  prompt   prompt @relation(fields: [promptId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model sentence_structure {
+  id                           Int                            @id @default(autoincrement())
+  category                     String
+  projectId                    Int
+  project                      project                        @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  sentence_structure_structure sentence_structure_structure[]
+}
+
+model sentence_structure_structure {
+  id                  Int                @id @default(autoincrement())
+  value               String
+  sentenceStructureId Int
+  sentence_structure  sentence_structure @relation(fields: [sentenceStructureId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model user {
+  username      String    @id
+  password      String
+  email         String
+  emailVerified Boolean   @default(false)
+  salt          String?
+  project       project[]
+}
+
+model word_list {
+  id             Int              @id @default(autoincrement())
+  amount         Int?
+  maxChoices     Int?
+  name           String
+  optional       Boolean
+  placeholder    String?
+  projectId      Int
+  project        project          @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  word_list_word word_list_word[]
+
+  @@unique([projectId, name], map: "sqlite_autoindex_word_list_1")
+}
+
+model word_list_word {
+  id           Int       @id @default(autoincrement())
+  alwaysChoose Boolean
+  word         String
+  wordListId   Int
+  word_list    word_list @relation(fields: [wordListId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([wordListId, word], map: "sqlite_autoindex_word_list_word_1")
+}
+
+// Sessions
+
+model user_sesion {
+  session_id    String @id
+  expires       Int
+  user_username String
+}
