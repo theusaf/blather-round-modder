@@ -17,6 +17,7 @@
 
 # development
 /dist/
+/data/
 
 # misc
 .DS_Store

@@ -18,6 +18,7 @@ model project {
   prompt             prompt[]
   sentence_structure sentence_structure[]
   word_list          word_list[]
+  likes              Int                  @default(0)
 
   @@unique([ownerUsername, name], map: "sqlite_autoindex_project_1")
 }
