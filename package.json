@@ -25,9 +25,9 @@
     "common-tags": "^1.8.2",
     "cpy-cli": "^5.0.0",
     "jszip": "^3.10.1",
-    "next": "13.4.13",
+    "next": "14.0.0",
     "postcss": "8.4.27",
-    "prisma": "^5.5.0",
+    "prisma": "^5.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "reflect-metadata": "^0.1.13",
@@ -45,7 +45,7 @@
     "@types/react-dom": "18.2.7",
     "@types/uuid": "^9.0.6",
     "eslint": "8.47.0",
-    "eslint-config-next": "13.4.13",
+    "eslint-config-next": "14.0.0",
     "prettier": "^3.0.3"
   }
 }
