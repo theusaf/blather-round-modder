@@ -27,16 +27,13 @@ export default function ProjectCard(project: project) {
         </Link>
         <Link href={`/projects/${project.id}/remix`}>
           <button className="bg-neutral-500 p-2 rounded text-neutral-100 mr-2">
-            <FontAwesomeIcon
-              icon="arrows-spin"
-              className="mr-1"
-            ></FontAwesomeIcon>
+            <FontAwesomeIcon icon="arrows-spin"></FontAwesomeIcon>
             Remix
           </button>
         </Link>
         <Link href={`/projects/${project.id}/download`}>
           <button className="bg-neutral-500 p-2 rounded text-neutral-100">
-            <FontAwesomeIcon icon="download" className="mr-1"></FontAwesomeIcon>
+            <FontAwesomeIcon icon="download"></FontAwesomeIcon>
             Download
           </button>
         </Link>

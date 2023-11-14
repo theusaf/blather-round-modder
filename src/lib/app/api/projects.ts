@@ -57,8 +57,8 @@ export async function getProjects(
   params: Record<string, string>,
 ): Promise<project[]> {
   const user = await getCurrentUser(),
-    prisma = getPrismaClient();
-  const results: project[] = [],
+    prisma = getPrismaClient(),
+    results: project[] = [],
     filters = getFilters(params, user);
 
   while (results.length < PAGE_SIZE) {
