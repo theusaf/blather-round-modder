@@ -1,4 +1,4 @@
-import { type project as ProjectEntity, PrismaClient } from "@prisma/client";
+import { type project as ProjectEntity } from "@prisma/client";
 import JSZip from "jszip";
 import {
   Category,
@@ -9,13 +9,14 @@ import {
   SentenceStructureType,
   WordListType,
 } from "../blather_types";
+import { getPrismaClient } from "../app/prisma_connection";
 
 function stringify(obj: any, indent: number = 1) {
   return JSON.stringify(obj, null, indent);
 }
 
 export async function exportProject(project: ProjectEntity): Promise<Blob> {
-  const prisma = new PrismaClient(),
+  const prisma = getPrismaClient(),
     zipper = new JSZip(),
     manifest = {
       id: "Main",

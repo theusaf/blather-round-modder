@@ -1,11 +1,11 @@
 import "server-only";
 import { cookies } from "next/headers";
-import { PrismaClient } from "@prisma/client";
+import { getPrismaClient } from "./prisma_connection";
 
 const SESSION_COOKIE_NAME = "session_id";
 
 export async function getCurrentUser() {
-  const prisma = new PrismaClient(),
+  const prisma = getPrismaClient(),
     sessionCookie = cookies().get(SESSION_COOKIE_NAME)?.value;
   if (!sessionCookie) return null;
   const sessionUser = await prisma.user_sesion.findUnique({

@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import React from "react";
 import Navbar from "../components/navbar";
@@ -14,12 +14,16 @@ export const metadata: Metadata = {
   title: "Blather 'Round Editor",
   description:
     "A tool for creating or modifying prompts for the Blather 'Round game in the Jackbox Party Pack 7.",
-  themeColor: "#fff",
-  viewport: "width=device-width, initial-scale=1",
   category: "Games",
   applicationName: "Blather 'Round Editor",
   keywords:
     "blather round, jackbox, editor, mod, prompt, prompts, game, party pack 7",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1.0,
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({

@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
 import { verifyPassword } from "@/lib/app/hash_password";
 import { v4 as uuid } from "uuid";
 import { cookies } from "next/headers";
+import { getPrismaClient } from "@/lib/app/prisma_connection";
 
 export async function POST(req: Request) {
-  const prisma = new PrismaClient(),
+  const prisma = getPrismaClient(),
     backLink = req.headers.get("Referer") ?? "/",
     body = await req.formData(),
     username = body.get("username") as string,

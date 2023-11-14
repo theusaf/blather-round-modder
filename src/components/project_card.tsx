@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function SignupPage() {
+export default function ProjectCard() {
   return <></>;
 }

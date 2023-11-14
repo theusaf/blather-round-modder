@@ -1,12 +1,12 @@
+import { getPrismaClient } from "../../lib/app/prisma_connection.js";
 import {
   PromptType,
   SentenceStructureType,
   WordListType,
-} from "@/lib/blather_types.js";
+} from "../../lib/blather_types.js";
 import { readFile } from "fs/promises";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import { PrismaClient } from "@prisma/client";
 
 const __dirname = dirname(fileURLToPath(import.meta.url)),
   jackboxDataDir = join(__dirname, "jackbox_data");
@@ -20,7 +20,7 @@ export interface JackboxJET2<E> {
 }
 
 async function main() {
-  const prisma = new PrismaClient(),
+  const prisma = getPrismaClient(),
     jackboxPrompts: JackboxJET<PromptType> = JSON.parse(
       await readFile(join(jackboxDataDir, "BlankyBlankPasswords.jet"), "utf-8"),
     ),
@@ -53,6 +53,7 @@ async function main() {
         create: {
           name: "BlankyBlank Main",
           description: "The default project imported from Jackbox Games.",
+          public: true,
           prompt: {
             create: jackboxPrompts.content.map((prompt) => {
               const {
