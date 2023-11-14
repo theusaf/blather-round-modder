@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import React from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,6 +35,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
+      <head>
+        <NextTopLoader showSpinner={false} />
+      </head>
       <body className={`bg-white ${inter.className} min-h-full flex flex-col`}>
         <Navbar />
         <div className="flex-1 p-2">{children}</div>
