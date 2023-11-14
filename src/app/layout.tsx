@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./fontawesome.min.css";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import React from "react";

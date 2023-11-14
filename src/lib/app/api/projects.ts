@@ -4,7 +4,10 @@ import { Prisma, project, user } from "@prisma/client";
 
 const PAGE_SIZE = 10;
 
-function getFilters(params: Record<string, string | undefined>, user: user | null) {
+function getFilters(
+  params: Record<string, string | undefined>,
+  user: user | null,
+) {
   const filters: Prisma.projectFindManyArgs = {
     orderBy: { lastUpdated: "desc" },
     take: PAGE_SIZE,
@@ -51,7 +54,7 @@ function applySearch(projects: project[], search: string) {
 }
 
 export async function getProjects(
-  params: Record<string, string>
+  params: Record<string, string>,
 ): Promise<project[]> {
   const user = await getCurrentUser(),
     prisma = getPrismaClient();
@@ -63,6 +66,8 @@ export async function getProjects(
     if (projects.length === 0) break;
     if (params.query) {
       results.push(...applySearch(projects, params.query));
+    } else {
+      results.push(...projects);
     }
     filters.cursor = { id: projects[projects.length - 1].id };
     filters.skip = 1;
