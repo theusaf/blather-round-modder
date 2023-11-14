@@ -10,7 +10,7 @@ export default async function ProjectHomePage({
   const projects = await getProjects(searchParams);
   return (
     <main className="w-full flex-1 px-1">
-      <h1 className="text-2xl mb-2">Projects!</h1>
+      <h1 className="text-2xl mb-2">Projects</h1>
       <div id="filters"></div>
       <section id="projects" className="flex flex-row">
         {projects.map((project) => ProjectCard(project))}

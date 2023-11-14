@@ -74,3 +74,19 @@ export async function getProjects(
   }
   return results;
 }
+
+export async function getProject(id: number): Promise<project | null> {
+  const prisma = getPrismaClient(),
+    project = await prisma.project.findUnique({ where: { id: id } });
+  if (project) {
+    if (project.public) {
+      return project;
+    } else {
+      const user = await getCurrentUser();
+      if (user && user.username === project.ownerUsername) {
+        return project;
+      }
+    }
+  }
+  return null;
+}
