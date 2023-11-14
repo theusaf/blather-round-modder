@@ -9,6 +9,7 @@ RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
 WORKDIR /app
 COPY package.json .
 RUN pnpm install
+RUN npx prisma generate
 
 COPY . .
 
