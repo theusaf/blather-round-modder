@@ -6,6 +6,7 @@ import React from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import NextTopLoader from "nextjs-toploader";
+import PremidDetector from "../components/premid_detector";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <head>
         <NextTopLoader showSpinner={false} />
+        <PremidDetector />
       </head>
       <body className={`bg-white ${inter.className} min-h-full flex flex-col`}>
         <Navbar />
