@@ -13,12 +13,13 @@ export default function Footer() {
       <div className="flex-1">
         <p>© Copyright 2023 theusaf.</p>
         <p>
-          &quot;Blather &apos;Round&quot; is a trademark of Jackbox Games. This
-          application is not affiliated with, sponsored, endorsed, or approved
-          by Jackbox Games.
+          &ldquo;Blather &rsquo;Round&rdquo; is a trademark of{" "}
+          <Link href="https://jackboxgames.com">Jackbox Games</Link>. This
+          application is not affiliated with, sponsored, endorsed, or in any way
+          officially connected with Jackbox Games.
         </p>
       </div>
-      <div className="flex-initial w-36 text-right">
+      <div className="flex-initial w-36 text-right ml-4">
         <div className="text-left">
           <Link
             href="https://github.com/theusaf/blather-round-modder"
@@ -29,6 +30,9 @@ export default function Footer() {
           </Link>
           <Link href="https://theusaf.org" className="block">
             <FontAwesomeIcon icon="house"></FontAwesomeIcon>theusaf.org
+          </Link>
+          <Link href="/privacy" className="block">
+            <FontAwesomeIcon icon="link"></FontAwesomeIcon>Privacy Policy
           </Link>
         </div>
       </div>

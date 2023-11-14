@@ -15,7 +15,7 @@ export default function Home() {
         <div className="flex-1 flex flex-row items-center pt-6 pb-6">
           <h1 className="lg:text-5xl md:text-3xl text-2xl text-center flex-1 font-bold">
             <div className="bg-white rounded-2xl border-solid border-4 flex-1 w-9/12 m-auto py-8">
-              <span>Blather &apos;Round</span>
+              <span>Blather &rsquo;Round</span>
               <br />
               <span>Editor</span>
             </div>
