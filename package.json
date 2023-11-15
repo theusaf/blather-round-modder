@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prettier": "prettier --cache --write .",
     "compile": "tsc -p ./src/tsconfig.json && $npm_execpath copyfiles",
     "copyfiles": "cpy './src/**/*' '!**/*.ts' dist --parents",
     "migrate": "$npm_execpath migrate:run && $npm_execpath migrate:seed",

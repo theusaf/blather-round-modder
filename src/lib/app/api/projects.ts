@@ -23,6 +23,7 @@ function getFilters(
     const cursor = +params.cursor;
     if (Number.isInteger(cursor)) {
       filters.cursor = { id: cursor };
+      filters.skip = 1;
     }
   }
   if (params.order) {

@@ -21,18 +21,18 @@ export default function ProjectCard(project: project) {
       </div>
       <div className="mb-1">
         <Link href={`/projects/${project.id}`}>
-          <button className="bg-neutral-500 p-2 rounded text-neutral-100 mr-2">
+          <button className="hover:bg-neutral-700 bg-neutral-500 p-2 rounded text-neutral-100 mr-2">
             View
           </button>
         </Link>
         <Link href={`/projects/${project.id}/remix`}>
-          <button className="bg-neutral-500 p-2 rounded text-neutral-100 mr-2">
+          <button className="hover:bg-neutral-700 bg-neutral-500 p-2 rounded text-neutral-100 mr-2">
             <FontAwesomeIcon icon="arrows-spin"></FontAwesomeIcon>
             Remix
           </button>
         </Link>
         <Link href={`/projects/${project.id}/download`}>
-          <button className="bg-neutral-500 p-2 rounded text-neutral-100">
+          <button className="hover:bg-neutral-700 bg-neutral-500 p-2 rounded text-neutral-100">
             <FontAwesomeIcon icon="download"></FontAwesomeIcon>
             Download
           </button>
