@@ -1,7 +1,7 @@
 import { project } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
-import FontAwesomeIcon from "../fontawesome";
+import { DefaultButton } from "../button";
 
 export default function ProjectCard(project: project) {
   return (
@@ -21,21 +21,13 @@ export default function ProjectCard(project: project) {
       </div>
       <div className="mb-1">
         <Link href={`/projects/${project.id}`}>
-          <button className="hover:bg-neutral-700 bg-neutral-500 p-2 rounded text-neutral-100 mr-2">
-            View
-          </button>
+          <DefaultButton>View</DefaultButton>
         </Link>
         <Link href={`/projects/${project.id}/remix`}>
-          <button className="hover:bg-neutral-700 bg-neutral-500 p-2 rounded text-neutral-100 mr-2">
-            <FontAwesomeIcon icon="arrows-spin"></FontAwesomeIcon>
-            Remix
-          </button>
+          <DefaultButton icon="arrows-spin">Remix</DefaultButton>
         </Link>
         <Link href={`/projects/${project.id}/download`}>
-          <button className="hover:bg-neutral-700 bg-neutral-500 p-2 rounded text-neutral-100">
-            <FontAwesomeIcon icon="download"></FontAwesomeIcon>
-            Download
-          </button>
+          <DefaultButton icon="download">Download</DefaultButton>
         </Link>
       </div>
     </div>

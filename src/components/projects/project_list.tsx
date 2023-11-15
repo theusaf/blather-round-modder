@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AppEvents } from "../../lib/app/events";
+import { AppEvents } from "../../lib/app/constants";
 import { project } from "@prisma/client";
 import ProjectCard from "./card";
 
@@ -22,7 +22,7 @@ export default function ProjectList({
         );
         return [];
       });
-    console.log(response);
+
     if (response.length === 0) {
       window.dispatchEvent(new CustomEvent(AppEvents.LOAD_MORE_PROJECTS_EMPTY));
       return;

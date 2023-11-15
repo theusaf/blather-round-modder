@@ -76,9 +76,58 @@ export async function getProjects(
   return results;
 }
 
-export async function getProject(id: number): Promise<project | null> {
+export type FullProject = Prisma.projectGetPayload<{
+  include: {
+    prompt: {
+      include: {
+        prompt_alternate_spelling: true;
+        prompt_forbidden_word: true;
+        prompt_tailored_word: true;
+      };
+    };
+    sentence_structure: {
+      include: {
+        sentence_structure_structure: true;
+      };
+    };
+    word_list: {
+      include: {
+        word_list_word: true;
+      };
+    };
+  };
+}>;
+
+export async function getProject<T extends project = project>(
+  id: number,
+  includeAll = false,
+): Promise<T | null> {
   const prisma = getPrismaClient(),
-    project = await prisma.project.findUnique({ where: { id: id } });
+    options: Prisma.projectFindUniqueArgs = { where: { id: id } };
+
+  if (includeAll) {
+    options.include = {
+      prompt: {
+        include: {
+          prompt_alternate_spelling: true,
+          prompt_forbidden_word: true,
+          prompt_tailored_word: true,
+        },
+      },
+      sentence_structure: {
+        include: {
+          sentence_structure_structure: true,
+        },
+      },
+      word_list: {
+        include: {
+          word_list_word: true,
+        },
+      },
+    };
+  }
+
+  const project = (await prisma.project.findUnique(options)) as T;
   if (project) {
     if (project.public) {
       return project;

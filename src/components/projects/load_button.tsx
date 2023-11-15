@@ -1,7 +1,8 @@
 "use client";
-import { AppEvents } from "../../lib/app/events";
+import { AppEvents } from "../../lib/app/constants";
 import React, { useEffect, useState } from "react";
 import FontAwesomeIcon from "../fontawesome";
+import { PrimaryButton } from "../button";
 
 type LoadingState = "loading" | "loaded" | "error" | "empty";
 
@@ -43,7 +44,7 @@ export default function ProjectLoadButton() {
   switch (loadingState) {
     case "error":
       noteContent = (
-        <p className="text-red-700">
+        <p className={`text-red-700`}>
           Error loading more projects. Try again later.
         </p>
       );
@@ -55,16 +56,16 @@ export default function ProjectLoadButton() {
 
   return (
     <div className="w-full text-center">
-      <button
+      <PrimaryButton
         onClick={onClick}
         disabled={loadingState === "loading" || loadingState === "empty"}
-        className="disabled:opacity-75 disabled:cursor-not-allowed bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-500 hover:bg-blue-700"
       >
         {loadingState === "loading" ? (
           <FontAwesomeIcon icon="circle-notch" className="animate-spin" />
         ) : null}
         Load More
-      </button>
+      </PrimaryButton>
       {noteContent}
     </div>
   );

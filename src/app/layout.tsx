@@ -36,14 +36,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <head>
-        <NextTopLoader showSpinner={false} />
-        <PremidDetector />
-      </head>
       <body className={`bg-white ${inter.className} min-h-full flex flex-col`}>
         <Navbar />
         <div className="flex-1 p-2">{children}</div>
         <Footer />
+        <NextTopLoader showSpinner={false} />
+        <PremidDetector />
       </body>
     </html>
   );
