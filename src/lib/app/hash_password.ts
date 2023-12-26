@@ -1,8 +1,12 @@
 import { type user as UserEntity } from "@prisma/client";
 import argon2 from "argon2";
 
-export async function hashPassword(user: UserEntity, password: string) {
+export function hashPassword(user: UserEntity, password: string) {
   const salt = user.salt ?? "";
+  return hashPasswordWithSalt(password, salt);
+}
+
+export async function hashPasswordWithSalt(password: string, salt: string) {
   return await argon2.hash(password, { salt: Buffer.from(salt, "base64") });
 }
 

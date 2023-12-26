@@ -2,6 +2,7 @@ import { verifyPassword } from "@/lib/app/hash_password";
 import { v4 as uuid } from "uuid";
 import { cookies } from "next/headers";
 import { getPrismaClient } from "@/lib/app/prisma_connection";
+import { redirect } from "@/lib/app/navigation";
 
 export async function POST(req: Request) {
   const prisma = getPrismaClient(),
@@ -30,5 +31,5 @@ export async function POST(req: Request) {
     },
   });
   cookies().set("session_id", session.session_id);
-  return Response.redirect("/user");
+  return redirect(req, "/user", 302);
 }
