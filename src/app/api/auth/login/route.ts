@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       req.headers.get("Referer") ?? `${url.protocol}//${url.host}`,
     ),
     body = await req.formData(),
-    username = body.get("username") as string,
+    username = ((body.get("username") as string) ?? "").trim(),
     password = body.get("password") as string,
     user = await prisma.user.findUnique({ where: { username } });
   if (!user) {

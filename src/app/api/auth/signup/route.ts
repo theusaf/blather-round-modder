@@ -2,6 +2,7 @@ import { v4 as uuid } from "uuid";
 import { cookies } from "next/headers";
 import { getPrismaClient } from "@/lib/app/prisma_connection";
 import { redirect } from "@/lib/app/navigation";
+import { generateSalt } from "@/lib/app/hash_password";
 
 export async function POST(req: Request) {
   const prisma = getPrismaClient(),
@@ -10,8 +11,8 @@ export async function POST(req: Request) {
       req.headers.get("Referer") ?? `${url.protocol}//${url.host}`,
     ),
     body = await req.formData(),
-    username = body.get("username") as string,
-    email = body.get("email") as string,
+    username = ((body.get("username") as string) ?? "").trim(),
+    email = ((body.get("email") as string) ?? "").trim(),
     password = body.get("password") as string;
 
   if (!username || !email || !password) {
@@ -38,6 +39,7 @@ export async function POST(req: Request) {
       username,
       email,
       password,
+      salt: generateSalt(),
     },
   });
   const session = await prisma.user_sesion.create({
