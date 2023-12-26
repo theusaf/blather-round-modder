@@ -117,6 +117,6 @@ model word_list_word {
 
 model user_sesion {
   session_id    String @id
-  expires       Int
+  expires       BigInt
   user_username String
 }

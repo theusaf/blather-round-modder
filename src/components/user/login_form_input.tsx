@@ -25,6 +25,7 @@ export default function LoginFormInput({
       <input
         type={type}
         id={name}
+        name={name}
         placeholder={placeholder}
         className={`block w-full mb-2 border-2 ${className}`}
         required={required}
