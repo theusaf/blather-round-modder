@@ -13,7 +13,7 @@ export default function SignupPage({
         <div className="flex-1 w-96 rounded-xl bg-amber-300 p-5">
           <h1 className="text-2xl">Sign up</h1>
           <hr className="border-black border-1 mb-2"></hr>
-          <form method="POST" action="/api/auth/login">
+          <form method="POST" action="/api/auth/signup">
             <SignupInput />
             {searchParams["error"] && (
               <p className="text-red-500 bg-neutral-100 rounded p-1 mt-2">
