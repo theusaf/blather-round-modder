@@ -8,7 +8,9 @@ export async function GET(req: Request) {
   if (!sessionId) {
     return redirect(req, "/user");
   }
-  await prisma.user_sesion.delete({ where: { session_id: sessionId } }).catch(() => {});
+  await prisma.user_sesion
+    .delete({ where: { session_id: sessionId } })
+    .catch(() => {});
   cookies().delete("session_id");
   return redirect(req, "/user");
 }
