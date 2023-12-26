@@ -5,8 +5,9 @@ import { getPrismaClient } from "@/lib/app/prisma_connection";
 
 export async function POST(req: Request) {
   const prisma = getPrismaClient(),
+    url = new URL(req.url),
     backLink = new URL(
-      req.headers.get("Referer") ?? `http://${req.headers.get("Host")}`,
+      req.headers.get("Referer") ?? `${url.protocol}//${url.host}`,
     ),
     body = await req.formData(),
     username = body.get("username") as string,
