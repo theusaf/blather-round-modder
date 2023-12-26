@@ -5,14 +5,20 @@ import { getPrismaClient } from "@/lib/app/prisma_connection";
 
 export async function POST(req: Request) {
   const prisma = getPrismaClient(),
-    backLink = req.headers.get("Referer") ?? "/",
+    backLink = new URL(req.headers.get("Referer") ?? `http://${req.headers.get("Host")}`),
     body = await req.formData(),
     username = body.get("username") as string,
     password = body.get("password") as string,
     user = await prisma.user.findUnique({ where: { username } });
-  if (!user) return Response.redirect(backLink, 303);
+  if (!user) {
+    backLink.searchParams.set("error", "1");
+    return Response.redirect(backLink, 303);
+  }
   const verified = await verifyPassword(user, password);
-  if (!verified) return Response.redirect(backLink, 303);
+  if (!verified) {
+    backLink.searchParams.set("error", "1");
+    return Response.redirect(backLink, 303);
+  }
   const session = await prisma.user_sesion.create({
     data: {
       user_username: user.username,

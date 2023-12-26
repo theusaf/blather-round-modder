@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function LoginPage({
+  searchParams,
+} : {
+  searchParams: Record<string, string>;
+}) {
   return (
     <>
       <div className="flex items-center flex-col">
@@ -36,6 +40,9 @@ export default function LoginPage() {
             >
               Log in
             </button>
+            {
+              searchParams["error"] && <p className="text-red-500 bg-neutral-100 rounded p-1 mt-2">Invalid username or password.</p>
+            }
           </form>
           <hr className="border-black border-1 my-2"></hr>
           <div className="flex">
