@@ -5,7 +5,9 @@ export default function UserPage({
 }: {
   params: Record<string, string>;
 }) {
-  return <main>
-    <h1 className="text-2xl mb-2">{params.id}&rsquo;s profile</h1>
-  </main>
+  return (
+    <main>
+      <h1 className="text-2xl mb-2">{params.id}&rsquo;s profile</h1>
+    </main>
+  );
 }

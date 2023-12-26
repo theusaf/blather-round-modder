@@ -1,6 +1,6 @@
-import { DangerButton, PrimaryButton } from "@/components/button";
-import { FullProject, getProject } from "@/lib/app/api/projects";
-import { getCurrentUser } from "@/lib/app/auth";
+import { DangerButton, PrimaryButton } from "../../../components/button";
+import { FullProject, getProject } from "../../../lib/app/api/projects";
+import { getCurrentUser } from "../../../lib/app/auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -42,10 +42,28 @@ export default async function ProjectPage({
     <main>
       <div className="flex flex-row">
         <h1 className="text-2xl">{project.name}</h1>
-        <div className="flex-1 flex flex-col items-end">
+        <div className="flex-1 flex-col items-end hidden sm:flex">
           <div className="flex flex-row">{buttons}</div>
         </div>
       </div>
+      <p role="definition" className="mb-6">
+        {project.description}
+      </p>
+      <section className="border-2 border-slate-500 rounded p-2">
+        <h2 className="text-xl">Prompts</h2>
+        <div className="flex flex-wrap max-h-80 overflow-auto">
+          {project.prompt.map((prompt) => PromptCard(prompt.password))}
+        </div>
+      </section>
+      <div className="sm:hidden block mt-2">{buttons}</div>
     </main>
+  );
+}
+
+function PromptCard(prompt: string) {
+  return (
+    <span key={prompt} className="border-2 border-slate-500 rounded p-2 m-2">
+      {prompt}
+    </span>
   );
 }
