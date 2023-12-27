@@ -6,7 +6,6 @@ import React from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import NextTopLoader from "nextjs-toploader";
-import PremidDetector from "../components/premid_detector";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,7 +40,6 @@ export default function RootLayout({
         <div className="flex-1 p-2">{children}</div>
         <Footer />
         <NextTopLoader showSpinner={false} />
-        <PremidDetector />
       </body>
     </html>
   );
