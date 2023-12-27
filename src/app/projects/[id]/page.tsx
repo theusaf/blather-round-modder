@@ -4,6 +4,7 @@ import { FullProject, getProject } from "../../../lib/app/api/projects";
 import { getCurrentUser } from "../../../lib/app/auth";
 import Link from "next/link";
 import React from "react";
+import FontAwesomeIcon from "../../../components/fontawesome";
 
 export default async function ProjectPage({
   params,
@@ -63,17 +64,30 @@ function PromptCard(prompt: prompt) {
   switch (prompt.category) {
     case "place":
       cardScaffold = (
-        <PromptCardScaffold prompt={prompt} className="border-green-600" />
+        <PromptCardScaffold prompt={prompt} className="border-green-600">
+          <FontAwesomeIcon icon="location" />
+        </PromptCardScaffold>
       );
       break;
     case "person":
       cardScaffold = (
-        <PromptCardScaffold prompt={prompt} className="border-red-600" />
+        <PromptCardScaffold prompt={prompt} className="border-red-600">
+          <FontAwesomeIcon icon="user" />
+        </PromptCardScaffold>
+      );
+      break;
+    case "story":
+      cardScaffold = (
+        <PromptCardScaffold prompt={prompt} className="border-yellow-600">
+          <FontAwesomeIcon icon="book" />
+        </PromptCardScaffold>
       );
       break;
     default:
       cardScaffold = (
-        <PromptCardScaffold prompt={prompt} className="border-blue-600" />
+        <PromptCardScaffold prompt={prompt} className="border-blue-600">
+          <FontAwesomeIcon icon="cube" />
+        </PromptCardScaffold>
       );
   }
   return <React.Fragment key={prompt.id}>{cardScaffold}</React.Fragment>;
@@ -81,6 +95,7 @@ function PromptCard(prompt: prompt) {
 
 function PromptCardScaffold({
   className,
+  children,
   prompt,
 }: {
   className: string;
@@ -89,6 +104,7 @@ function PromptCardScaffold({
 }) {
   return (
     <span className={`border-2 rounded p-2 m-2 ${className}`}>
+      {children}
       {prompt.password}
     </span>
   );
