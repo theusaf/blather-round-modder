@@ -1,3 +1,4 @@
+import { prompt } from "@prisma/client";
 import { DangerButton, PrimaryButton } from "../../../components/button";
 import { FullProject, getProject } from "../../../lib/app/api/projects";
 import { getCurrentUser } from "../../../lib/app/auth";
@@ -52,7 +53,7 @@ export default async function ProjectPage({
       <section className="border-2 border-slate-500 rounded p-2">
         <h2 className="text-xl">Prompts</h2>
         <div className="flex flex-wrap max-h-80 overflow-auto">
-          {project.prompt.map((prompt) => PromptCard(prompt.password))}
+          {project.prompt.map((prompt) => PromptCard(prompt))}
         </div>
       </section>
       <div className="sm:hidden block mt-2">{buttons}</div>
@@ -60,10 +61,38 @@ export default async function ProjectPage({
   );
 }
 
-function PromptCard(prompt: string) {
+function PromptCard(prompt: prompt) {
+  let cardScaffold: ReturnType<typeof PromptCardScaffold>;
+  switch (prompt.category) {
+    case "place":
+      cardScaffold = (
+        <PromptCardScaffold prompt={prompt} className="border-green-600" />
+      );
+      break;
+    case "person":
+      cardScaffold = (
+        <PromptCardScaffold prompt={prompt} className="border-red-600" />
+      );
+      break;
+    default:
+      cardScaffold = (
+        <PromptCardScaffold prompt={prompt} className="border-blue-600" />
+      );
+  }
+  return <React.Fragment key={prompt.id}>{cardScaffold}</React.Fragment>;
+}
+
+function PromptCardScaffold({
+  className,
+  prompt,
+}: {
+  className: string;
+  children?: React.ReactNode;
+  prompt: prompt;
+}) {
   return (
-    <span key={prompt} className="border-2 border-slate-500 rounded p-2 m-2">
-      {prompt}
+    <span className={`border-2 rounded p-2 m-2 ${className}`}>
+      {prompt.password}
     </span>
   );
 }
