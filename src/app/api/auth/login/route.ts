@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { cookies } from "next/headers";
 import { getPrismaClient } from "@/lib/app/prisma_connection";
 import { redirect } from "@/lib/app/navigation";
+import { createUserSession } from "@/lib/app/auth";
 
 export async function POST(req: Request) {
   const prisma = getPrismaClient(),
@@ -23,13 +24,6 @@ export async function POST(req: Request) {
     backLink.searchParams.set("error", "1");
     return Response.redirect(backLink, 303);
   }
-  const session = await prisma.user_sesion.create({
-    data: {
-      user_username: user.username,
-      session_id: uuid(),
-      expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days. TODO: Make this value configurable.
-    },
-  });
-  cookies().set("session_id", session.session_id);
+  await createUserSession(user);
   return redirect(req, "/user", 302);
 }

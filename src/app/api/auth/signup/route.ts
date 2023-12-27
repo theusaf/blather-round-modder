@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { getPrismaClient } from "@/lib/app/prisma_connection";
 import { redirect } from "@/lib/app/navigation";
 import { generateSalt, hashPasswordWithSalt } from "@/lib/app/hash_password";
+import { createUserSession } from "@/lib/app/auth";
 
 export async function POST(req: Request) {
   const prisma = getPrismaClient(),
@@ -42,14 +43,7 @@ export async function POST(req: Request) {
         password: await hashPasswordWithSalt(password, salt),
         salt: salt,
       },
-    }),
-    session = await prisma.user_sesion.create({
-      data: {
-        user_username: newUser.username,
-        session_id: uuid(),
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days. TODO: Make this value configurable.
-      },
     });
-  cookies().set("session_id", session.session_id);
+  await createUserSession(newUser);
   return redirect(req, "/user", 302);
 }

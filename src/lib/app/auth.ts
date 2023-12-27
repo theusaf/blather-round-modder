@@ -1,6 +1,8 @@
 import "server-only";
 import { cookies } from "next/headers";
 import { getPrismaClient } from "./prisma_connection";
+import { user } from "@prisma/client";
+import { v4 as uuid } from "uuid";
 
 const SESSION_COOKIE_NAME = "session_id";
 
@@ -17,4 +19,19 @@ export async function getCurrentUser() {
   });
   if (!user) return null;
   return user;
+}
+
+export async function createUserSession(user: user) {
+  const prisma = getPrismaClient(),
+    session = await prisma.user_sesion.create({
+      data: {
+        user_username: user.username,
+        session_id: uuid(),
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days. TODO: Make this value configurable.
+      },
+    });
+  cookies().set("session_id", session.session_id, {
+    path: "/",
+    expires: new Date(Number(session.expires)),
+  });
 }
