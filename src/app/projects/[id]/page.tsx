@@ -3,7 +3,6 @@ import { DangerButton, PrimaryButton } from "../../../components/button";
 import { FullProject, getProject } from "../../../lib/app/api/projects";
 import { getCurrentUser } from "../../../lib/app/auth";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function ProjectPage({
@@ -13,7 +12,6 @@ export default async function ProjectPage({
 }) {
   const project = await getProject<FullProject>(+params.id, true),
     user = await getCurrentUser();
-  if (!project) return notFound();
 
   const buttons = [
     <Link href={`/projects/${params.id}/remix`} key="remix">
@@ -24,7 +22,7 @@ export default async function ProjectPage({
     </Link>,
   ];
 
-  if (user?.username === project.ownerUsername) {
+  if (user?.username === project!.ownerUsername) {
     buttons.splice(
       0,
       0,
@@ -42,18 +40,18 @@ export default async function ProjectPage({
   return (
     <main>
       <div className="flex flex-row">
-        <h1 className="text-2xl">{project.name}</h1>
+        <h1 className="text-2xl">{project!.name}</h1>
         <div className="flex-1 flex-col items-end hidden sm:flex">
           <div className="flex flex-row">{buttons}</div>
         </div>
       </div>
       <p role="definition" className="mb-6">
-        {project.description}
+        {project!.description}
       </p>
       <section className="border-2 border-slate-500 rounded p-2">
         <h2 className="text-xl">Prompts</h2>
         <div className="flex flex-wrap max-h-80 overflow-auto">
-          {project.prompt.map((prompt) => PromptCard(prompt))}
+          {project!.prompt.map((prompt) => PromptCard(prompt))}
         </div>
       </section>
       <div className="sm:hidden block mt-2">{buttons}</div>

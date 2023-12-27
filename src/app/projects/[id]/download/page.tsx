@@ -10,13 +10,11 @@ export default async function ProjectDownloadPage({
   params: Record<string, string>;
 }) {
   const project = await getProject(+params.id);
-  if (!project) return notFound();
-
   return (
     <main>
       <h1 className="text-2xl mb-2">
         <Link href={`/projects/${params.id}`} className="underline">
-          {project.name}
+          {project!.name}
         </Link>{" "}
         Download
       </h1>
