@@ -17,12 +17,11 @@ export default async function ProjectHomePage({
     <main className="w-full flex-1 px-1">
       <div className="flex flex-row mb-2">
         <h1 className="text-2xl mb-2">Projects</h1>
-        <PrimaryButton className="ml-2">
-          <Link href="/projects/new" className="items-center flex flex-row">
-            <FontAwesomeIcon icon="plus" />
-            <span>Create New Project</span>
-          </Link>
-        </PrimaryButton>
+        <Link href="/projects/new">
+          <PrimaryButton className="ml-2" icon="plus">
+            Create New Project
+          </PrimaryButton>
+        </Link>
       </div>
       <div id="filters"></div>
       <section id="projects" className="flex flex-row">
