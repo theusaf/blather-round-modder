@@ -59,7 +59,44 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <main className="w-full flex-1 px-1">Lorem Ipsum</main>
+      <main className="w-full flex-1 px-1">
+        <h2 className="text-xl">What is this exactly?</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum ut
+          placeat eligendi ex? Quam ea neque voluptatibus quos minus adipisci?
+          Iusto soluta perspiciatis blanditiis sit veritatis at quam, hic sed!
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores
+          sed incidunt enim? Tempora veritatis sit quo corporis repellendus
+          mollitia. Sunt eos reiciendis eaque quis aut in quaerat doloribus iure
+          porro. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas
+          nemo blanditiis nisi architecto ea distinctio similique beatae cumque
+          doloribus officia? Sit illo veritatis itaque corporis iure possimus
+          ratione magni aspernatur!
+        </p>
+        <h2 className="text-xl">How to Use</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quas
+          dolores porro, quos recusandae tempore distinctio. Non deleniti sunt
+          qui dolores voluptate, fuga nihil ullam molestiae quae iusto
+          laudantium at. Lorem ipsum dolor sit amet consectetur, adipisicing
+          elit. Perspiciatis autem aut blanditiis quis atque. Consequatur earum
+          hic quas eos maxime rem amet? Quod assumenda error dolor illo
+          consectetur sunt totam! Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Dolorum error libero perferendis sit ab! Nulla illo
+          ducimus, nostrum eligendi necessitatibus vero, consequatur iste
+          laborum nam nisi exercitationem qui reiciendis adipisci.
+        </p>
+        <h2 className="text-xl">Screenshots</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium
+          dignissimos culpa vel quis maxime maiores illo repellendus distinctio
+          non, dolorem soluta fuga veritatis odit aliquid officiis porro itaque
+          aspernatur rem. Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Cumque, iusto modi. Dolor cupiditate nihil autem excepturi
+          voluptatibus pariatur adipisci ipsam minus, alias rem nostrum quos
+          facilis culpa ratione earum. Vel.
+        </p>
+      </main>
     </>
   );
 }
