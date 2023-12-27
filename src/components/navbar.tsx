@@ -2,17 +2,22 @@ import Image from "next/image";
 import NavbarLink from "./navbarLink";
 import React from "react";
 import { getCurrentUser } from "../lib/app/auth";
+import FontAwesomeIcon from "./fontawesome";
 
 function NavigationItem({
   children,
   location,
+  className = "",
 }: {
   children: React.ReactNode;
   location: string;
+  className?: string;
 }) {
   return (
     <div className={`flex-1 flex flex-row items-center`}>
-      <NavbarLink link={location}>{children}</NavbarLink>
+      <NavbarLink link={location} className={className}>
+        {children}
+      </NavbarLink>
     </div>
   );
 }
@@ -40,9 +45,16 @@ export default async function Navbar() {
           ></Image>
         </NavigationItem>
       </div>
-      <div className="flex-row flex flex-1">
+      <div className="mr-2 ml-4">
         <NavigationItem location="/projects">
           <span>Projects</span>
+        </NavigationItem>
+      </div>
+      <div className="flex-row flex flex-1">
+        <NavigationItem location="/projects/new" className="no-underline">
+          <div className="border-2 rounded-full h-6 w-6 flex flex-row items-center">
+            <FontAwesomeIcon icon="plus"></FontAwesomeIcon>
+          </div>
         </NavigationItem>
       </div>
       <div className="mr-4">
