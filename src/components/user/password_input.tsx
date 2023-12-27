@@ -3,13 +3,11 @@ import React, { useEffect, useState } from "react";
 import LoginFormInput from "./login_form_input";
 
 export function SignupInput() {
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [passwordError, setPasswordError] = useState<boolean>(false);
-  const [passwordConfirmError, setPasswordConfirmError] =
-    useState<boolean>(false);
-
-  const [password, setPassword] = useState<string>("");
-  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+  const [emailError, setEmailError] = useState<boolean>(false),
+    [passwordError, setPasswordError] = useState<boolean>(false),
+    [passwordConfirmError, setPasswordConfirmError] = useState<boolean>(false),
+    [password, setPassword] = useState<string>(""),
+    [passwordConfirm, setPasswordConfirm] = useState<string>("");
 
   useEffect(() => {
     if (password !== passwordConfirm) {

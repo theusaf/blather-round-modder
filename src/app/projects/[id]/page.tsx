@@ -11,16 +11,15 @@ export default async function ProjectPage({
   params: { id: string };
 }) {
   const project = await getProject<FullProject>(+params.id, true),
-    user = await getCurrentUser();
-
-  const buttons = [
-    <Link href={`/projects/${params.id}/remix`} key="remix">
-      <PrimaryButton icon="arrows-spin">Remix</PrimaryButton>
-    </Link>,
-    <Link href={`/projects/${params.id}/download`} key="download">
-      <PrimaryButton icon="download">Download</PrimaryButton>
-    </Link>,
-  ];
+    user = await getCurrentUser(),
+    buttons = [
+      <Link href={`/projects/${params.id}/remix`} key="remix">
+        <PrimaryButton icon="arrows-spin">Remix</PrimaryButton>
+      </Link>,
+      <Link href={`/projects/${params.id}/download`} key="download">
+        <PrimaryButton icon="download">Download</PrimaryButton>
+      </Link>,
+    ];
 
   if (user?.username === project!.ownerUsername) {
     buttons.splice(

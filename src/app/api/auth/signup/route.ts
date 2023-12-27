@@ -34,22 +34,22 @@ export async function POST(req: Request) {
     );
     return Response.redirect(backLink, 303);
   }
-  const salt = generateSalt();
-  const newUser = await prisma.user.create({
-    data: {
-      username,
-      email,
-      password: await hashPasswordWithSalt(password, salt),
-      salt: salt,
-    },
-  });
-  const session = await prisma.user_sesion.create({
-    data: {
-      user_username: newUser.username,
-      session_id: uuid(),
-      expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days. TODO: Make this value configurable.
-    },
-  });
+  const salt = generateSalt(),
+    newUser = await prisma.user.create({
+      data: {
+        username,
+        email,
+        password: await hashPasswordWithSalt(password, salt),
+        salt: salt,
+      },
+    }),
+    session = await prisma.user_sesion.create({
+      data: {
+        user_username: newUser.username,
+        session_id: uuid(),
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days. TODO: Make this value configurable.
+      },
+    });
   cookies().set("session_id", session.session_id);
   return redirect(req, "/user", 302);
 }

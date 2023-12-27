@@ -5,8 +5,8 @@ import { notFound } from "next/navigation";
 import { NextRequest } from "next/server";
 
 export async function GET(_: NextRequest, context: { params: { id: string } }) {
-  const project = await getProject(+context.params.id);
-  const user = await getCurrentUser();
+  const project = await getProject(+context.params.id),
+    user = await getCurrentUser();
   if (!project) return notFound();
   if (!project.public && user?.username !== project.ownerUsername)
     return notFound();
