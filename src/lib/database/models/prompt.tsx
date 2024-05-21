@@ -7,6 +7,7 @@ import {
 } from "@/lib/types/blather";
 import { Model } from ".";
 import Project from "./project";
+import { QueryOptions } from "@/lib/types/database";
 
 export default class Prompt extends Model implements PromptType {
   alternateSpellings: string[];
@@ -37,7 +38,18 @@ export default class Prompt extends Model implements PromptType {
   save(): Promise<this> {
     throw new Error("Method not implemented.");
   }
+
   delete(): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  static async findById(id: string): Promise<Project> {
+    throw new Error("Method not implemented.");
+  }
+
+  static async findAll(
+    queryOptions?: QueryOptions<PromptType>
+  ): Promise<Project[]> {
     throw new Error("Method not implemented.");
   }
 }

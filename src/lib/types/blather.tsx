@@ -137,3 +137,11 @@ export interface FieldType {
   v: string;
   n: string;
 }
+
+export interface JackboxJETContent<E> {
+  content: E[];
+}
+
+export interface JackboxJETFields<E> {
+  fields: E[];
+}

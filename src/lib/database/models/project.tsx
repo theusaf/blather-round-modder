@@ -1,7 +1,12 @@
 import "server-only";
-import { PromptType, SentenceStructureType, WordListType } from "@/lib/types/blather";
+import {
+  PromptType,
+  SentenceStructureType,
+  WordListType,
+} from "@/lib/types/blather";
 import { ProjectType } from "@/lib/types/project";
 import { Model } from ".";
+import { QueryOptions } from "@/lib/types/database";
 
 export default class Project extends Model implements ProjectType {
   id: string | null;
@@ -35,4 +40,13 @@ export default class Project extends Model implements ProjectType {
     throw new Error("Method not implemented.");
   }
 
+  static async findById(id: string): Promise<Project> {
+    throw new Error("Method not implemented.");
+  }
+
+  static async findAll(
+    queryOptions?: QueryOptions<ProjectType>
+  ): Promise<Project[]> {
+    throw new Error("Method not implemented.");
+  }
 }

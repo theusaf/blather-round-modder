@@ -1,5 +1,6 @@
 import "server-only";
 import { Model } from ".";
+import { QueryOptions } from "@/lib/types/database";
 
 export default class User extends Model {
   username: string;
@@ -16,6 +17,16 @@ export default class User extends Model {
   }
 
   async delete(): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  static async findById(id: string): Promise<User | null> {
+    throw new Error("Method not implemented.");
+  }
+
+  static async findAll(
+    options?: QueryOptions<{ username: string; password: string }>
+  ): Promise<User[]> {
     throw new Error("Method not implemented.");
   }
 }

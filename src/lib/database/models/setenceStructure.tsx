@@ -6,6 +6,7 @@ import {
 } from "@/lib/types/blather";
 import { Model } from "firebase-admin/machine-learning";
 import Project from "./project";
+import { QueryOptions } from "@/lib/types/database";
 
 export default class SentenceStructure
   extends Model
@@ -29,6 +30,16 @@ export default class SentenceStructure
   }
 
   async delete(): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  static async findById(id: string): Promise<Project> {
+    throw new Error("Method not implemented.");
+  }
+
+  static async findAll(
+    queryOptions?: QueryOptions<SentenceStructureType>
+  ): Promise<Project[]> {
     throw new Error("Method not implemented.");
   }
 }

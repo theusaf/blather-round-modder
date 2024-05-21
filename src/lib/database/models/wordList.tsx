@@ -6,6 +6,8 @@ import {
 } from "@/lib/types/blather";
 import { Model } from "firebase-admin/machine-learning";
 import Project from "./project";
+import { QueryOptions } from "@/lib/types/database";
+import { ProjectType } from "@/lib/types/project";
 
 export default class WordList extends Model implements WordListType {
   amount: OptionalNumberedString;
@@ -34,6 +36,16 @@ export default class WordList extends Model implements WordListType {
   }
 
   async delete(): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  static async findById(id: string): Promise<Project> {
+    throw new Error("Method not implemented.");
+  }
+
+  static async findAll(
+    options?: QueryOptions<ProjectType>
+  ): Promise<Project[]> {
     throw new Error("Method not implemented.");
   }
 }
