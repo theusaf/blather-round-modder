@@ -29,7 +29,8 @@ export function UserNavMenu() {
             onClose={() => setOpen(false)}
             onClick={() => setOpen(false)}
           >
-            <p className="px-4 text-slate-">Welcome {user.sub}!</p>
+            <p className="px-4 py-2 text-slate-">Welcome {user.sub}!</p>
+            <Divider />
             <MenuItem>Profile</MenuItem>
             <MenuItem>My Projects</MenuItem>
             <Divider />
