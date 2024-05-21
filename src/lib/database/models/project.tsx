@@ -1,3 +1,4 @@
+import "server-only";
 import { PromptType, SentenceStructureType, WordListType } from "@/lib/types/blather";
 import { ProjectType } from "@/lib/types/project";
 import { Model } from ".";

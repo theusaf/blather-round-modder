@@ -1,3 +1,4 @@
+import "server-only";
 import { Model } from ".";
 
 export default class User extends Model {
