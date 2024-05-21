@@ -13,6 +13,7 @@ export default function LoginPage() {
               id="username"
               className="w-full h-10 p-2 rounded-md border-emerald-800 border-2"
               placeholder="Username"
+              required
             />
           </div>
           <div>
@@ -24,6 +25,7 @@ export default function LoginPage() {
               id="password"
               className="w-full h-10 p-2 rounded-md border-emerald-800 border-2"
               placeholder="Password"
+              required
             />
           </div>
           <div>
@@ -35,9 +37,25 @@ export default function LoginPage() {
               id="password-confirm"
               className="w-full h-10 p-2 rounded-md border-emerald-800 border-2"
               placeholder="Password"
+              required
             />
           </div>
-          <button className="w-full h-10 bg-emerald-800 text-white rounded-md mt-2">
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="agreement"
+              className="h-4 w-4 mr-1 rounded-md"
+              placeholder="Password"
+              required
+            />
+            <label htmlFor="agreement">
+              I agree to the terms and conditions
+            </label>
+          </div>
+          <button
+            type="submit"
+            className="w-full h-10 bg-emerald-800 text-white rounded-md mt-2"
+          >
             Register
           </button>
         </div>
