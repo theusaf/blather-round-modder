@@ -1,8 +1,10 @@
+import { loginWithPassword } from "@/lib/actions/login";
+
 export default function LoginPage() {
   return (
     <div className="p-2">
       <h2 className="text-2xl font-bold">Log In</h2>
-      <form>
+      <form action={loginWithPassword}>
         <div className="flex flex-col gap-2">
           <div>
             <label htmlFor="username" className="font-bold">
@@ -11,6 +13,7 @@ export default function LoginPage() {
             <input
               type="text"
               id="username"
+              name="username"
               className="w-full h-10 p-2 rounded-md border-emerald-800 border-2"
               placeholder="Username"
               required
@@ -23,6 +26,7 @@ export default function LoginPage() {
             <input
               type="password"
               id="password"
+              name="password"
               className="w-full h-10 p-2 rounded-md border-emerald-800 border-2"
               placeholder="Password"
               required

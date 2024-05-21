@@ -4,7 +4,7 @@ export interface UserLoginDetails {
   sub: string;
 }
 
-export interface UserLogin extends UserLoginDetails {
+export interface UserLogin extends Partial<UserLoginDetails> {
   loggedIn: boolean;
 }
 

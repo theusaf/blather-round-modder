@@ -11,6 +11,7 @@ export default function LoginPage() {
             <input
               type="text"
               id="username"
+              name="username"
               className="w-full h-10 p-2 rounded-md border-emerald-800 border-2"
               placeholder="Username"
               required
@@ -23,6 +24,7 @@ export default function LoginPage() {
             <input
               type="password"
               id="password"
+              name="password"
               className="w-full h-10 p-2 rounded-md border-emerald-800 border-2"
               placeholder="Password"
               required

@@ -1,3 +1,4 @@
+"use client";
 import { create } from "zustand";
 import { ProjectType } from "../types/project";
 import {
