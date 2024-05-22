@@ -1,5 +1,6 @@
 import { ProjectType } from "@/lib/types/project";
 import SectionCard from "./_components/Card";
+import Link from "next/link";
 
 export default function ProjectPage({ params }: { params: { id: string } }) {
   const project: ProjectType = {
@@ -53,8 +54,24 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   };
   return (
     <main className="p-2">
-      <h1 className="text-2xl font-bold">{project.name}</h1>
-      <p>{project.description}</p>
+      <div className="flex justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">{project.name}</h1>
+          <p>{project.description}</p>
+        </div>
+        <div className="flex gap-2 h-min">
+          <Link href={`/project/${params.id}/edit`}>
+            <button className="p-2 rounded-md bg-emerald-700 text-white">
+              Edit
+            </button>
+          </Link>
+          <Link href={`/project/${params.id}/remix`}>
+            <button className="p-2 rounded-md bg-emerald-700 text-white">
+              Remix
+            </button>
+          </Link>
+        </div>
+      </div>
       <hr className="my-2" />
       <div className="flex gap-4">
         <div className="flex flex-col gap-2 flex-1">
