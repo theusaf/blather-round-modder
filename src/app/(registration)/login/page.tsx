@@ -1,4 +1,5 @@
 import { loginWithPassword } from "@/lib/actions/login";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
@@ -41,9 +42,9 @@ export default function LoginPage() {
         </div>
         <div className="mt-2">
           New user?{" "}
-          <a href="/register" className="text-emerald-800">
+          <Link href="/register" className="text-emerald-800">
             Register now!
-          </a>
+          </Link>
         </div>
       </form>
     </div>

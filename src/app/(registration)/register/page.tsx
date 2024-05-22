@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function LoginPage() {
   return (
     <div className="p-2">
@@ -63,9 +65,9 @@ export default function LoginPage() {
         </div>
         <div className="mt-2">
           Have an account?{" "}
-          <a href="/login" className="text-emerald-800">
+          <Link href="/login" className="text-emerald-800">
             Log in
-          </a>
+          </Link>
         </div>
       </form>
     </div>
