@@ -15,6 +15,7 @@ interface ProjectStoreState extends ProjectType {
   setWordLists: (wordLists: WordListType[]) => void;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
+  setProject: (project: ProjectType) => void;
 }
 
 export const useProjectStore = create<ProjectStoreState>((set) => ({
@@ -27,6 +28,12 @@ export const useProjectStore = create<ProjectStoreState>((set) => ({
   prompts: [],
   sentenceStructures: [],
   wordLists: [],
+  setProject: (project) =>
+    set((state) =>
+      produce(state, (draft) => {
+        Object.assign(draft, project);
+      })
+    ),
   setPublic: (value) =>
     set((state) =>
       produce(state, (draft) => {
