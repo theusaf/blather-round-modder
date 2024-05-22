@@ -2,6 +2,7 @@
 import { logout } from "@/lib/actions/logout";
 import { useUserStore } from "@/lib/hooks/userStore";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Divider, Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
@@ -31,10 +32,23 @@ export function UserNavMenu() {
           >
             <p className="px-4 py-2 text-slate-">Welcome {user.sub}!</p>
             <Divider />
-            <MenuItem>Profile</MenuItem>
-            <MenuItem>My Projects</MenuItem>
+            <MenuItem>
+              <Link href={`/profile/${encodeURIComponent(user.sub!)}`}>
+                Profile
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link href={`/profile/${encodeURIComponent(user.sub!)}/projects`}>
+                My Projects
+              </Link>
+            </MenuItem>
             <Divider />
-            <MenuItem onClick={() => logout(pathname)}>Log Out</MenuItem>
+            <MenuItem onClick={() => logout(pathname)}>
+              <div className="flex gap-2 items-center">
+                <FontAwesomeIcon icon={faRightFromBracket} />
+                <span>Log Out</span>
+              </div>
+            </MenuItem>
           </Menu>
         </div>
       )}
