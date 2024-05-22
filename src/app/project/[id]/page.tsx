@@ -73,7 +73,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         </div>
       </div>
       <hr className="my-2" />
-      <div className="flex gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <div className="flex flex-col gap-2 flex-1">
           <SectionCard>
             <h2 className="text-xl font-bold">Sentence Structures</h2>

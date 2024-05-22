@@ -14,7 +14,7 @@ export function NavBar() {
             width={50}
             height={50}
           />
-          Editor for Blather Round
+          <span className="hidden md:block">Editor for Blather Round</span>
         </Link>
         <Link href="/projects">Projects</Link>
       </div>
