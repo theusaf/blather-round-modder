@@ -23,7 +23,7 @@ export default function SentenceStructureSection() {
   );
 }
 
-function StructureSection({ category }: { category: Category | "response" }) {
+export function StructureSection({ category }: { category: Category | "response" }) {
   const structures = useProjectStore((state) => state.sentenceStructures);
   const filteredStructures =
     structures.find((structure) => structure.category === category)
