@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import UserLoginHandler from "@/lib/components/UserLoginHandler";
-import { NavBar } from "./_components/NavBar";
 import { decrypt } from "@/lib/util/session";
 import { cookies } from "next/headers";
 
@@ -30,13 +29,7 @@ export default async function RootLayout({
             ...userDetails,
           }}
         >
-          <div className="flex flex-col h-full">
-            <NavBar />
-            <div className="flex-1">{children}</div>
-            <footer className="p-8 bg-lime-700 text-white">
-              &copy; 2024 Daniel Lau
-            </footer>
-          </div>
+          {children}
         </UserLoginHandler>
       </body>
     </html>
