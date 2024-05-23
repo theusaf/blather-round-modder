@@ -1,67 +1,17 @@
-import { ProjectType } from "@/lib/types/project";
-import ProjectLoadHandler from "./_components/ProjectLoadHandler";
-import NavBar from "./_components/NavBar";
+"use client";
+import { useState } from "react";
+import { ProjectTabMenu } from "./_components/ProjectTabMenu";
 
-export default function EditProjectPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const initialProject: ProjectType = {
-    id: "test-project",
-    likes: 0,
-    name: "Test Project",
-    description: "This is a test project",
-    public: false,
-    ownerId: "test-user",
-    prompts: [
-      {
-        alternateSpellings: ["hi"],
-        category: "thing",
-        difficulty: "easy",
-        forbiddenWords: ["bye"],
-        id: "000",
-        password: "hello",
-        subcategory: "",
-        tailoredWords: [
-          {
-            list: "<yeet>",
-            word: "greeting",
-          },
-        ],
-        us: false,
-      },
-    ],
-    sentenceStructures: [
-      {
-        category: "thing",
-        id: "000",
-        structures: ["The <thing> is <color>."],
-      },
-    ],
-    wordLists: [
-      {
-        amount: "",
-        id: "000",
-        maxChoices: "",
-        name: "thing",
-        optional: false,
-        placeholder: "",
-        words: [
-          {
-            alwaysChoose: false,
-            word: "Hello!",
-          },
-        ],
-      },
-    ],
-  };
+export default function ProjectEditPage() {
+  const [activeTab, setActiveTab] = useState("prompts");
+
   return (
-    <ProjectLoadHandler project={initialProject}>
-      <NavBar />
-      <div className="p-2">
-        <h1 className="text-2xl font-bold">Edit Project</h1>
-      </div>
-    </ProjectLoadHandler>
+    <div className="flex flex-col md:flex-row h-full">
+      <ProjectTabMenu
+        activeTab={activeTab}
+        onTabSelect={(tab) => setActiveTab(tab)}
+      />
+      <section></section>
+    </div>
   );
 }
