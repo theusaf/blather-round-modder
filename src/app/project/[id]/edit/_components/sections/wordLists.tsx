@@ -1,16 +1,21 @@
 "use client";
 import SectionCard from "@/lib/components/SectionCard";
 import { useProjectStore } from "@/lib/hooks/projectStore";
+import { WordListType } from "@/lib/types/blather";
 import {
   faPenToSquare,
   faPlusCircle,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal } from "@mui/material";
+import { useState } from "react";
+import { produce } from "immer";
 
 export default function WordListSection() {
   const wordLists = useProjectStore((state) => state.wordLists);
   const setWordLists = useProjectStore((state) => state.setWordLists);
+  const [listModal, setListModal] = useState<WordListType | null>(null);
 
   return (
     <>
@@ -26,7 +31,20 @@ export default function WordListSection() {
             />
           </div>
           <div>
-            <button className="flex items-center h-full">
+            <button
+              className="flex items-center h-full"
+              onClick={() => {
+                setListModal({
+                  amount: "",
+                  id: "000",
+                  maxChoices: "",
+                  name: "",
+                  optional: false,
+                  placeholder: "",
+                  words: [],
+                });
+              }}
+            >
               <FontAwesomeIcon className="w-8 h-8" icon={faPlusCircle} />
             </button>
           </div>
@@ -53,6 +71,9 @@ export default function WordListSection() {
           ))}
         </section>
       </div>
+      <Modal open={listModal !== null} onClose={() => setListModal(null)}>
+        <div>hi</div>
+      </Modal>
     </>
   );
 }
