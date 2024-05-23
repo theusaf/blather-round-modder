@@ -35,6 +35,9 @@ function StructureSection({ category }: { category: Category | "response" }) {
     <SectionCard>
       <h4 className="capitalize">{category}</h4>
       <div className="flex flex-col gap-2">
+        {filteredStructures.length === 0 && (
+          <p className="text-gray-500">No structures added yet.</p>
+        )}
         {filteredStructures.map((structure, index) => (
           <div key={index} className="flex gap-2">
             <ListInputField

@@ -51,6 +51,7 @@ export function ListInputField(
           className="w-full"
           value={value}
           onChange={(event) => onValueChange(event.target.value)}
+          placeholder="Type here..."
         />
       </div>
       <div className="h-full flex-1 overflow-x-auto whitespace-nowrap rounded-md items-center flex pl-2 border-l-2 border-slate-400">
