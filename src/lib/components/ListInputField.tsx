@@ -4,10 +4,10 @@ import { DetailedHTMLProps, HTMLAttributes, ReactNode, useState } from "react";
 export function ListInputField(
   props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
     value: string;
-    onChange: (value: string) => void;
+    onValueChange: (value: string) => void;
   }
 ) {
-  const { value, onChange } = props;
+  const { value, onValueChange } = props;
   const displayItems: ReactNode[] = [];
   let isInList = false;
   let listContent = "";
@@ -50,7 +50,7 @@ export function ListInputField(
         <input
           className="w-full"
           value={value}
-          onChange={(event) => onChange(event.target.value)}
+          onChange={(event) => onValueChange(event.target.value)}
         />
       </div>
       <div className="h-full flex-1 overflow-x-auto whitespace-nowrap rounded-md items-center flex pl-2 border-l-2 border-slate-400">
