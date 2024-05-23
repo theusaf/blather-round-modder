@@ -3,7 +3,7 @@ import { ListInputField } from "@/lib/components/ListInputField";
 import SectionCard from "@/lib/components/SectionCard";
 import { useProjectStore } from "@/lib/hooks/projectStore";
 import { Category, NumberedString } from "@/lib/types/blather";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
 import { useState } from "react";
@@ -36,19 +36,34 @@ function StructureSection({ category }: { category: Category | "response" }) {
       <h4 className="capitalize">{category}</h4>
       <div className="flex flex-col gap-2">
         {filteredStructures.map((structure, index) => (
-          <ListInputField
-            key={index}
-            value={structure}
-            onValueChange={(value) => {
-              setStructures(
-                produce(structures, (draft) => {
-                  draft.find(
-                    (structure) => structure.category === category
-                  )!.structures[index] = value;
-                })
-              );
-            }}
-          />
+          <div key={index} className="flex gap-2">
+            <ListInputField
+              className="flex-1"
+              value={structure}
+              onValueChange={(value) => {
+                setStructures(
+                  produce(structures, (draft) => {
+                    draft.find(
+                      (structure) => structure.category === category
+                    )!.structures[index] = value;
+                  })
+                );
+              }}
+            />
+            <button
+              onClick={() => {
+                setStructures(
+                  produce(structures, (draft) => {
+                    draft
+                      .find((structure) => structure.category === category)!
+                      .structures.splice(index, 1);
+                  })
+                );
+              }}
+            >
+              <FontAwesomeIcon className="w-6 h-6" icon={faTrash} />
+            </button>
+          </div>
         ))}
       </div>
       <hr className="my-2" />
