@@ -61,8 +61,10 @@ export default function EditProjectPage({
   };
   return (
     <ProjectLoadHandler project={initialProject}>
-      <NavBar />
-      {children}
+      <div className="flex flex-col h-full">
+        <NavBar />
+        <div className="flex-1">{children}</div>
+      </div>
     </ProjectLoadHandler>
   );
 }

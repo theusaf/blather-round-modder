@@ -9,7 +9,7 @@ export default function NavBar() {
       <div className="flex gap-4 items-center w-full">
         <NavIcon />
         <div className="flex items-center justify-between flex-1">
-          <button className="p-2 rounded-md bg-slate-200 font-semibold w-64 md:w-72">
+          <button className="p-2 rounded-md bg-slate-200 font-semibold w-48 md:w-72">
             <div className="flex justify-between">
               <span className="p-2 text-black text-ellipsis truncate mr-2">
                 {title ? (
