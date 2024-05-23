@@ -1,4 +1,4 @@
-import { NavBar } from "@/app/(main)/_components/NavBar";
+import { NavBar } from "./_components/NavBar";
 
 export default async function RootLayout({
   children,

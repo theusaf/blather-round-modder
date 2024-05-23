@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import UserLoginHandler from "@/lib/components/UserLoginHandler";
 import { decrypt } from "@/lib/util/session";
 import { cookies } from "next/headers";
 
-const inter = Inter({ subsets: ["latin"] });
+const mainFont = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Final Project - Editor for Blather Round",
@@ -22,7 +22,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={mainFont.className}>
         <UserLoginHandler
           loginDetails={{
             loggedIn: userDetails !== null,

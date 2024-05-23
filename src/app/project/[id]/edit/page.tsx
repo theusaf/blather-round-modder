@@ -1,5 +1,6 @@
 import { ProjectType } from "@/lib/types/project";
 import ProjectLoadHandler from "./_components/ProjectLoadHandler";
+import NavBar from "./_components/NavBar";
 
 export default function EditProjectPage({
   params,
@@ -57,6 +58,7 @@ export default function EditProjectPage({
   };
   return (
     <ProjectLoadHandler project={initialProject}>
+      <NavBar />
       <div className="p-2">
         <h1 className="text-2xl font-bold">Edit Project</h1>
       </div>
