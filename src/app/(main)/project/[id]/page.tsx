@@ -1,5 +1,5 @@
 import { ProjectType } from "@/lib/types/project";
-import SectionCard from "./_components/Card";
+import SectionCard from "@/lib/components/SectionCard";
 import Link from "next/link";
 
 export default function ProjectPage({ params }: { params: { id: string } }) {

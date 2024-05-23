@@ -14,7 +14,7 @@ export default function ProjectEditPage() {
         activeTab={activeTab}
         onTabSelect={(tab) => setActiveTab(tab)}
       />
-      <section className="p-2">
+      <section className="p-2 w-full flex-1 flex flex-col">
         {activeTab === "prompts" && <PromptSection />}
         {activeTab === "wordLists" && <WordListSection />}
         {activeTab === "sentenceStructures" && <SentenceStructureSection />}
