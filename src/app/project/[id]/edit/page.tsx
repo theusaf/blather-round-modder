@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
 import { ProjectTabMenu } from "./_components/ProjectTabMenu";
+import PromptSection from "./_components/sections/prompts";
+import WordListSection from "./_components/sections/wordLists";
+import SentenceStructureSection from "./_components/sections/sentenceStructures";
 
 export default function ProjectEditPage() {
   const [activeTab, setActiveTab] = useState("prompts");
@@ -11,7 +14,11 @@ export default function ProjectEditPage() {
         activeTab={activeTab}
         onTabSelect={(tab) => setActiveTab(tab)}
       />
-      <section></section>
+      <section className="p-2">
+        {activeTab === "prompts" && <PromptSection />}
+        {activeTab === "wordLists" && <WordListSection />}
+        {activeTab === "sentenceStructures" && <SentenceStructureSection />}
+      </section>
     </div>
   );
 }
