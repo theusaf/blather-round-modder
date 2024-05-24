@@ -35,16 +35,15 @@ export function LabeledCheckbox(
         }}
       />
       <button
+        className="flex items-center"
         onClick={() => {
           props.onCheckedChange(!props.checked);
         }}
       >
-        <label htmlFor={props.inputId} className="cursor-pointer">
-          <FontAwesomeIcon
-            className={`w-6 h-6 ${props.checked ? "text-blue-500" : ""}`}
-            icon={props.checked ? faSquareCheck : faSquare}
-          />
-        </label>
+        <FontAwesomeIcon
+          className={`w-6 h-6 ${props.checked ? "text-blue-500" : ""}`}
+          icon={props.checked ? faSquareCheck : faSquare}
+        />
       </button>
       <label htmlFor={props.inputId} className="cursor-pointer">
         {props.label}
