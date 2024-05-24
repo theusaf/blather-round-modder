@@ -41,16 +41,16 @@ export function ListInputField(
     }
   }
 
-  const divProps: Record<string, unknown> = {...props};
+  const divProps: Record<string, unknown> = { ...props };
   delete divProps.value;
   delete divProps.onValueChange;
 
   return (
     <div
-      {...props}
-      className={`border-2 border-slate-400 rounded-md h-8 cursor-text flex items-center gap-2 ${props.className ?? ""}`}
+      {...divProps}
+      className={`border-2 border-slate-400 rounded-md h-10 cursor-text flex items-center gap-2 ${props.className ?? ""}`}
     >
-      <div className="flex-1 items-center h-full flex border-slate-400 border-r-2 rounded-md pr-2">
+      <div className="flex-1 items-center h-full flex border-slate-400 border-r-2 rounded-md p-2">
         <input
           className="w-full"
           value={value}
@@ -58,7 +58,7 @@ export function ListInputField(
           placeholder="Type here..."
         />
       </div>
-      <div className="h-full flex-1 overflow-x-auto whitespace-nowrap rounded-md items-center flex pl-2 border-l-2 border-slate-400">
+      <div className="h-full flex-1 overflow-x-auto whitespace-nowrap rounded-md items-center flex border-l-2 border-slate-400 p-2">
         {displayItems}
       </div>
     </div>
