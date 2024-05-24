@@ -1,10 +1,18 @@
 "use client";
 import { WordListType } from "@/lib/types/blather";
-import { Modal } from "@mui/material";
+import { Modal, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { produce } from "immer";
 import { LabeledInput } from "@/lib/components/LabeledInput";
 import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
+import SectionCard from "@/lib/components/SectionCard";
+import {
+  faList,
+  faListCheck,
+  faPlusCircle,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function ListEditModal({
   listModal,
@@ -124,9 +132,97 @@ export function ListEditModal({
               />
             </div>
             <hr className="border-black my-2" />
+            <NewWordInput
+              onComplete={(word, alwaysChoose) => {
+                setListData(
+                  produce(listData, (draft) => {
+                    draft.words.push({ word, alwaysChoose });
+                  })
+                );
+              }}
+            />
+            <div className="flex flex-wrap gap-2 mt-2">
+              {listData.words.map((word, index) => (
+                <SectionCard key={index}>
+                  <div className="flex gap-2">
+                    <div className="font-semibold">{word.word}</div>
+                    <div>
+                      <Tooltip
+                        title={
+                          word.alwaysChoose
+                            ? "Always Choose"
+                            : "Don't Always Choose"
+                        }
+                      >
+                        <FontAwesomeIcon
+                          className="w-4 h-4 cursor-help"
+                          icon={word.alwaysChoose ? faListCheck : faList}
+                        />
+                      </Tooltip>
+                    </div>
+                    <div>
+                      <button
+                        onClick={() => {
+                          setListData(
+                            produce(listData, (draft) => {
+                              draft.words.splice(index, 1);
+                            })
+                          );
+                        }}
+                      >
+                        <FontAwesomeIcon className="w-4 h-4" icon={faTrash} />
+                      </button>
+                    </div>
+                  </div>
+                </SectionCard>
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </Modal>
+  );
+}
+
+function NewWordInput({
+  onComplete,
+}: {
+  onComplete: (word: string, alwaysChoose: boolean) => void;
+}) {
+  const [newWord, setNewWord] = useState("");
+  const [alwaysChoose, setAlwaysChoose] = useState(false);
+
+  return (
+    <div className="flex gap-2 items-end">
+      <LabeledInput
+        label="New Word"
+        name="modal-list-new-word"
+        inputId="modal-list-new-word"
+        placeholder="Enter text..."
+        className="w-0" // CSS is strange...
+        value={newWord}
+        onValueChange={(value) => {
+          setNewWord(value);
+        }}
+      />
+      <LabeledCheckbox
+        checked={alwaysChoose}
+        onCheckedChange={(value) => {
+          setAlwaysChoose(value);
+        }}
+        inputId="modal-list-new-word-always-choose"
+        label="Always Choose"
+      />
+      <button
+        className="mb-1"
+        onClick={() => {
+          onComplete(newWord, alwaysChoose);
+          setAlwaysChoose(false);
+          setNewWord("");
+        }}
+      >
+        <FontAwesomeIcon className="w-8 h-8" icon={faPlusCircle} />
+      </button>
+    </div>
   );
 }
