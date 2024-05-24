@@ -16,9 +16,11 @@ interface ProjectStoreState extends ProjectType {
   setName: (name: string) => void;
   setDescription: (description: string) => void;
   setProject: (project: ProjectType) => void;
+  getNextId: () => number;
+  idNumber: number;
 }
 
-export const useProjectStore = create<ProjectStoreState>((set) => ({
+export const useProjectStore = create<ProjectStoreState>((set, get) => ({
   id: null,
   likes: 0,
   name: "",
@@ -70,4 +72,14 @@ export const useProjectStore = create<ProjectStoreState>((set) => ({
         draft.description = description;
       })
     ),
+  getNextId: () => {
+    set((state) =>
+      produce(state, (draft) => {
+        draft.idNumber += 1;
+      })
+    );
+    return get().idNumber;
+  },
+  // lowest id in jackbox games data. unsure if this is necessary
+  idNumber: 70571,
 }));
