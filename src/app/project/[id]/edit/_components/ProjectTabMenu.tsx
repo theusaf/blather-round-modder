@@ -38,9 +38,11 @@ function ProjectTabMenuItem(
     active?: boolean;
   }
 ) {
+  const liProps = {...props};
+  delete liProps.active;
   return (
     <li
-      {...props}
+      {...liProps}
       className={`p-2 hover:bg-cyan-600 cursor-pointer ${props.active ? "bg-cyan-700 underline" : ""} ${props.className ?? ""}`}
     >
       {props.children}

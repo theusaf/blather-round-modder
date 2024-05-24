@@ -8,9 +8,8 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Modal } from "@mui/material";
 import { useState } from "react";
-import { produce } from "immer";
+import { ListEditModal } from "../ListEditModal";
 
 export default function WordListSection() {
   const wordLists = useProjectStore((state) => state.wordLists);
@@ -71,9 +70,13 @@ export default function WordListSection() {
           ))}
         </section>
       </div>
-      <Modal open={listModal !== null} onClose={() => setListModal(null)}>
-        <div>hi</div>
-      </Modal>
+      <ListEditModal
+        listModal={listModal}
+        onComplete={(result) => {
+          setListModal(null);
+        }}
+        open={listModal !== null}
+      />
     </>
   );
 }
