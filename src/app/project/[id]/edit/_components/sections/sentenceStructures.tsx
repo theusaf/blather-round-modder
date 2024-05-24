@@ -23,13 +23,18 @@ export default function SentenceStructureSection() {
   );
 }
 
-export function StructureSection({ category }: { category: Category | "response" }) {
+export function StructureSection({
+  category,
+}: {
+  category: Category | "response";
+}) {
   const structures = useProjectStore((state) => state.sentenceStructures);
   const filteredStructures =
     structures.find((structure) => structure.category === category)
       ?.structures ?? [];
   const setStructures = useProjectStore((state) => state.setSentenceStructures);
   const [newValue, setNewValue] = useState("");
+  const getNextId = useProjectStore((state) => state.getNextId);
 
   return (
     <SectionCard>
@@ -93,7 +98,7 @@ export function StructureSection({ category }: { category: Category | "response"
                   draft.push({
                     category,
                     structures: [newValue],
-                    id: structures.length.toString() as NumberedString,
+                    id: getNextId().toString() as NumberedString,
                   });
                 }
               })
