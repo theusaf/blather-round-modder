@@ -26,7 +26,7 @@ export function ListEditModal({
   const [listData, setListData] = useState<WordListType>(
     listModal ?? {
       amount: "",
-      id: "000",
+      id: "001",
       maxChoices: "",
       name: "",
       optional: false,

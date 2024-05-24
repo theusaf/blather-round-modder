@@ -16,7 +16,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         category: "thing",
         difficulty: "easy",
         forbiddenWords: ["bye"],
-        id: "000",
+        id: "001",
         password: "hello",
         subcategory: "",
         tailoredWords: [
@@ -31,14 +31,14 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
     sentenceStructures: [
       {
         category: "thing",
-        id: "000",
+        id: "001",
         structures: ["The <thing> is <color>."],
       },
     ],
     wordLists: [
       {
         amount: "",
-        id: "000",
+        id: "001",
         maxChoices: "",
         name: "thing",
         optional: false,
