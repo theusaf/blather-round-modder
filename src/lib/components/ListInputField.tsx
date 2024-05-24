@@ -18,7 +18,7 @@ export function ListInputField(
     } else if (value[i] === ">" && isInList) {
       isInList = false;
       displayItems.push(
-        <span className="text-white bg-blue-500 rounded-md p-1">
+        <span key={i} className="text-white bg-blue-500 rounded-md p-1">
           {listContent}
         </span>
       );
@@ -27,7 +27,7 @@ export function ListInputField(
         listContent += value[i];
       } else {
         if (value[i] === " ") {
-          displayItems.push(<span>&nbsp;</span>);
+          displayItems.push(<span key={i}>&nbsp;</span>);
         } else {
           displayItems.push(value[i]);
         }
@@ -40,6 +40,10 @@ export function ListInputField(
       displayItems.push(listContent[i]);
     }
   }
+
+  const divProps: Record<string, unknown> = {...props};
+  delete divProps.value;
+  delete divProps.onValueChange;
 
   return (
     <div
