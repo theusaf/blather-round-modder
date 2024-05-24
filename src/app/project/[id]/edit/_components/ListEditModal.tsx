@@ -201,6 +201,13 @@ function NewWordInput({
         placeholder="Enter text..."
         className="w-0" // CSS is strange...
         value={newWord}
+        onKeyDown={(event) => {
+          if (event.code === "Enter") {
+            onComplete(newWord, alwaysChoose);
+            setAlwaysChoose(false);
+            setNewWord("");
+          }
+        }}
         onValueChange={(value) => {
           setNewWord(value);
         }}
