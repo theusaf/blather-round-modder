@@ -104,7 +104,7 @@ export interface PromptType {
   /**
    * The subcategory of the prompt.
    *
-   * Seems to be mainly for internal use.
+   * Affects usage of response lists (for example, `response-sentence-<category>-<subcategory>`)
    */
   subcategory: string;
   /**

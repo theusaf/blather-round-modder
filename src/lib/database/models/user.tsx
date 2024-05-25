@@ -6,7 +6,12 @@ export default class User extends Model {
   username: string;
   password: string;
 
-  constructor(data: Partial<User>) {
+  constructor(
+    data: Partial<{
+      username: string;
+      password: string;
+    }>
+  ) {
     super();
     this.username = data.username ?? "";
     this.password = data.password ?? "";
