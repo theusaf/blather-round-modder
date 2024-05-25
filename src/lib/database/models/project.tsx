@@ -5,8 +5,10 @@ import {
   WordListType,
 } from "@/lib/types/blather";
 import { ProjectType } from "@/lib/types/project";
-import { Model } from ".";
+import { Model, executeQuery } from ".";
 import { QueryOptions } from "@/lib/types/database";
+import { v4 as uuidv4 } from "uuid";
+import { firestore } from "../firebase";
 
 export default class Project extends Model implements ProjectType {
   id: string | null;
@@ -33,20 +35,35 @@ export default class Project extends Model implements ProjectType {
   }
 
   async save(): Promise<this> {
-    throw new Error("Method not implemented.");
+    if (!this.id) this.id = uuidv4();
+    await firestore.collection("projects").doc(this.id).set({
+      id: this.id,
+      likes: this.likes,
+      name: this.name,
+      description: this.description,
+      public: this.public,
+      ownerId: this.ownerId,
+      prompts: this.prompts,
+      sentenceStructures: this.sentenceStructures,
+      wordLists: this.wordLists,
+    });
+    return this;
   }
 
   async delete(): Promise<void> {
-    throw new Error("Method not implemented.");
+    if (!this.id) return;
+    await firestore.collection("projects").doc(this.id).delete();
   }
 
   static async findById(id: string): Promise<Project> {
-    throw new Error("Method not implemented.");
+    return (await Project.findAll({ where: { id }, limit: 1 }))[0];
   }
 
   static async findAll(
-    queryOptions?: QueryOptions<ProjectType>,
+    options?: QueryOptions<ProjectType>,
   ): Promise<Project[]> {
-    throw new Error("Method not implemented.");
+    return (await executeQuery<ProjectType>(options)).map(
+      (data) => new Project(data),
+    );
   }
 }

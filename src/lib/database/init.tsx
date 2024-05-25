@@ -49,22 +49,11 @@ async function readDataFile<E>(filename: string): Promise<E> {
     likes: 0,
     name: "Blanky Blank Default",
     description: "The content from the Jackbox game Blather Round",
+    wordLists: rawWordLists.content,
+    prompts: rawPrompts.content,
+    sentenceStructures: rawSentences.content,
   });
-  const prompts = rawPrompts.content.map(
-    (prompt) => new Prompt(prompt, project),
-  );
-  const sentenceStructures = rawSentences.content.map(
-    (sentence) => new SentenceStructure(sentence, project),
-  );
-  const wordLists = rawWordLists.content.map(
-    (wordList) => new WordList(wordList, project),
-  );
 
   await user.save();
   await project.save();
-  await Promise.all(prompts.map((prompt) => prompt.save()));
-  await Promise.all(
-    sentenceStructures.map((sentenceStructure) => sentenceStructure.save()),
-  );
-  await Promise.all(wordLists.map((wordList) => wordList.save()));
 })();

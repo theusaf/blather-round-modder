@@ -1,4 +1,4 @@
-type QueryWhereOptions<T> = {
+export type QueryWhereOptions<T> = {
   $and?: Array<QueryWhereOptions<T>>;
   $or?: Array<QueryWhereOptions<T>>;
   $not?: QueryWhereOptions<T>;
