@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import { ProjectType } from "../types/project";
 import {
+  NumberedString,
   PromptType,
   SentenceStructureType,
   WordListType,
@@ -33,7 +34,20 @@ export const useProjectStore = create<ProjectStoreState>((set, get) => ({
   setProject: (project) =>
     set((state) =>
       produce(state, (draft) => {
-        Object.assign(draft, project);
+        const updatedProject = produce(project, (draft) => {
+          for (const prompt of draft.prompts) {
+            prompt.id = get().getNextId().toString() as NumberedString;
+          }
+          for (const sentenceStructure of draft.sentenceStructures) {
+            sentenceStructure.id = get()
+              .getNextId()
+              .toString() as NumberedString;
+          }
+          for (const wordList of draft.wordLists) {
+            wordList.id = get().getNextId().toString() as NumberedString;
+          }
+        });
+        Object.assign(draft, updatedProject);
       })
     ),
   setPublic: (value) =>
