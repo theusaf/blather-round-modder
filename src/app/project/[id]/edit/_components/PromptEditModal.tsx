@@ -1,7 +1,8 @@
 "use client";
-import { PromptType } from "@/lib/types/blather";
+import { Category, Difficulty, PromptType } from "@/lib/types/blather";
 import { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
+import { Tab, TabList, Tabs } from "@mui/joy";
 import { LabeledInput } from "@/lib/components/LabeledInput";
 import { produce } from "immer";
 
@@ -66,9 +67,69 @@ export function PromptEditModal({
                 </button>
               </div>
             </div>
+            <div className="flex gap-2 mt-2">
+              <HorizontalRadioSelector
+                values={["thing", "person", "place"]}
+                value={promptData.category}
+                onChange={(value) => {
+                  setPromptData(
+                    produce(promptData, (draft) => {
+                      draft.category = value as Category;
+                    })
+                  );
+                }}
+                label="Category"
+              />
+              <HorizontalRadioSelector
+                values={["easy", "medium", "hard"]}
+                value={promptData.difficulty}
+                onChange={(value) => {
+                  setPromptData(
+                    produce(promptData, (draft) => {
+                      draft.difficulty = value as Difficulty;
+                    })
+                  );
+                }}
+                label="Difficulty"
+              />
+            </div>
           </div>
         </div>
       </div>
     </Modal>
+  );
+}
+
+function HorizontalRadioSelector({
+  values,
+  value,
+  onChange,
+  label,
+}: {
+  values: string[];
+  value: string;
+  onChange: (value: string) => void;
+  label: string;
+}) {
+  return (
+    <div>
+      <p>{label}</p>
+      <Tabs
+        className="w-min rounded-md p-1"
+        onChange={(_, value) => {
+          if (!value) return;
+          onChange(value as string);
+        }}
+        value={value}
+      >
+        <TabList disableUnderline>
+          {values.map((value, index) => (
+            <Tab key={index} disableIndicator value={value}>
+              {value}
+            </Tab>
+          ))}
+        </TabList>
+      </Tabs>
+    </div>
   );
 }

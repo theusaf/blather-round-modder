@@ -16,6 +16,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@mui/joy": "5.0.0-beta.36",
     "@mui/material": "^5.15.18",
     "@zip.js/zip.js": "^2.7.44",
     "contrast-color": "^1.0.1",
