@@ -113,6 +113,7 @@ export function PromptEditModal({
               <LabeledCheckbox
                 label="US-Centric"
                 name="modal-list-us"
+                inputId="modal-list-us"
                 checked={promptData.us}
                 onCheckedChange={(value) => {
                   setPromptData(
