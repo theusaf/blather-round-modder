@@ -1,57 +1,15 @@
-import { ProjectType } from "@/lib/types/project";
-import SectionCard from "@/lib/components/SectionCard";
+import "server-only";
 import Link from "next/link";
+import Project from "@/lib/database/models/project";
+import SectionCard from "@/lib/components/SectionCard";
 
-export default function ProjectPage({ params }: { params: { id: string } }) {
-  const project: ProjectType = {
-    id: "test-project",
-    likes: 0,
-    name: "Test Project",
-    description: "This is a test project",
-    public: false,
-    ownerId: "test-user",
-    prompts: [
-      {
-        alternateSpellings: ["hi"],
-        category: "thing",
-        difficulty: "easy",
-        forbiddenWords: ["bye"],
-        id: "001",
-        password: "hello",
-        subcategory: "",
-        tailoredWords: [
-          {
-            list: "<yeet>",
-            word: "greeting",
-          },
-        ],
-        us: false,
-      },
-    ],
-    sentenceStructures: [
-      {
-        category: "thing",
-        id: "001",
-        structures: ["The <thing> is <color>."],
-      },
-    ],
-    wordLists: [
-      {
-        amount: "",
-        id: "001",
-        maxChoices: "",
-        name: "thing",
-        optional: false,
-        placeholder: "",
-        words: [
-          {
-            alwaysChoose: false,
-            word: "Hello!",
-          },
-        ],
-      },
-    ],
-  };
+export default async function ProjectPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const project = await Project.findById(params.id);
+
   return (
     <main className="p-2">
       <div className="flex justify-between">
@@ -77,7 +35,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         <div className="flex flex-col gap-2 flex-1">
           <SectionCard>
             <h2 className="text-xl font-bold">Sentence Structures</h2>
-            <div>
+            <div className="flex flex-col gap-2">
               {project.sentenceStructures.map((sentenceStructure) => (
                 <div
                   key={sentenceStructure.id}
@@ -97,27 +55,29 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           </SectionCard>
           <SectionCard>
             <h2 className="text-xl font-bold">Word Lists</h2>
-            {project.wordLists.map((wordList) => (
-              <div
-                key={wordList.id}
-                className="border-slate-300 border-2 rounded-md p-2"
-              >
-                <h3 className="text-lg font-semibold">{wordList.name}</h3>
-                <details>
-                  <summary>View Words</summary>
-                  <ul className="list-inside list-disc">
-                    {wordList.words.map((word, i) => (
-                      <li key={i}>{word.word}</li>
-                    ))}
-                  </ul>
-                </details>
-              </div>
-            ))}
+            <div className="flex flex-col gap-2">
+              {project.wordLists.map((wordList) => (
+                <div
+                  key={wordList.id}
+                  className="border-slate-300 border-2 rounded-md p-2"
+                >
+                  <h3 className="text-lg font-semibold">{wordList.name}</h3>
+                  <details>
+                    <summary>View Words</summary>
+                    <ul className="list-inside list-disc">
+                      {wordList.words.map((word, i) => (
+                        <li key={i}>{word.word}</li>
+                      ))}
+                    </ul>
+                  </details>
+                </div>
+              ))}
+            </div>
           </SectionCard>
         </div>
         <SectionCard className="flex-1">
           <h2 className="text-xl font-bold">Prompts</h2>
-          <div>
+          <div className="flex flex-col gap-2">
             {project.prompts.map((prompt) => (
               <div
                 key={prompt.id}
