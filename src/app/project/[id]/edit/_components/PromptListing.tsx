@@ -6,6 +6,7 @@ import { useProjectStore } from "@/lib/hooks/projectStore";
 import { PromptType } from "@/lib/types/blather";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { produce } from "immer";
 
 export function PromptListing({
   setModal,
@@ -13,6 +14,8 @@ export function PromptListing({
   setModal: (prompt: PromptType) => void;
 }) {
   const prompts = useProjectStore((state) => state.prompts);
+  const setPrompts = useProjectStore((state) => state.setPrompts);
+
   return (
     <div className="flex gap-2 flex-wrap">
       {prompts.map((prompt, index) => (
@@ -38,7 +41,16 @@ export function PromptListing({
                 icon={faPenToSquare}
               />
             </button>
-            <button className="flex items-center">
+            <button
+              className="flex items-center"
+              onClick={() => {
+                setPrompts(
+                  produce(prompts, (draft) => {
+                    draft.splice(index, 1);
+                  })
+                );
+              }}
+            >
               <FontAwesomeIcon
                 className="w-6 h-6  rounded-md text-white bg-red-600 p-2"
                 icon={faTrash}
