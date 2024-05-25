@@ -62,8 +62,9 @@ export default class Project extends Model implements ProjectType {
   static async findAll(
     options?: QueryOptions<ProjectType>,
   ): Promise<Project[]> {
-    return (await executeQuery<ProjectType>(options)).map(
-      (data) => new Project(data),
-    );
+    const query = firestore.collection("projects");
+    return (await executeQuery<ProjectType>(query, options)).map((data) => {
+      return new Project(data);
+    });
   }
 }

@@ -1,55 +1,11 @@
-import { ProjectType } from "@/lib/types/project";
+import "server-only";
+import Project from "@/lib/database/models/project";
 import Link from "next/link";
 
-export default function ProjectsPage() {
-  // TODO: Fetch projects from the server
-  const projects: ProjectType[] = [
-    {
-      id: "test-project",
-      likes: 0,
-      name: "Test Project",
-      description: "This is a test project",
-      public: false,
-      ownerId: "test-user",
-      prompts: [],
-      sentenceStructures: [],
-      wordLists: [],
-    },
-    {
-      id: "test-project2",
-      likes: 0,
-      name: "Test Project",
-      description: "This is a test project with a description",
-      public: false,
-      ownerId: "test-user",
-      prompts: [],
-      sentenceStructures: [],
-      wordLists: [],
-    },
-    {
-      id: "test-project3",
-      likes: 0,
-      name: "Test Project",
-      description: "This is a test project with a description and prompts",
-      public: false,
-      ownerId: "test-user",
-      prompts: [
-        {
-          alternateSpellings: [],
-          category: "thing",
-          difficulty: "easy",
-          forbiddenWords: [],
-          id: "123",
-          password: "",
-          subcategory: "",
-          tailoredWords: [],
-          us: false,
-        },
-      ],
-      sentenceStructures: [],
-      wordLists: [],
-    },
-  ];
+export default async function ProjectsPage() {
+  const projects = await Project.findAll({
+    limit: 25,
+  });
 
   return (
     <main className="p-4">

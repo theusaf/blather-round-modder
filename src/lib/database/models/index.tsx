@@ -8,9 +8,10 @@ export abstract class Model {
 }
 
 export async function executeQuery<T, TIface extends T = T>(
+  baseQuery: FirebaseFirestore.Query,
   queryOptions?: QueryOptions<TIface>,
 ): Promise<T[]> {
-  let query = firestore.collection("users").select();
+  let query = baseQuery;
   if (queryOptions?.limit) {
     query = query.limit(queryOptions.limit);
   }

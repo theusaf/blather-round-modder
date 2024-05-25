@@ -39,8 +39,9 @@ export default class User extends Model {
   static async findAll(
     options?: QueryOptions<{ username: string; password: string }>,
   ): Promise<User[]> {
+    const query = firestore.collection("users");
     return (
-      await executeQuery<{ username: string; password: string }>(options)
+      await executeQuery<{ username: string; password: string }>(query, options)
     ).map((data) => new User(data));
   }
 }
