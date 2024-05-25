@@ -10,9 +10,6 @@ import {
 } from "../types/blather";
 import User from "./models/user";
 import Project from "./models/project";
-import Prompt from "./models/prompt";
-import SentenceStructure from "./models/setenceStructure";
-import WordList from "./models/wordList";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -22,7 +19,7 @@ async function readDataFile<E>(filename: string): Promise<E> {
   );
 }
 
-(async function main() {
+export default async function setupData() {
   const rawPrompts = await readDataFile<JackboxJETContent<PromptType>>(
     "BlankyBlankPasswords.jet",
   );
@@ -56,4 +53,4 @@ async function readDataFile<E>(filename: string): Promise<E> {
 
   await user.save();
   await project.save();
-})();
+}
