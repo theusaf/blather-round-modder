@@ -10,6 +10,7 @@ export function LabeledCheckbox(
     onCheckedChange: (checked: boolean) => void;
     inputId?: string;
     label: string;
+    name?: string;
   }
 ) {
   const divProps: Record<string, unknown> = { ...props };
@@ -17,6 +18,7 @@ export function LabeledCheckbox(
   delete divProps.onCheckedChange;
   delete divProps.inputId;
   delete divProps.label;
+  delete divProps.name;
   return (
     <div
       {...(divProps as DetailedHTMLProps<
@@ -28,6 +30,7 @@ export function LabeledCheckbox(
       <input
         className="hidden"
         id={props.inputId}
+        name={props.name}
         type="checkbox"
         checked={props.checked}
         onChange={() => {

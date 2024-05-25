@@ -13,7 +13,6 @@ export function PromptListing({
   setModal: (prompt: PromptType) => void;
 }) {
   const prompts = useProjectStore((state) => state.prompts);
-  const setPrompts = useProjectStore((state) => state.setPrompts);
   return (
     <div className="flex gap-2 flex-wrap">
       {prompts.map((prompt, index) => (
@@ -23,7 +22,9 @@ export function PromptListing({
               <CategoryLabel category={prompt.category} />
               <DifficultyLabel difficulty={prompt.difficulty} />
             </div>
-            <div className="font-semibold">{prompt.password}</div>
+            <div className="font-semibold whitespace-nowrap max-w-48 truncate">
+              {prompt.password}
+            </div>
           </div>
           <div className="flex gap-2">
             <button
