@@ -8,7 +8,7 @@ export function LabeledCheckbox(
   props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
     checked: boolean;
     onCheckedChange: (checked: boolean) => void;
-    inputId?: string;
+    inputId: string;
     label: string;
     name?: string;
   }

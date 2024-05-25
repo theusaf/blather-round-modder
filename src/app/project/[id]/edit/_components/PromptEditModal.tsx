@@ -9,6 +9,10 @@ import { HorizontalRadioSelector } from "@/lib/components/HorizontalRadioSelecto
 import { AlternateSpellingEditSection } from "./AlternateSpellingEditSection";
 import { ForbiddenWordEditSection } from "./ForbiddenWordEditSection";
 import { TailoredWordEditSection } from "./TailoredWordEditSection";
+import SectionCard from "@/lib/components/SectionCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { WordListTile } from "@/lib/components/ListInputField";
 
 export function PromptEditModal({
   initialInput,
@@ -135,6 +139,27 @@ export function PromptEditModal({
                   );
                 }}
               />
+              <div className="flex flex-wrap gap-2 mt-2">
+                {promptData.alternateSpellings.map((spelling, index) => (
+                  <SectionCard key={index} className="border-slate-400">
+                    <div className="flex gap-2 items-center">
+                      <span>{spelling}</span>
+                      <button
+                        className="flex items-center h-min"
+                        onClick={() => {
+                          setPromptData(
+                            produce(promptData, (draft) => {
+                              draft.alternateSpellings.splice(index, 1);
+                            })
+                          );
+                        }}
+                      >
+                        <FontAwesomeIcon className="w-6 h-6" icon={faTrash} />
+                      </button>
+                    </div>
+                  </SectionCard>
+                ))}
+              </div>
               <hr className="my-2" />
               <ForbiddenWordEditSection
                 onSubmit={(value) => {
@@ -145,6 +170,27 @@ export function PromptEditModal({
                   );
                 }}
               />
+              <div className="flex flex-wrap gap-2 mt-2">
+                {promptData.forbiddenWords.map((word, index) => (
+                  <SectionCard key={index} className="border-slate-400">
+                    <div className="flex gap-2 items-center">
+                      <span>{word}</span>
+                      <button
+                        className="flex items-center h-min"
+                        onClick={() => {
+                          setPromptData(
+                            produce(promptData, (draft) => {
+                              draft.forbiddenWords.splice(index, 1);
+                            })
+                          );
+                        }}
+                      >
+                        <FontAwesomeIcon className="w-6 h-6" icon={faTrash} />
+                      </button>
+                    </div>
+                  </SectionCard>
+                ))}
+              </div>
               <hr className="my-2" />
               <TailoredWordEditSection
                 onSubmit={(word, list) => {
@@ -155,6 +201,28 @@ export function PromptEditModal({
                   );
                 }}
               />
+              <div className="flex flex-wrap gap-2 mt-2">
+                {promptData.tailoredWords.map((word, index) => (
+                  <SectionCard key={index} className="border-slate-400">
+                    <div className="flex gap-2 items-center">
+                      <WordListTile list={word.list.slice(1, -1)} />
+                      <span>{word.word}</span>
+                      <button
+                        className="flex items-center h-min"
+                        onClick={() => {
+                          setPromptData(
+                            produce(promptData, (draft) => {
+                              draft.tailoredWords.splice(index, 1);
+                            })
+                          );
+                        }}
+                      >
+                        <FontAwesomeIcon className="w-6 h-6" icon={faTrash} />
+                      </button>
+                    </div>
+                  </SectionCard>
+                ))}
+              </div>
             </div>
           </div>
         </div>

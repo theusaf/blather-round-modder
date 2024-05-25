@@ -5,7 +5,7 @@ export function LabeledInput<T extends string | number | string[]>(
   props: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
     label: string;
     name?: string;
-    inputId?: string;
+    inputId: string;
     value: T;
     onValueChange: (value: T) => void;
     type?: string;

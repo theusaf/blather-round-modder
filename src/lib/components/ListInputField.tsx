@@ -17,11 +17,7 @@ export function ListInputField(
       listContent = "";
     } else if (value[i] === ">" && isInList) {
       isInList = false;
-      displayItems.push(
-        <span key={i} className="text-white bg-blue-500 rounded-md p-1">
-          {listContent}
-        </span>
-      );
+      displayItems.push(<WordListTile key={i} list={listContent} />);
     } else {
       if (isInList) {
         listContent += value[i];
@@ -63,4 +59,8 @@ export function ListInputField(
       </div>
     </div>
   );
+}
+
+export function WordListTile({ list }: { list: string }) {
+  return <span className="text-white bg-blue-500 rounded-md p-1">{list}</span>;
 }

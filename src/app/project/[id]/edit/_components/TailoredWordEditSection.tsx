@@ -41,6 +41,7 @@ export function TailoredWordEditSection({
         <button
           className="flex items-end mb-2"
           onClick={() => {
+            if (word.trim() === "" || list.trim() === "") return;
             onSubmit(word, list);
             setWord("");
             setList("");
