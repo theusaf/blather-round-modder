@@ -32,9 +32,9 @@ export default function WordListSection() {
       <h3 className="text-lg font-semibold">Word Lists</h3>
       <div className="flex-1">
         <div className="flex gap-2 justify-between">
-          <div className="flex-1 p-2 rounded-md border-slate-400 border-2">
+          <div className="flex-1">
             <input
-              className="w-full"
+              className="w-full p-2 rounded-md border-slate-400 border-2"
               type="text"
               name="search"
               placeholder="Search..."

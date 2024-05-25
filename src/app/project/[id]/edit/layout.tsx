@@ -2,62 +2,29 @@ import { ProjectType } from "@/lib/types/project";
 import ProjectLoadHandler from "./_components/ProjectLoadHandler";
 import NavBar from "./_components/NavBar";
 import { ReactNode } from "react";
+import Project from "@/lib/database/models/project";
+import { notFound } from "next/navigation";
 
-export default function EditProjectPage({
+export default async function EditProjectPage({
   params,
   children,
 }: {
   params: { id: string };
   children: ReactNode;
 }) {
+  const { id } = params;
+  const project = await Project.findById(id);
+  if (!project) return notFound();
   const initialProject: ProjectType = {
-    id: "test-project",
-    likes: 0,
-    name: "Test Project",
-    description: "This is a test project",
-    public: false,
-    ownerId: "test-user",
-    prompts: [
-      {
-        alternateSpellings: ["hi"],
-        category: "thing",
-        difficulty: "easy",
-        forbiddenWords: ["bye"],
-        id: "010",
-        password: "hello",
-        subcategory: "",
-        tailoredWords: [
-          {
-            list: "<yeet>",
-            word: "greeting",
-          },
-        ],
-        us: false,
-      },
-    ],
-    sentenceStructures: [
-      {
-        category: "thing",
-        id: "001",
-        structures: ["The <thing> is <color>."],
-      },
-    ],
-    wordLists: [
-      {
-        amount: "",
-        id: "001",
-        maxChoices: "",
-        name: "thing",
-        optional: false,
-        placeholder: "",
-        words: [
-          {
-            alwaysChoose: false,
-            word: "Hello!",
-          },
-        ],
-      },
-    ],
+    id: id,
+    likes: project.likes,
+    name: project.name,
+    description: project.description,
+    public: project.public,
+    ownerId: project.ownerId,
+    prompts: project.prompts,
+    sentenceStructures: project.sentenceStructures,
+    wordLists: project.wordLists,
   };
   return (
     <ProjectLoadHandler project={initialProject}>
