@@ -2,9 +2,13 @@
 import { Category, Difficulty, PromptType } from "@/lib/types/blather";
 import { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
-import { Tab, TabList, Tabs } from "@mui/joy";
 import { LabeledInput } from "@/lib/components/LabeledInput";
 import { produce } from "immer";
+import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
+import { HorizontalRadioSelector } from "@/lib/components/HorizontalRadioSelector";
+import { AlternateSpellingEditSection } from "./AlternateSpellingEditSection";
+import { ForbiddenWordEditSection } from "./ForbiddenWordEditSection";
+import { TailoredWordEditSection } from "./TailoredWordEditSection";
 
 export function PromptEditModal({
   initialInput,
@@ -67,7 +71,7 @@ export function PromptEditModal({
                 </button>
               </div>
             </div>
-            <div className="flex gap-2 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2">
               <HorizontalRadioSelector
                 values={["thing", "person", "place"]}
                 value={promptData.category}
@@ -92,44 +96,68 @@ export function PromptEditModal({
                 }}
                 label="Difficulty"
               />
+              <LabeledInput
+                label="Subcategory"
+                name="modal-list-subcategory"
+                inputId="modal-list-subcategory"
+                placeholder="Enter subcategory"
+                value={promptData.subcategory}
+                onValueChange={(value) => {
+                  setPromptData(
+                    produce(promptData, (draft) => {
+                      draft.subcategory = value;
+                    })
+                  );
+                }}
+              />
+              <LabeledCheckbox
+                label="US-Centric"
+                name="modal-list-us"
+                checked={promptData.us}
+                onCheckedChange={(value) => {
+                  setPromptData(
+                    produce(promptData, (draft) => {
+                      draft.us = value;
+                    })
+                  );
+                }}
+              />
+            </div>
+            <hr className="my-2" />
+            <div>
+              <AlternateSpellingEditSection
+                onSubmit={(value) => {
+                  setPromptData(
+                    produce(promptData, (draft) => {
+                      draft.alternateSpellings.push(value);
+                    })
+                  );
+                }}
+              />
+              <hr className="my-2" />
+              <ForbiddenWordEditSection
+                onSubmit={(value) => {
+                  setPromptData(
+                    produce(promptData, (draft) => {
+                      draft.forbiddenWords.push(value);
+                    })
+                  );
+                }}
+              />
+              <hr className="my-2" />
+              <TailoredWordEditSection
+                onSubmit={(word, list) => {
+                  setPromptData(
+                    produce(promptData, (draft) => {
+                      draft.tailoredWords.push({ word, list: `<${list}>` });
+                    })
+                  );
+                }}
+              />
             </div>
           </div>
         </div>
       </div>
     </Modal>
-  );
-}
-
-function HorizontalRadioSelector({
-  values,
-  value,
-  onChange,
-  label,
-}: {
-  values: string[];
-  value: string;
-  onChange: (value: string) => void;
-  label: string;
-}) {
-  return (
-    <div>
-      <p>{label}</p>
-      <Tabs
-        className="w-min rounded-md p-1"
-        onChange={(_, value) => {
-          if (!value) return;
-          onChange(value as string);
-        }}
-        value={value}
-      >
-        <TabList disableUnderline>
-          {values.map((value, index) => (
-            <Tab key={index} disableIndicator value={value}>
-              {value}
-            </Tab>
-          ))}
-        </TabList>
-      </Tabs>
-    </div>
   );
 }
