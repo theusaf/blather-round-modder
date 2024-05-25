@@ -9,11 +9,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
 
 export function PromptListing({
+  prompts,
   setModal,
 }: {
   setModal: (prompt: PromptType) => void;
+  prompts: PromptType[];
 }) {
-  const prompts = useProjectStore((state) => state.prompts);
+  const allPrompts = useProjectStore((state) => state.prompts);
   const setPrompts = useProjectStore((state) => state.setPrompts);
 
   return (
@@ -45,7 +47,10 @@ export function PromptListing({
               className="flex items-center"
               onClick={() => {
                 setPrompts(
-                  produce(prompts, (draft) => {
+                  produce(allPrompts, (draft) => {
+                    const index = allPrompts.findIndex(
+                      (p) => p.id === prompt.id,
+                    );
                     draft.splice(index, 1);
                   }),
                 );

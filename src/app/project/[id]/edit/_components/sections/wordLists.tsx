@@ -17,7 +17,12 @@ export default function WordListSection() {
   const filteredWordLists = useMemo(
     () =>
       wordLists.filter((list) => {
-        return list.name.toLowerCase().includes(search.toLowerCase());
+        return (
+          list.name.toLowerCase().includes(search.toLowerCase()) ||
+          list.words.some((word) => {
+            return word.word.toLowerCase().includes(search.toLowerCase());
+          })
+        );
       }),
     [wordLists, search],
   );

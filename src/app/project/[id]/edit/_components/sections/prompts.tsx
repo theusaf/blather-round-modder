@@ -4,7 +4,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PromptListing } from "../PromptListing";
 import { NumberedString, PromptType } from "@/lib/types/blather";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { produce } from "immer";
 import { PromptEditModal } from "../PromptEditModal";
 
@@ -13,6 +13,15 @@ export default function PromptSection() {
   const setPrompts = useProjectStore((state) => state.setPrompts);
   const getNextId = useProjectStore((state) => state.getNextId);
   const [modal, setModal] = useState<PromptType | null>(null);
+  const [search, setSearch] = useState<string>("");
+
+  const filteredPrompts = useMemo(
+    () =>
+      prompts.filter((prompt) =>
+        prompt.password.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [prompts, search],
+  );
 
   return (
     <>
@@ -24,6 +33,8 @@ export default function PromptSection() {
             type="text"
             name="search"
             placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <div>
             <button
@@ -47,7 +58,7 @@ export default function PromptSection() {
           </div>
         </div>
         <hr className="my-2" />
-        <PromptListing setModal={setModal} />
+        <PromptListing setModal={setModal} prompts={filteredPrompts} />
       </div>
       <PromptEditModal
         initialInput={modal}
