@@ -22,6 +22,7 @@ export function TailoredWordEditSection({
           inputId="modal-list-tailored-word"
           placeholder="Enter tailored word"
           value={word}
+          className="w-0"
           onValueChange={(value) => {
             setWord(value);
           }}
@@ -32,6 +33,7 @@ export function TailoredWordEditSection({
           inputId="modal-list-tailored-list"
           placeholder="Enter list"
           value={list}
+          className="w-0"
           onValueChange={(value) => {
             setList(value);
           }}
