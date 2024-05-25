@@ -11,7 +11,9 @@ export default function NavIcon() {
         width={50}
         height={50}
       />
-      <span className="hidden md:block font-semibold">Editor for Blather Round</span>
+      <span className="hidden md:block font-semibold">
+        Editor for Blather Round
+      </span>
     </Link>
   );
 }

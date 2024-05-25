@@ -48,7 +48,7 @@ export default class Prompt extends Model implements PromptType {
   }
 
   static async findAll(
-    queryOptions?: QueryOptions<PromptType>
+    queryOptions?: QueryOptions<PromptType>,
   ): Promise<Project[]> {
     throw new Error("Method not implemented.");
   }

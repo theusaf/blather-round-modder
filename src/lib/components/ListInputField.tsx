@@ -5,7 +5,7 @@ export function ListInputField(
   props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
     value: string;
     onValueChange: (value: string) => void;
-  }
+  },
 ) {
   const { value, onValueChange } = props;
   const displayItems: ReactNode[] = [];

@@ -58,18 +58,18 @@ export default function PromptSection() {
                 draft.push(
                   produce(result, (draft) => {
                     draft.id = getNextId().toString() as NumberedString;
-                  })
+                  }),
                 );
-              })
+              }),
             );
           } else {
             setPrompts(
               produce(prompts, (draft) => {
                 const index = draft.findIndex(
-                  (prompt) => prompt.id === result.id
+                  (prompt) => prompt.id === result.id,
                 );
                 draft[index] = result;
-              })
+              }),
             );
           }
           setModal(null);

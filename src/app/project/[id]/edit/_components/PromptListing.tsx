@@ -47,7 +47,7 @@ export function PromptListing({
                 setPrompts(
                   produce(prompts, (draft) => {
                     draft.splice(index, 1);
-                  })
+                  }),
                 );
               }}
             >

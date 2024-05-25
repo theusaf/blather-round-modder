@@ -7,7 +7,7 @@ import { encrypt } from "@/lib/util/session";
 
 export async function loginWithPassword(
   formData: FormData,
-  redirectPath?: string
+  redirectPath?: string,
 ) {
   const user: JWTUserLogin = {
     sub: formData.get("username") as string,

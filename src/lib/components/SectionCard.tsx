@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 export default function SectionCard(
-  props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 ) {
   return (
     <div

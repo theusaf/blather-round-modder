@@ -15,7 +15,7 @@ export function encrypt(payload: JWTUserLogin): Promise<string> {
 }
 
 export async function decrypt(
-  session: string = ""
+  session: string = "",
 ): Promise<JWTUserLogin | null> {
   try {
     const { payload } = await jwtVerify(session, encodedKey, {

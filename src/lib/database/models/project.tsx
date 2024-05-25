@@ -45,7 +45,7 @@ export default class Project extends Model implements ProjectType {
   }
 
   static async findAll(
-    queryOptions?: QueryOptions<ProjectType>
+    queryOptions?: QueryOptions<ProjectType>,
   ): Promise<Project[]> {
     throw new Error("Method not implemented.");
   }

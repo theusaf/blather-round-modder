@@ -32,7 +32,7 @@ export function ListEditModal({
       optional: false,
       placeholder: "",
       words: [],
-    }
+    },
   );
   useEffect(() => {
     if (listModal) {
@@ -60,7 +60,7 @@ export function ListEditModal({
                   setListData(
                     produce(listData, (draft) => {
                       draft.name = value;
-                    })
+                    }),
                   );
                 }}
               />
@@ -85,7 +85,7 @@ export function ListEditModal({
                   setListData(
                     produce(listData, (draft) => {
                       draft.maxChoices = value;
-                    })
+                    }),
                   );
                 }}
               />
@@ -100,7 +100,7 @@ export function ListEditModal({
                   setListData(
                     produce(listData, (draft) => {
                       draft.amount = value;
-                    })
+                    }),
                   );
                 }}
               />
@@ -114,7 +114,7 @@ export function ListEditModal({
                   setListData(
                     produce(listData, (draft) => {
                       draft.placeholder = value;
-                    })
+                    }),
                   );
                 }}
               />
@@ -124,7 +124,7 @@ export function ListEditModal({
                   setListData(
                     produce(listData, (draft) => {
                       draft.optional = value;
-                    })
+                    }),
                   );
                 }}
                 inputId="modal-list-optional"
@@ -137,7 +137,7 @@ export function ListEditModal({
                 setListData(
                   produce(listData, (draft) => {
                     draft.words.push({ word, alwaysChoose });
-                  })
+                  }),
                 );
               }}
             />
@@ -166,7 +166,7 @@ export function ListEditModal({
                           setListData(
                             produce(listData, (draft) => {
                               draft.words.splice(index, 1);
-                            })
+                            }),
                           );
                         }}
                       >

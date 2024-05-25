@@ -38,7 +38,7 @@ export default class SentenceStructure
   }
 
   static async findAll(
-    queryOptions?: QueryOptions<SentenceStructureType>
+    queryOptions?: QueryOptions<SentenceStructureType>,
   ): Promise<Project[]> {
     throw new Error("Method not implemented.");
   }

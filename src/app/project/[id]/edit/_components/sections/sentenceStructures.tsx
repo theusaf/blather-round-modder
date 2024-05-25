@@ -52,9 +52,9 @@ export function StructureSection({
                 setStructures(
                   produce(structures, (draft) => {
                     draft.find(
-                      (structure) => structure.category === category
+                      (structure) => structure.category === category,
                     )!.structures[index] = value;
-                  })
+                  }),
                 );
               }}
             />
@@ -65,7 +65,7 @@ export function StructureSection({
                     draft
                       .find((structure) => structure.category === category)!
                       .structures.splice(index, 1);
-                  })
+                  }),
                 );
               }}
             >
@@ -89,7 +89,7 @@ export function StructureSection({
             setStructures(
               produce(structures, (draft) => {
                 const structure = draft.find(
-                  (structure) => structure.category === category
+                  (structure) => structure.category === category,
                 );
                 if (!newValue) return;
                 if (structure) {
@@ -101,7 +101,7 @@ export function StructureSection({
                     id: getNextId().toString() as NumberedString,
                   });
                 }
-              })
+              }),
             );
             setNewValue("");
           }}

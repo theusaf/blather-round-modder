@@ -11,7 +11,7 @@ export function LabeledCheckbox(
     inputId: string;
     label: string;
     name?: string;
-  }
+  },
 ) {
   const divProps: Record<string, unknown> = { ...props };
   delete divProps.checked;

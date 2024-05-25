@@ -18,19 +18,19 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 async function readDataFile<E>(filename: string): Promise<E> {
   return JSON.parse(
-    await readFile(join(__dirname, "seed/jackbox_data", filename), "utf-8")
+    await readFile(join(__dirname, "seed/jackbox_data", filename), "utf-8"),
   );
 }
 
 (async function main() {
   const rawPrompts = await readDataFile<JackboxJETContent<PromptType>>(
-    "BlankyBlankPasswords.jet"
+    "BlankyBlankPasswords.jet",
   );
   const rawSentences = await readDataFile<
     JackboxJETContent<SentenceStructureType>
   >("BlankyBlankSentenceStructures.jet");
   const rawWordLists = await readDataFile<JackboxJETContent<WordListType>>(
-    "BlankyBlankWordLists.jet"
+    "BlankyBlankWordLists.jet",
   );
 
   const exisingUser = await User.findById("jackbox");
@@ -51,20 +51,20 @@ async function readDataFile<E>(filename: string): Promise<E> {
     description: "The content from the Jackbox game Blather Round",
   });
   const prompts = rawPrompts.content.map(
-    (prompt) => new Prompt(prompt, project)
+    (prompt) => new Prompt(prompt, project),
   );
   const sentenceStructures = rawSentences.content.map(
-    (sentence) => new SentenceStructure(sentence, project)
+    (sentence) => new SentenceStructure(sentence, project),
   );
   const wordLists = rawWordLists.content.map(
-    (wordList) => new WordList(wordList, project)
+    (wordList) => new WordList(wordList, project),
   );
 
   await user.save();
   await project.save();
   await Promise.all(prompts.map((prompt) => prompt.save()));
   await Promise.all(
-    sentenceStructures.map((sentenceStructure) => sentenceStructure.save())
+    sentenceStructures.map((sentenceStructure) => sentenceStructure.save()),
   );
   await Promise.all(wordLists.map((wordList) => wordList.save()));
 })();

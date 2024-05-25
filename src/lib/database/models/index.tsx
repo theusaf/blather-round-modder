@@ -6,7 +6,7 @@ export abstract class Model {
 }
 
 export async function executeQuery<T, TIface extends T = T>(
-  queryOptions: QueryOptions<TIface>
+  queryOptions: QueryOptions<TIface>,
 ): Promise<T[]> {
   throw new Error("Method not implemented.");
 }

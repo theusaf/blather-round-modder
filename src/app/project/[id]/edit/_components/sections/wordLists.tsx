@@ -19,7 +19,7 @@ export default function WordListSection() {
       wordLists.filter((list) => {
         return list.name.toLowerCase().includes(search.toLowerCase());
       }),
-    [wordLists, search]
+    [wordLists, search],
   );
 
   return (
@@ -70,7 +70,7 @@ export default function WordListSection() {
                   draft.id = getNextId().toString() as NumberedString;
                 });
                 draft.push(finalResult);
-              })
+              }),
             );
           } else {
             // update list item
@@ -78,7 +78,7 @@ export default function WordListSection() {
               produce(wordLists, (draft) => {
                 const index = draft.findIndex((item) => item.id === result.id);
                 draft[index] = result;
-              })
+              }),
             );
           }
           setListModal(null);

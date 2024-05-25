@@ -10,7 +10,7 @@ export function LabeledInput<T extends string | number | string[]>(
     onValueChange: (value: T) => void;
     type?: string;
     placeholder?: string;
-  }
+  },
 ) {
   const divProps: Record<string, unknown> = { ...props };
   delete divProps.label;

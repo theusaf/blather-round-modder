@@ -44,7 +44,7 @@ export default class WordList extends Model implements WordListType {
   }
 
   static async findAll(
-    options?: QueryOptions<ProjectType>
+    options?: QueryOptions<ProjectType>,
   ): Promise<Project[]> {
     throw new Error("Method not implemented.");
   }

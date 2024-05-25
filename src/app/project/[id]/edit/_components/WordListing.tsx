@@ -40,10 +40,10 @@ export function WordListing({
                   setWordLists(
                     produce(allWordLists, (draft) => {
                       const index = draft.findIndex(
-                        (item) => item.id === wordList.id
+                        (item) => item.id === wordList.id,
                       );
                       draft.splice(index, 1);
-                    })
+                    }),
                   );
                 }}
               >

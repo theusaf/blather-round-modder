@@ -36,9 +36,9 @@ export function ProjectTabMenu({
 function ProjectTabMenuItem(
   props: DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> & {
     active?: boolean;
-  }
+  },
 ) {
-  const liProps = {...props};
+  const liProps = { ...props };
   delete liProps.active;
   return (
     <li

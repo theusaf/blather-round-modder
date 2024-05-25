@@ -34,7 +34,7 @@ export function PromptEditModal({
       alternateSpellings: [],
       forbiddenWords: [],
       tailoredWords: [],
-    }
+    },
   );
   useEffect(() => {
     if (initialInput) {
@@ -62,7 +62,7 @@ export function PromptEditModal({
                   setPromptData(
                     produce(promptData, (draft) => {
                       draft.password = value;
-                    })
+                    }),
                   );
                 }}
               />
@@ -83,7 +83,7 @@ export function PromptEditModal({
                   setPromptData(
                     produce(promptData, (draft) => {
                       draft.category = value as Category;
-                    })
+                    }),
                   );
                 }}
                 label="Category"
@@ -95,7 +95,7 @@ export function PromptEditModal({
                   setPromptData(
                     produce(promptData, (draft) => {
                       draft.difficulty = value as Difficulty;
-                    })
+                    }),
                   );
                 }}
                 label="Difficulty"
@@ -110,7 +110,7 @@ export function PromptEditModal({
                   setPromptData(
                     produce(promptData, (draft) => {
                       draft.subcategory = value;
-                    })
+                    }),
                   );
                 }}
               />
@@ -123,7 +123,7 @@ export function PromptEditModal({
                   setPromptData(
                     produce(promptData, (draft) => {
                       draft.us = value;
-                    })
+                    }),
                   );
                 }}
               />
@@ -135,7 +135,7 @@ export function PromptEditModal({
                   setPromptData(
                     produce(promptData, (draft) => {
                       draft.alternateSpellings.push(value);
-                    })
+                    }),
                   );
                 }}
               />
@@ -150,7 +150,7 @@ export function PromptEditModal({
                           setPromptData(
                             produce(promptData, (draft) => {
                               draft.alternateSpellings.splice(index, 1);
-                            })
+                            }),
                           );
                         }}
                       >
@@ -166,7 +166,7 @@ export function PromptEditModal({
                   setPromptData(
                     produce(promptData, (draft) => {
                       draft.forbiddenWords.push(value);
-                    })
+                    }),
                   );
                 }}
               />
@@ -181,7 +181,7 @@ export function PromptEditModal({
                           setPromptData(
                             produce(promptData, (draft) => {
                               draft.forbiddenWords.splice(index, 1);
-                            })
+                            }),
                           );
                         }}
                       >
@@ -197,7 +197,7 @@ export function PromptEditModal({
                   setPromptData(
                     produce(promptData, (draft) => {
                       draft.tailoredWords.push({ word, list: `<${list}>` });
-                    })
+                    }),
                   );
                 }}
               />
@@ -213,7 +213,7 @@ export function PromptEditModal({
                           setPromptData(
                             produce(promptData, (draft) => {
                               draft.tailoredWords.splice(index, 1);
-                            })
+                            }),
                           );
                         }}
                       >

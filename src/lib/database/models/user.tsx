@@ -10,7 +10,7 @@ export default class User extends Model {
     data: Partial<{
       username: string;
       password: string;
-    }>
+    }>,
   ) {
     super();
     this.username = data.username ?? "";
@@ -30,7 +30,7 @@ export default class User extends Model {
   }
 
   static async findAll(
-    options?: QueryOptions<{ username: string; password: string }>
+    options?: QueryOptions<{ username: string; password: string }>,
   ): Promise<User[]> {
     throw new Error("Method not implemented.");
   }

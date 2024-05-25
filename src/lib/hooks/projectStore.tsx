@@ -48,49 +48,49 @@ export const useProjectStore = create<ProjectStoreState>((set, get) => ({
           }
         });
         Object.assign(draft, updatedProject);
-      })
+      }),
     ),
   setPublic: (value) =>
     set((state) =>
       produce(state, (draft) => {
         draft.public = value;
-      })
+      }),
     ),
   setPrompts: (prompts) =>
     set((state) =>
       produce(state, (draft) => {
         draft.prompts = prompts;
-      })
+      }),
     ),
   setSentenceStructures: (sentenceStructures) =>
     set((state) =>
       produce(state, (draft) => {
         draft.sentenceStructures = sentenceStructures;
-      })
+      }),
     ),
   setWordLists: (wordLists) =>
     set((state) =>
       produce(state, (draft) => {
         draft.wordLists = wordLists;
-      })
+      }),
     ),
   setName: (name) =>
     set((state) =>
       produce(state, (draft) => {
         draft.name = name;
-      })
+      }),
     ),
   setDescription: (description) =>
     set((state) =>
       produce(state, (draft) => {
         draft.description = description;
-      })
+      }),
     ),
   getNextId: () => {
     set((state) =>
       produce(state, (draft) => {
         draft.idNumber += 1;
-      })
+      }),
     );
     return get().idNumber;
   },
