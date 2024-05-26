@@ -35,20 +35,19 @@ export const useProjectStore = create<ProjectStoreState>((set, get) => ({
   setProject: (project) =>
     set((state) =>
       produce(state, (draft) => {
+        let id = get().idNumber;
         const updatedProject = produce(project, (draft) => {
           for (const prompt of draft.prompts) {
-            prompt.id = get().getNextId().toString() as NumberedString;
+            prompt.id = (id++).toString() as NumberedString;
           }
           for (const sentenceStructure of draft.sentenceStructures) {
-            sentenceStructure.id = get()
-              .getNextId()
-              .toString() as NumberedString;
+            sentenceStructure.id = (id++).toString() as NumberedString;
           }
           for (const wordList of draft.wordLists) {
-            wordList.id = get().getNextId().toString() as NumberedString;
+            wordList.id = (id++).toString() as NumberedString;
           }
         });
-        Object.assign(draft, updatedProject);
+        Object.assign(draft, { ...updatedProject, idNumber: id });
       }),
     ),
   getProject: () => {

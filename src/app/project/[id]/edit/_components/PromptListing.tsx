@@ -51,6 +51,7 @@ export function PromptListing({
                     const index = allPrompts.findIndex(
                       (p) => p.id === prompt.id,
                     );
+                    if (index === -1) return;
                     draft.splice(index, 1);
                   }),
                 );
