@@ -4,6 +4,7 @@ import { useProjectStore } from "../hooks/projectStore";
 import { Tooltip } from "@mui/material";
 import { filterWordList } from "@/app/project/[id]/edit/_util/filterWordList";
 import OutsideClickDetector from "./OutsideClickDetector";
+import { WordListType } from "../types/blather";
 
 export function WordListTile({
   list,
@@ -83,21 +84,51 @@ function WordListMenu({
             {filteredLists.length === 0 && (
               <p className="text-gray-300">No lists found.</p>
             )}
+            {"PLAYERGUESS".includes(search.toUpperCase()) && (
+              <WordListMenuItem
+                list={
+                  {
+                    name: "PLAYERGUESS",
+                  } as WordListType
+                }
+                onClose={() => {
+                  onClose("PLAYERGUESS");
+                }}
+              />
+            )}
             {filteredLists.map((list) => (
-              <div key={list.id} className="flex gap-2">
-                <button
-                  className="w-full text-left"
-                  onClick={() => {
-                    onClose(list.name);
-                  }}
-                >
-                  {list.name}
-                </button>
-              </div>
+              <WordListMenuItem
+                key={list.id}
+                list={list}
+                onClose={() => {
+                  onClose(list.name);
+                }}
+              />
             ))}
           </div>
         </div>
       </div>
     </OutsideClickDetector>
+  );
+}
+
+function WordListMenuItem({
+  list,
+  onClose,
+}: {
+  list: WordListType;
+  onClose: () => void;
+}) {
+  return (
+    <div className="flex gap-2">
+      <button
+        className="w-full text-left"
+        onClick={() => {
+          onClose();
+        }}
+      >
+        {list.name}
+      </button>
+    </div>
   );
 }
