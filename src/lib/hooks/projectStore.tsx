@@ -17,6 +17,7 @@ interface ProjectStoreState extends ProjectType {
   setName: (name: string) => void;
   setDescription: (description: string) => void;
   setProject: (project: ProjectType) => void;
+  getProject: () => ProjectType;
   getNextId: () => number;
   idNumber: number;
 }
@@ -50,6 +51,20 @@ export const useProjectStore = create<ProjectStoreState>((set, get) => ({
         Object.assign(draft, updatedProject);
       }),
     ),
+  getProject: () => {
+    const data = get();
+    return {
+      id: data.id,
+      likes: data.likes,
+      name: data.name,
+      description: data.description,
+      public: data.public,
+      ownerId: data.ownerId,
+      prompts: data.prompts,
+      sentenceStructures: data.sentenceStructures,
+      wordLists: data.wordLists,
+    };
+  },
   setPublic: (value) =>
     set((state) =>
       produce(state, (draft) => {

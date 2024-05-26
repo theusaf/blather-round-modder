@@ -7,8 +7,8 @@ import {
 import { ProjectType } from "@/lib/types/project";
 import { Model, executeQuery } from ".";
 import { QueryOptions } from "@/lib/types/database";
-import { v4 as uuidv4 } from "uuid";
 import { firestore } from "../firebase";
+import { getRandomId } from "@/lib/util/getRandomId";
 
 export default class Project extends Model implements ProjectType {
   id: string | null;
@@ -35,7 +35,7 @@ export default class Project extends Model implements ProjectType {
   }
 
   async save(): Promise<this> {
-    if (!this.id) this.id = uuidv4();
+    if (!this.id) this.id = getRandomId();
     await firestore.collection("projects").doc(this.id).set({
       id: this.id,
       likes: this.likes,
