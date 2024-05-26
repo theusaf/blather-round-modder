@@ -1,6 +1,6 @@
 import "server-only";
 import { QueryOptions, QueryWhereOptions } from "@/lib/types/database";
-import { firestore } from "../firebase";
+import { Query } from "firebase-admin/firestore";
 
 export abstract class Model {
   abstract save(): Promise<this>;
@@ -8,7 +8,7 @@ export abstract class Model {
 }
 
 export async function executeQuery<T, TIface extends T = T>(
-  baseQuery: FirebaseFirestore.Query,
+  baseQuery: Query,
   queryOptions?: QueryOptions<TIface>,
 ): Promise<T[]> {
   let query = baseQuery;
@@ -19,7 +19,7 @@ export async function executeQuery<T, TIface extends T = T>(
     query = query.startAfter(queryOptions.cursor);
   }
   if (queryOptions?.where) {
-    recursiveWhere(query, queryOptions.where);
+    query = recursiveWhere(query, queryOptions.where);
   }
   const snapshot = await query.get();
   const data: T[] = [];

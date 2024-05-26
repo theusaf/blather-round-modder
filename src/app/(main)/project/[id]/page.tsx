@@ -2,6 +2,7 @@ import "server-only";
 import Link from "next/link";
 import Project from "@/lib/database/models/project";
 import SectionCard from "@/lib/components/SectionCard";
+import { notFound } from "next/navigation";
 
 export default async function ProjectPage({
   params,
@@ -9,6 +10,7 @@ export default async function ProjectPage({
   params: { id: string };
 }) {
   const project = await Project.findById(params.id);
+  if (!project) return notFound();
 
   return (
     <main className="p-2">
