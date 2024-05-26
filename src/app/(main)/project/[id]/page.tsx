@@ -16,7 +16,9 @@ export default async function ProjectPage({
     <main className="p-2">
       <div className="flex justify-between">
         <div>
-          <h1 className="text-2xl font-bold">{project.name}</h1>
+          <h1 className="text-2xl font-bold">
+            {project.name || "Untitled Project"}
+          </h1>
           <p>{project.description}</p>
         </div>
         <div className="flex gap-2 h-min">
