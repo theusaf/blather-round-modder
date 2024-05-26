@@ -1,15 +1,12 @@
 "use client";
 import { createProject } from "@/lib/actions/createProject";
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab, TabList, Tabs } from "@mui/joy";
 import { useState } from "react";
-import { useFormStatus } from "react-dom";
+import { CreationSubmissionButton } from "./CreationSubmissionButton";
 
 export function CreationForm() {
   const [selectedTab, setSelectedTab] = useState("scaffold");
   const [name, setName] = useState("");
-  const { pending } = useFormStatus();
 
   return (
     <form
@@ -69,22 +66,7 @@ export function CreationForm() {
           </TabList>
         </Tabs>
         <div className="flex justify-center">
-          <button
-            type="submit"
-            className="p-2 rounded-md bg-emerald-700 text-white shadow-sm shadow-black"
-            disabled={pending}
-          >
-            {pending && (
-              <span className="inline-flex items-center p-2">
-                <FontAwesomeIcon
-                  className="w-4 h-4"
-                  icon={faCircleNotch}
-                  spin
-                />
-              </span>
-            )}
-            {pending ? "Creating..." : "Create!"}
-          </button>
+          <CreationSubmissionButton />
         </div>
       </div>
     </form>
