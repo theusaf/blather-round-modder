@@ -4,6 +4,7 @@ import Project from "@/lib/database/models/project";
 import SectionCard from "@/lib/components/SectionCard";
 import { notFound } from "next/navigation";
 import { getUserSession } from "@/lib/util/auth";
+import { ProjectDownload } from "./_components/ProjectDownload";
 
 export default async function ProjectPage({
   params,
@@ -38,11 +39,26 @@ export default async function ProjectPage({
           <p>{project.description}</p>
         </div>
         <div className="flex gap-2 h-min">
-          <Link href={`/project/${params.id}/edit`}>
-            <button className="p-2 rounded-md bg-emerald-700 text-white">
-              Edit
-            </button>
-          </Link>
+          <ProjectDownload
+            project={{
+              id: project.id,
+              name: project.name,
+              description: project.description,
+              likes: project.likes,
+              ownerId: project.ownerId,
+              public: project.public,
+              sentenceStructures: project.sentenceStructures,
+              wordLists: project.wordLists,
+              prompts: project.prompts,
+            }}
+          />
+          {userDetails?.sub === project.ownerId && (
+            <Link href={`/project/${params.id}/edit`}>
+              <button className="p-2 rounded-md bg-emerald-700 text-white">
+                Edit
+              </button>
+            </Link>
+          )}
           <Link href={`/project/${params.id}/remix`}>
             <button className="p-2 rounded-md bg-emerald-700 text-white">
               Remix
