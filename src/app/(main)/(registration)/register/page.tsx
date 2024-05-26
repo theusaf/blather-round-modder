@@ -1,10 +1,18 @@
+"use client";
+import { registerWithPasswordAction } from "@/lib/actions/register";
 import Link from "next/link";
+import { useFormState } from "react-dom";
 
 export default function LoginPage() {
+  const [formState, formAction, pending] = useFormState(
+    registerWithPasswordAction,
+    null,
+  );
+
   return (
     <div className="p-2">
       <h2 className="text-2xl font-bold">Register</h2>
-      <form>
+      <form action={formAction}>
         <div className="flex flex-col gap-2">
           <div>
             <label htmlFor="username" className="font-bold">
@@ -56,6 +64,11 @@ export default function LoginPage() {
               I agree to the terms and conditions
             </label>
           </div>
+          {formState?.error && !pending && (
+            <div>
+              <p className="text-red-800">{formState.error}</p>
+            </div>
+          )}
           <button
             type="submit"
             className="w-full h-10 bg-emerald-800 text-white rounded-md mt-2"

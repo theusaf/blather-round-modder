@@ -1,11 +1,18 @@
-import { loginWithPassword } from "@/lib/actions/login";
+"use client";
+import { loginWithPasswordAction } from "@/lib/actions/login";
 import Link from "next/link";
+import { useFormState } from "react-dom";
 
 export default function LoginPage() {
+  const [formState, formAction, pending] = useFormState(
+    loginWithPasswordAction,
+    null,
+  );
+
   return (
     <div className="p-2">
       <h2 className="text-2xl font-bold">Log In</h2>
-      <form action={loginWithPassword}>
+      <form action={formAction}>
         <div className="flex flex-col gap-2">
           <div>
             <label htmlFor="username" className="font-bold">
@@ -33,6 +40,11 @@ export default function LoginPage() {
               required
             />
           </div>
+          {formState?.error && !pending && (
+            <div>
+              <p className="text-red-800">{formState.error}</p>
+            </div>
+          )}
           <button
             type="submit"
             className="w-full h-10 bg-emerald-800 text-white rounded-md mt-2"

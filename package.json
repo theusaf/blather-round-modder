@@ -19,6 +19,7 @@
     "@mui/joy": "5.0.0-beta.36",
     "@mui/material": "^5.15.18",
     "@zip.js/zip.js": "^2.7.44",
+    "argon2": "^0.40.3",
     "contrast-color": "^1.0.1",
     "firebase": "^10.12.1",
     "firebase-admin": "^12.1.1",
