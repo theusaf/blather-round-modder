@@ -1,4 +1,7 @@
 "use client";
+import { createProject } from "@/lib/actions/createProject";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab, TabList, Tabs } from "@mui/joy";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -9,7 +12,11 @@ export function CreationForm() {
   const { pending } = useFormStatus();
 
   return (
-    <form>
+    <form
+      action={() => {
+        createProject(name, selectedTab);
+      }}
+    >
       <div className="flex flex-col gap-2">
         <input
           className="bg-transparent text-xl font-semibold flex-1 text-center p-2"
@@ -35,13 +42,13 @@ export function CreationForm() {
         >
           <TabList disableUnderline>
             <Tab disableIndicator value="full">
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col h-full w-full">
                 <h4 className="text-lg font-semibold">Full</h4>
                 <p>Start with all the content from the base Jackbox game.</p>
               </div>
             </Tab>
             <Tab disableIndicator value="scaffold">
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col h-full w-full">
                 <h4 className="text-lg font-semibold">Scaffold</h4>
                 <p>
                   Start with the word lists and sentence structures from the
@@ -50,7 +57,7 @@ export function CreationForm() {
               </div>
             </Tab>
             <Tab disableIndicator value="empty">
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col h-full w-full">
                 <h4 className="text-lg font-semibold">Blanky</h4>
                 <p>
                   Start with the bare minimum: no word lists, sentence
@@ -65,8 +72,18 @@ export function CreationForm() {
           <button
             type="submit"
             className="p-2 rounded-md bg-emerald-700 text-white shadow-sm shadow-black"
+            disabled={pending}
           >
-            Create!
+            {pending && (
+              <span className="inline-flex items-center p-2">
+                <FontAwesomeIcon
+                  className="w-4 h-4"
+                  icon={faCircleNotch}
+                  spin
+                />
+              </span>
+            )}
+            {pending ? "Creating..." : "Create!"}
           </button>
         </div>
       </div>

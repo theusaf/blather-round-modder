@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import UserLoginHandler from "@/lib/components/UserLoginHandler";
-import { decrypt } from "@/lib/util/session";
-import { cookies } from "next/headers";
+import { getUserSession } from "@/lib/util/auth";
 
 const mainFont = Montserrat({ subsets: ["latin"] });
 
@@ -17,8 +16,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = cookies().get("session");
-  const userDetails = await decrypt(session?.value);
+  const userDetails = await getUserSession();
 
   return (
     <html lang="en">

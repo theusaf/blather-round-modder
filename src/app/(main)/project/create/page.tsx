@@ -1,12 +1,10 @@
 import SectionCard from "@/lib/components/SectionCard";
 import { CreationForm } from "./_components/CreationForm";
-import { decrypt } from "@/lib/util/session";
-import { cookies } from "next/headers";
 import Link from "next/link";
+import { getUserSession } from "@/lib/util/auth";
 
 export default async function CreateProjectPage() {
-  const session = cookies().get("session");
-  const userDetails = await decrypt(session?.value);
+  const userDetails = await getUserSession();
 
   return (
     <main className="p-2">
@@ -18,7 +16,13 @@ export default async function CreateProjectPage() {
           </SectionCard>
         </div>
       ) : (
-        <p>You must be <Link href="/login" className="underline">logged in</Link> to create a project.</p>
+        <p>
+          You must be{" "}
+          <Link href="/login" className="underline">
+            logged in
+          </Link>{" "}
+          to create a project.
+        </p>
       )}
     </main>
   );
