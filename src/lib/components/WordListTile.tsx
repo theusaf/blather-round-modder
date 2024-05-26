@@ -17,7 +17,8 @@ export function WordListTile({
   onOpen?: (event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>) => void;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
+  const ref = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     setMenuOpen(!!open);
   }, [open]);
@@ -35,7 +36,7 @@ export function WordListTile({
         disableFocusListener
         disableHoverListener
       >
-        <span
+        <button
           className="text-white bg-blue-500 rounded-md p-1 cursor-pointer"
           onClick={(event) => {
             onOpen?.(event);
@@ -45,7 +46,7 @@ export function WordListTile({
           ref={ref}
         >
           {list}
-        </span>
+        </button>
       </Tooltip>
     </>
   );
@@ -75,6 +76,7 @@ function WordListMenu({
           placeholder="Search"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
+          autoFocus
         />
         <div className="max-h-64 overflow-y-auto">
           <div className="grid grid-flow-row gap-2 text-md">
@@ -83,14 +85,14 @@ function WordListMenu({
             )}
             {filteredLists.map((list) => (
               <div key={list.id} className="flex gap-2">
-                <span
-                  className="w-full cursor-pointer"
+                <button
+                  className="w-full text-left"
                   onClick={() => {
                     onClose(list.name);
                   }}
                 >
                   {list.name}
-                </span>
+                </button>
               </div>
             ))}
           </div>
