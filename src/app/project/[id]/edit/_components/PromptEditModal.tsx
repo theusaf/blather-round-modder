@@ -12,7 +12,7 @@ import { TailoredWordEditSection } from "./TailoredWordEditSection";
 import SectionCard from "@/lib/components/SectionCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { WordListTile } from "@/lib/components/ListInputField";
+import { WordListTile } from "@/lib/components/WordListTile";
 
 export function PromptEditModal({
   initialInput,

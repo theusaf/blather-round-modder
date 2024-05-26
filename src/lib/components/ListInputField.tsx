@@ -1,5 +1,5 @@
-"use client";
-import { DetailedHTMLProps, HTMLAttributes, ReactNode, useState } from "react";
+import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
+import { WordListTile } from "./WordListTile";
 
 export function ListInputField(
   props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
@@ -44,7 +44,7 @@ export function ListInputField(
   return (
     <div
       {...divProps}
-      className={`border-2 border-slate-400 rounded-md h-10 cursor-text flex items-center gap-2 ${props.className ?? ""}`}
+      className={`border-2 border-slate-400 rounded-md h-14 cursor-text flex items-center gap-2 ${props.className ?? ""}`}
     >
       <div className="flex-1 items-center h-full flex border-slate-400 border-r-2 rounded-md p-2">
         <input
@@ -59,8 +59,4 @@ export function ListInputField(
       </div>
     </div>
   );
-}
-
-export function WordListTile({ list }: { list: string }) {
-  return <span className="text-white bg-blue-500 rounded-md p-1">{list}</span>;
 }

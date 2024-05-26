@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { ListEditModal } from "../ListEditModal";
 import { produce } from "immer";
 import { WordListing } from "../WordListing";
+import { filterWordList } from "../../_util/filterWordList";
 
 export default function WordListSection() {
   const wordLists = useProjectStore((state) => state.wordLists);
@@ -15,15 +16,7 @@ export default function WordListSection() {
   const [listModal, setListModal] = useState<WordListType | null>(null);
   const [search, setSearch] = useState("");
   const filteredWordLists = useMemo(
-    () =>
-      wordLists.filter((list) => {
-        return (
-          list.name.toLowerCase().includes(search.toLowerCase()) ||
-          list.words.some((word) => {
-            return word.word.toLowerCase().includes(search.toLowerCase());
-          })
-        );
-      }),
+    () => wordLists.filter((list) => filterWordList(list, search)),
     [wordLists, search],
   );
 
