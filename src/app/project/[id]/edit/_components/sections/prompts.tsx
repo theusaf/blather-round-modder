@@ -35,7 +35,7 @@ export default function PromptSection() {
 
   return (
     <>
-      <h3 className="text-lg font-semibold">Prompts</h3>
+      <h3 className="text-lg font-semibold">Prompts ({prompts.length})</h3>
       <div className="flex-1">
         <div className="flex flex-wrap md:flex-nowrap gap-2 justify-between">
           <input
