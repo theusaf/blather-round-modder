@@ -31,7 +31,7 @@ export function WordListTile({
   return (
     <>
       <Tooltip
-        title={<WordListMenu onClose={handleClose} />}
+        title={<WordListMenu onClose={handleClose} initialValue={list} />}
         open={menuOpen}
         disableFocusListener
         disableHoverListener
@@ -54,10 +54,12 @@ export function WordListTile({
 
 function WordListMenu({
   onClose,
+  initialValue,
 }: {
   onClose: (selection: string | null) => void;
+  initialValue: string;
 }) {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(initialValue);
   const wordLists = useProjectStore((state) => state.wordLists);
   const filteredLists = useMemo(() => {
     return wordLists.filter((list) => filterWordList(list, search));
