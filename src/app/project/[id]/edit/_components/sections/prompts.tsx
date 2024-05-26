@@ -57,7 +57,7 @@ export default function PromptSection() {
             <SelectOption value="thing">Thing</SelectOption>
             <SelectOption value="person">Person</SelectOption>
             <SelectOption value="place">Place</SelectOption>
-            <SelectOption value="story">Action</SelectOption>
+            <SelectOption value="story">Story</SelectOption>
           </select>
           <select
             className="p-2"
