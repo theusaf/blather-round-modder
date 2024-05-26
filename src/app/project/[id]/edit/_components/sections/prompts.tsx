@@ -3,7 +3,12 @@ import { useProjectStore } from "@/lib/hooks/projectStore";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PromptListing } from "../PromptListing";
-import { NumberedString, PromptType } from "@/lib/types/blather";
+import {
+  Category,
+  Difficulty,
+  NumberedString,
+  PromptType,
+} from "@/lib/types/blather";
 import { useMemo, useState } from "react";
 import { produce } from "immer";
 import { PromptEditModal } from "../PromptEditModal";
@@ -14,13 +19,18 @@ export default function PromptSection() {
   const getNextId = useProjectStore((state) => state.getNextId);
   const [modal, setModal] = useState<PromptType | null>(null);
   const [search, setSearch] = useState<string>("");
+  const [filterCategory, setFilterCategory] = useState<Category | "">("");
+  const [filterDifficulty, setFilterDifficulty] = useState<Difficulty | "">("");
 
   const filteredPrompts = useMemo(
     () =>
-      prompts.filter((prompt) =>
-        prompt.password.toLowerCase().includes(search.toLowerCase()),
-      ),
-    [prompts, search],
+      prompts.filter((prompt) => {
+        if (filterCategory && prompt.category !== filterCategory) return false;
+        if (filterDifficulty && prompt.difficulty !== filterDifficulty)
+          return false;
+        return prompt.password.toLowerCase().includes(search.toLowerCase());
+      }),
+    [prompts, search, filterCategory, filterDifficulty],
   );
 
   return (
@@ -36,6 +46,31 @@ export default function PromptSection() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          <select
+            className="p-2"
+            value={filterCategory}
+            onChange={(event) => {
+              setFilterCategory(event.target.value as Category | "");
+            }}
+          >
+            <SelectOption value="">Choose Category</SelectOption>
+            <SelectOption value="thing">Thing</SelectOption>
+            <SelectOption value="person">Person</SelectOption>
+            <SelectOption value="place">Place</SelectOption>
+            <SelectOption value="story">Action</SelectOption>
+          </select>
+          <select
+            className="p-2"
+            value={filterDifficulty}
+            onChange={(event) => {
+              setFilterDifficulty(event.target.value as Difficulty | "");
+            }}
+          >
+            <SelectOption value="">Choose Difficulty</SelectOption>
+            <SelectOption value="easy">Easy</SelectOption>
+            <SelectOption value="medium">Medium</SelectOption>
+            <SelectOption value="hard">Hard</SelectOption>
+          </select>
           <div>
             <button
               className="flex items-center h-full"
@@ -88,5 +123,19 @@ export default function PromptSection() {
         open={modal !== null}
       />
     </>
+  );
+}
+
+function SelectOption({
+  children,
+  value,
+}: {
+  children: string;
+  value: string;
+}) {
+  return (
+    <option className="font-sans" value={value}>
+      {children}
+    </option>
   );
 }
