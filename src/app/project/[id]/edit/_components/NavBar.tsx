@@ -3,7 +3,8 @@ import { useProjectStore } from "@/lib/hooks/projectStore";
 import NavIcon from "@/lib/components/NavIcon";
 import { useState } from "react";
 import { ProjectSettingsModal } from "./ProjectSettingsModal";
-import Link from "next/link";
+import { ExitButton } from "./ExitButton";
+import { SaveButton } from "./SaveButton";
 
 export default function NavBar() {
   const title = useProjectStore((state) => state.name);
@@ -37,9 +38,7 @@ export default function NavBar() {
               </div>
             </button>
             <div className="flex gap-2 font-semibold">
-              <button className="p-2 rounded-md bg-slate-200 text-black shadow-sm shadow-slate-700">
-                Save
-              </button>
+              <SaveButton />
               <ExitButton />
             </div>
           </div>
@@ -50,24 +49,5 @@ export default function NavBar() {
         onClose={() => setModalOpen(false)}
       />
     </>
-  );
-}
-
-function ExitButton() {
-  const id = useProjectStore((state) => state.id);
-
-  return (
-    <Link
-      href={`/project/${id}`}
-      onClick={(event) => {
-        if (!confirm("Are you sure you want to exit?")) {
-          event.preventDefault();
-        }
-      }}
-    >
-      <button className="p-2 rounded-md bg-slate-200 text-black shadow-sm shadow-slate-700">
-        Exit
-      </button>
-    </Link>
   );
 }
