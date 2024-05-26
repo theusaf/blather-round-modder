@@ -1,10 +1,14 @@
 import { WordListType } from "@/lib/types/blather";
 
 export function filterWordList(list: WordListType, search: string) {
+  const lowerListName = list.name.toLowerCase();
+  const lowerListNameWithSpaces = lowerListName.replace(/-/g, " ");
+  const lowerSearch = search.toLowerCase();
   return (
-    list.name.toLowerCase().includes(search.toLowerCase()) ||
+    lowerListName.includes(lowerSearch) ||
+    lowerListNameWithSpaces.includes(lowerSearch) ||
     list.words.some((word) => {
-      return word.word.toLowerCase().includes(search.toLowerCase());
+      return word.word.toLowerCase().includes(lowerSearch);
     })
   );
 }

@@ -19,7 +19,6 @@ export function WordListTile({
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
-  const menuRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     setMenuOpen(!!open);
   }, [open]);
@@ -80,7 +79,7 @@ function WordListMenu({
           autoFocus
         />
         <div className="max-h-64 overflow-y-auto">
-          <div className="grid grid-flow-row gap-2 text-md">
+          <div className="grid grid-flow-row text-md">
             {filteredLists.length === 0 && (
               <p className="text-gray-300">No lists found.</p>
             )}
@@ -119,16 +118,38 @@ function WordListMenuItem({
   list: WordListType;
   onClose: () => void;
 }) {
+  const words = list.words ?? [];
+
   return (
-    <div className="flex gap-2">
-      <button
-        className="w-full text-left"
-        onClick={() => {
-          onClose();
-        }}
-      >
-        {list.name}
-      </button>
-    </div>
+    <Tooltip
+      title={
+        <div className="max-h-64 overflow-y-auto">
+          {words.length === 0 ? (
+            <span>Built-in constant for player responses.</span>
+          ) : (
+            <div className="text-left">
+              <ul>
+                {words.map((word, index) => (
+                  <li key={index}>{word.word}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      }
+      placement="left"
+      arrow
+    >
+      <div className="flex gap-2 py-1">
+        <button
+          className="w-full text-left"
+          onClick={() => {
+            onClose();
+          }}
+        >
+          {list.name}
+        </button>
+      </div>
+    </Tooltip>
   );
 }
