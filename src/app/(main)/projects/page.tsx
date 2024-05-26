@@ -5,6 +5,9 @@ import Link from "next/link";
 export default async function ProjectsPage() {
   const projects = await Project.findAll({
     limit: 25,
+    where: {
+      public: true,
+    },
   });
 
   return (
