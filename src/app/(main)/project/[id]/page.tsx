@@ -3,6 +3,7 @@ import Link from "next/link";
 import Project from "@/lib/database/models/project";
 import SectionCard from "@/lib/components/SectionCard";
 import { notFound } from "next/navigation";
+import { getUserSession } from "@/lib/util/auth";
 
 export default async function ProjectPage({
   params,
@@ -11,6 +12,21 @@ export default async function ProjectPage({
 }) {
   const project = await Project.findById(params.id);
   if (!project) return notFound();
+  const userDetails = await getUserSession();
+  if (!project.public && project.ownerId !== userDetails?.sub) {
+    return (
+      <div className="p-2">
+        <p className="font-extrabold">
+          You do not have permission to view this project.
+        </p>
+        <Link href="/">
+          <button className="p-2 rounded-md bg-emerald-700 text-white">
+            Go Home
+          </button>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <main className="p-2">
