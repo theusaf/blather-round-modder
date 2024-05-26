@@ -3,6 +3,7 @@ import { useState } from "react";
 import { LabeledInput } from "@/lib/components/LabeledInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { WordListTile } from "@/lib/components/WordListTile";
 
 export function TailoredWordEditSection({
   onSubmit,
@@ -38,6 +39,7 @@ export function TailoredWordEditSection({
             setList(value);
           }}
         />
+        <WordListTile list="Search!" useValue={false} />
         <button
           className="flex items-end mb-2"
           onClick={() => {

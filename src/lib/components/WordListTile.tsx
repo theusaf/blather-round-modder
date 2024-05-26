@@ -11,11 +11,13 @@ export function WordListTile({
   open,
   onClose,
   onOpen,
+  useValue = true,
 }: {
   list: string;
   open?: boolean;
   onClose?: (selection: string | null) => void;
   onOpen?: (event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>) => void;
+  useValue?: boolean;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
@@ -31,7 +33,12 @@ export function WordListTile({
   return (
     <>
       <Tooltip
-        title={<WordListMenu onClose={handleClose} initialValue={list} />}
+        title={
+          <WordListMenu
+            onClose={handleClose}
+            initialValue={useValue ? list : ""}
+          />
+        }
         open={menuOpen}
         disableFocusListener
         disableHoverListener
