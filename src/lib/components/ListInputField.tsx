@@ -17,7 +17,20 @@ export function ListInputField(
       listContent = "";
     } else if (value[i] === ">" && isInList) {
       isInList = false;
-      displayItems.push(<WordListTile key={i} list={listContent} />);
+
+      const currentStartPosition = i - listContent.length - 1;
+      displayItems.push(
+        <WordListTile
+          key={i}
+          list={listContent}
+          onClose={(item) => {
+            if (!item) return;
+            onValueChange(
+              value.slice(0, currentStartPosition + 1) + item + value.slice(i),
+            );
+          }}
+        />,
+      );
     } else {
       if (isInList) {
         listContent += value[i];
