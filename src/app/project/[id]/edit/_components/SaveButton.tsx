@@ -9,13 +9,21 @@ import { useState } from "react";
 export function SaveButton() {
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [savedTime, setSavedTime] = useState<number | null>(null);
 
   return (
     <>
       {saved && (
         <div className="hidden md:flex items-center gap-2 text-slate-300">
           <FontAwesomeIcon icon={faCheck} />
-          <span>Saved</span>
+          <span>
+            Saved
+            {savedTime ? (
+              <span>{` at ${new Date(savedTime).toLocaleTimeString()}`}</span>
+            ) : (
+              ""
+            )}
+          </span>
         </div>
       )}
       <button
@@ -26,6 +34,7 @@ export function SaveButton() {
           await saveProject(useProjectStore.getState().getProject());
           setSaving(false);
           setSaved(true);
+          setSavedTime(Date.now());
         }}
         disabled={saving}
       >

@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import Project from "../database/models/project";
 import { ProjectType } from "../types/project";
 import { getUserSession } from "../util/auth";
@@ -24,4 +25,6 @@ export async function saveProject(project: ProjectType) {
     wordLists: project.wordLists,
   });
   await existing.save();
+  revalidatePath(`/project/${id}`);
+  revalidatePath(`/project/${id}/edit`);
 }
