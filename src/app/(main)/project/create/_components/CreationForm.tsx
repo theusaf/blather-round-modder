@@ -35,7 +35,7 @@ export function CreationForm() {
             if (!value) return;
             setSelectedTab(value as string);
           }}
-          className="rounded-md p-1 border-slate-400 border-2 *:grid *:grid-rows-3 md:*:grid-rows-none md:*:grid-cols-3"
+          className="rounded-md p-1 border-slate-400 border-2 *:!grid *:grid-rows-3 md:*:grid-rows-none md:*:grid-cols-3"
         >
           <TabList disableUnderline>
             <Tab disableIndicator value="full">
