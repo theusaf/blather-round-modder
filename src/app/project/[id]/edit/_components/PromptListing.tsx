@@ -19,11 +19,11 @@ export function PromptListing({
   const setPrompts = useProjectStore((state) => state.setPrompts);
 
   return (
-    <div className="flex gap-2 flex-wrap">
+    <div className="gap-2 grid md:grid-cols-3 lg:grid-cols-4">
       {prompts.map((prompt, index) => (
-        <SectionCard key={index} className="flex gap-2 w-min">
-          <div className="flex flex-col gap-2">
-            <div className="flex gap-2">
+        <SectionCard key={index} className="flex gap-2 w-full justify-between">
+          <div className="flex flex-col gap-2 flex-shrink min-w-0">
+            <div className="flex gap-2 overflow-x-hidden">
               <CategoryLabel category={prompt.category} />
               <DifficultyLabel difficulty={prompt.difficulty} />
             </div>
