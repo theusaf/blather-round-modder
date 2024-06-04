@@ -5,6 +5,7 @@ import { Query } from "firebase-admin/firestore";
 export abstract class Model {
   abstract save(): Promise<this>;
   abstract delete(): Promise<void>;
+  abstract toJSON(): unknown;
 }
 
 export async function executeQuery<T, TIface extends T = T>(
@@ -12,14 +13,15 @@ export async function executeQuery<T, TIface extends T = T>(
   queryOptions?: QueryOptions<TIface>,
 ): Promise<T[]> {
   let query = baseQuery;
+  // query = query.orderBy("id");
+  if (queryOptions?.where) {
+    query = recursiveWhere(query, queryOptions.where);
+  }
   if (queryOptions?.limit) {
     query = query.limit(queryOptions.limit);
   }
   if (queryOptions?.cursor) {
-    query = query.startAfter(queryOptions.cursor);
-  }
-  if (queryOptions?.where) {
-    query = recursiveWhere(query, queryOptions.where);
+    query = query.offset(queryOptions.cursor);
   }
   const snapshot = await query.get();
   const data: T[] = [];

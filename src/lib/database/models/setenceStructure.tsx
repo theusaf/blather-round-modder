@@ -25,6 +25,14 @@ export default class SentenceStructure
     this.project = project;
   }
 
+  toJSON(): SentenceStructureType {
+    return {
+      id: this.id,
+      category: this.category,
+      structures: this.structures,
+    };
+  }
+
   async save(): Promise<this> {
     throw new Error("Method not implemented.");
   }

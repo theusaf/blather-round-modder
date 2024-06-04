@@ -35,6 +35,20 @@ export default class Prompt extends Model implements PromptType {
     this.project = project;
   }
 
+  toJSON(): PromptType {
+    return {
+      alternateSpellings: this.alternateSpellings,
+      category: this.category,
+      difficulty: this.difficulty,
+      forbiddenWords: this.forbiddenWords,
+      id: this.id,
+      password: this.password,
+      subcategory: this.subcategory,
+      tailoredWords: this.tailoredWords,
+      us: this.us,
+    };
+  }
+
   save(): Promise<this> {
     throw new Error("Method not implemented.");
   }

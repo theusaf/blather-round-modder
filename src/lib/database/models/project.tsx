@@ -34,6 +34,20 @@ export default class Project extends Model implements ProjectType {
     this.wordLists = data.wordLists ?? [];
   }
 
+  toJSON(): ProjectType {
+    return {
+      id: this.id,
+      likes: this.likes,
+      name: this.name,
+      description: this.description,
+      public: this.public,
+      ownerId: this.ownerId,
+      prompts: this.prompts,
+      sentenceStructures: this.sentenceStructures,
+      wordLists: this.wordLists,
+    };
+  }
+
   async save(): Promise<this> {
     if (!this.id) this.id = getRandomId();
     await firestore.collection("projects").doc(this.id).set({

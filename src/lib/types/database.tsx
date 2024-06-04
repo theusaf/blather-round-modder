@@ -12,5 +12,6 @@ export type QueryWhereOptions<T> = {
 export interface QueryOptions<T> {
   cursor?: number;
   limit?: number;
+  orderBy?: keyof T;
   where?: QueryWhereOptions<T>;
 }

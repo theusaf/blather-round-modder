@@ -11,3 +11,13 @@ export interface ProjectType {
   sentenceStructures: SentenceStructureType[];
   wordLists: WordListType[];
 }
+
+export interface ShallowProjectType {
+  id: string | null;
+  likes: number;
+  public: boolean;
+  name: string;
+  ownerId: string | null;
+  description: string | null;
+  promptCount: number;
+}

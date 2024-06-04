@@ -18,6 +18,13 @@ export default class User extends Model {
     this.password = data.password ?? "";
   }
 
+  toJSON(): { username: string; password: string } {
+    return {
+      username: this.username,
+      password: this.password,
+    };
+  }
+
   async save(): Promise<this> {
     await firestore.collection("users").doc(this.username).set({
       username: this.username,
