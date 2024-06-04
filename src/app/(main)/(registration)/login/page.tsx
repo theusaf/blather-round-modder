@@ -1,11 +1,18 @@
 "use client";
 import { loginWithPasswordAction } from "@/lib/actions/login";
+import { startProgress, stopProgress } from "next-nprogress-bar";
 import Link from "next/link";
 import { useFormState } from "react-dom";
 
 export default function LoginPage() {
   const [formState, formAction, pending] = useFormState(
-    loginWithPasswordAction,
+    (_: unknown, data: FormData) => {
+      startProgress();
+      return loginWithPasswordAction(_, data).then((data) => {
+        stopProgress();
+        return data;
+      });
+    },
     null,
   );
 

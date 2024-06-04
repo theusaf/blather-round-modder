@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Project from "../database/models/project";
 import { getUserSession } from "../util/auth";
 import { getBaseProject } from "../util/getBaseProject";
+import revalidateProjectPaths from "../util/revalidateProjectPaths";
 
 export async function createProject(name: string, type: string) {
   const userSession = await getUserSession();
@@ -114,5 +115,6 @@ export async function createProject(name: string, type: string) {
     }
   }
   await project.save();
+  revalidateProjectPaths(userSession.sub);
   redirect(`/project/${project.id}/edit`);
 }

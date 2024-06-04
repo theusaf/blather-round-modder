@@ -6,7 +6,13 @@ import { useFormState } from "react-dom";
 
 export default function LoginPage() {
   const [formState, formAction, pending] = useFormState(
-    registerWithPasswordAction,
+    (_: unknown, data: FormData) => {
+      startProgress();
+      return registerWithPasswordAction(_, data).then((data) => {
+        stopProgress();
+        return data;
+      });
+    },
     null,
   );
 

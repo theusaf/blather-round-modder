@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Divider, Menu, MenuItem } from "@mui/material";
+import { startProgress, stopProgress } from "next-nprogress-bar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
@@ -53,7 +54,14 @@ export function UserNavMenu() {
               </div>
             </MenuItem>
             <Divider />
-            <MenuItem onClick={() => logout(pathname)}>
+            <MenuItem
+              onClick={() => {
+                startProgress();
+                logout(pathname).then(() => {
+                  stopProgress();
+                });
+              }}
+            >
               <div className="flex gap-2 items-center">
                 <FontAwesomeIcon icon={faRightFromBracket} />
                 <span>Log Out</span>

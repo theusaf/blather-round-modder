@@ -3,6 +3,7 @@ import { createProject } from "@/lib/actions/createProject";
 import { Tab, TabList, Tabs } from "@mui/joy";
 import { useState } from "react";
 import { CreationSubmissionButton } from "./CreationSubmissionButton";
+import { startProgress, stopProgress } from "next-nprogress-bar";
 
 export function CreationForm() {
   const [selectedTab, setSelectedTab] = useState("scaffold");
@@ -11,7 +12,10 @@ export function CreationForm() {
   return (
     <form
       action={() => {
-        createProject(name, selectedTab);
+        startProgress();
+        createProject(name, selectedTab).then(() => {
+          stopProgress();
+        });
       }}
     >
       <div className="flex flex-col gap-2">

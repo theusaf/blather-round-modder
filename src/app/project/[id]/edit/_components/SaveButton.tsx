@@ -19,7 +19,11 @@ export function SaveButton() {
           <span>
             Saved
             {savedTime ? (
-              <span>{` at ${new Date(savedTime).toLocaleTimeString()}`}</span>
+              <span>
+                {savedTime !== -1
+                  ? ` at ${new Date(savedTime).toLocaleTimeString()}`
+                  : "Failed to save."}
+              </span>
             ) : (
               ""
             )}
@@ -31,10 +35,16 @@ export function SaveButton() {
         onClick={async () => {
           setSaving(true);
           setSaved(false);
-          await saveProject(useProjectStore.getState().getProject());
-          setSaving(false);
-          setSaved(true);
-          setSavedTime(Date.now());
+          try {
+            await saveProject(useProjectStore.getState().getProject());
+            setSavedTime(Date.now());
+          } catch (e) {
+            console.error(e);
+            setSavedTime(-1);
+          } finally {
+            setSaving(false);
+            setSaved(true);
+          }
         }}
         disabled={saving}
       >

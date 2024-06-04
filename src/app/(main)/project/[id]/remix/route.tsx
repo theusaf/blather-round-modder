@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getUserSession } from "@/lib/util/auth";
 import { redirect } from "next/navigation";
 import Project from "@/lib/database/models/project";
+import { revalidatePath } from "next/cache";
+import revalidateProjectPaths from "@/lib/util/revalidateProjectPaths";
 
 export async function GET(
   _: NextRequest,
@@ -37,5 +39,6 @@ export async function GET(
     wordLists: baseProject.wordLists,
   });
   await project.save();
+  revalidateProjectPaths(user.sub);
   return redirect(`/project/${project.id}/edit`);
 }

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import Project from "../database/models/project";
 import { ProjectType } from "../types/project";
 import { getUserSession } from "../util/auth";
+import revalidateProjectPaths from "../util/revalidateProjectPaths";
 
 export async function saveProject(project: ProjectType) {
   const userDetails = await getUserSession();
@@ -27,4 +28,5 @@ export async function saveProject(project: ProjectType) {
   await existing.save();
   revalidatePath(`/project/${id}`);
   revalidatePath(`/project/${id}/edit`);
+  revalidateProjectPaths(userDetails.sub);
 }
