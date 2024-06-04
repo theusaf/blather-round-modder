@@ -4,8 +4,9 @@ import ProjectListing from "../_components/ProjectListing";
 import { ShallowProjectType } from "@/lib/types/project";
 
 export default async function ProjectsPage() {
+  const limit = 10;
   const projects = await Project.findAll({
-    limit: 25,
+    limit,
     where: {
       public: true,
     },
@@ -16,8 +17,8 @@ export default async function ProjectsPage() {
       <h1 className="text-2xl font-bold mb-2">Projects</h1>
       <ProjectListing
         options={{
-          limit: 10,
-          cursor: projects.length,
+          limit,
+          cursor: Math.max(projects.length, limit),
         }}
         projects={projects.map((p) => {
           const project: ShallowProjectType = {
