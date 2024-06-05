@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useEffect, RefObject, ReactNode } from "react";
 
 // Source: https://stackoverflow.com/a/42234988/

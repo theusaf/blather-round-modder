@@ -1,6 +1,6 @@
 "use client";
 import { ProjectListingAPIOptions } from "@/lib/types/api";
-import { ProjectType, ShallowProjectType } from "@/lib/types/project";
+import { ShallowProjectType } from "@/lib/types/project";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
