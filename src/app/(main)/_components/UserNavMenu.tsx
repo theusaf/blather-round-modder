@@ -36,23 +36,21 @@ export function UserNavMenu() {
           >
             <p className="px-4 py-2 text-slate-">Welcome {user.sub}!</p>
             <Divider />
-            <MenuItem>
-              <Link href={`/profile/${encodeURIComponent(user.sub!)}`}>
-                Profile
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href={`/profile/${encodeURIComponent(user.sub!)}/projects`}>
-                My Projects
-              </Link>
-            </MenuItem>
+            <Link href={`/profile/${encodeURIComponent(user.sub!)}`}>
+              <MenuItem>Profile</MenuItem>
+            </Link>
+            <Link href={`/profile/${encodeURIComponent(user.sub!)}/projects`}>
+              <MenuItem>My Projects</MenuItem>
+            </Link>
             <Divider />
-            <MenuItem>
-              <div className="flex gap-2 items-center">
-                <FontAwesomeIcon icon={faPlusCircle} />
-                <Link href="/project/create">Create Project</Link>
-              </div>
-            </MenuItem>
+            <Link href="/project/create">
+              <MenuItem>
+                <div className="flex gap-2 items-center">
+                  <FontAwesomeIcon icon={faPlusCircle} />
+                  <span>Create Project</span>
+                </div>
+              </MenuItem>
+            </Link>
             <Divider />
             <MenuItem
               onClick={() => {
