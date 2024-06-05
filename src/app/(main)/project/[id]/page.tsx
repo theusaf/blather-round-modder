@@ -5,6 +5,7 @@ import SectionCard from "@/lib/components/SectionCard";
 import { notFound } from "next/navigation";
 import { getUserSession } from "@/lib/util/auth";
 import { ProjectDownload } from "./_components/ProjectDownload";
+import { DeleteButton } from "./_components/DeleteButton";
 
 export default async function ProjectPage({
   params,
@@ -64,6 +65,9 @@ export default async function ProjectPage({
               Remix
             </button>
           </Link>
+          {userDetails?.sub === project.ownerId && (
+            <DeleteButton project={project.toJSON()} />
+          )}
         </div>
       </div>
       <hr className="my-2" />
