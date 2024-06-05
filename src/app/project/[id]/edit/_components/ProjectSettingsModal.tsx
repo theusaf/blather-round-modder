@@ -26,6 +26,7 @@ export function ProjectSettingsModal({
           name="modal-title"
           inputId="modal-title"
           placeholder="Enter title"
+          className="w-0"
           value={title}
           onValueChange={(value) => setTitle(value)}
         />
