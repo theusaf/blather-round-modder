@@ -196,6 +196,7 @@ function NewWordInput({
         value={newWord}
         onKeyDown={(event) => {
           if (event.code === "Enter") {
+            if (newWord === "") return;
             onComplete(newWord, alwaysChoose);
             setAlwaysChoose(false);
             setNewWord("");

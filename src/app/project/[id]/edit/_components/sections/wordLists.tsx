@@ -61,15 +61,17 @@ export default function WordListSection() {
         listModal={listModal}
         onComplete={(result) => {
           if (result.id === "000") {
-            // new list item
-            setWordLists(
-              produce(wordLists, (draft) => {
-                const finalResult = produce(result, (draft) => {
-                  draft.id = getNextId().toString() as NumberedString;
-                });
-                draft.push(finalResult);
-              }),
-            );
+            if (result.name) {
+              // new list item
+              setWordLists(
+                produce(wordLists, (draft) => {
+                  const finalResult = produce(result, (draft) => {
+                    draft.id = getNextId().toString() as NumberedString;
+                  });
+                  draft.push(finalResult);
+                }),
+              );
+            }
           } else {
             // update list item
             setWordLists(

@@ -99,15 +99,17 @@ export default function PromptSection() {
         initialInput={modal}
         onComplete={(result) => {
           if (result.id === "000") {
-            setPrompts(
-              produce(prompts, (draft) => {
-                draft.push(
-                  produce(result, (draft) => {
-                    draft.id = getNextId().toString() as NumberedString;
-                  }),
-                );
-              }),
-            );
+            if (result.password) {
+              setPrompts(
+                produce(prompts, (draft) => {
+                  draft.push(
+                    produce(result, (draft) => {
+                      draft.id = getNextId().toString() as NumberedString;
+                    }),
+                  );
+                }),
+              );
+            }
           } else {
             setPrompts(
               produce(prompts, (draft) => {
