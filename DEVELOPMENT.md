@@ -21,3 +21,5 @@ In Next.JS, you can place these variables in the `.env.local` file.
 1. Clone the repository and navigate to the project directory.
 2. Install the project dependencies by running `npm install`.
 3. Start the development server by running `npm run dev`.
+4. Open your browser and navigate to `http://localhost:3000`.
+   - To set up the initial database, navigate to `http://localhost:3000/api/initialize`.
