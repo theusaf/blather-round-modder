@@ -19,7 +19,7 @@ export default async function ProfilePage({
   return (
     <main className="p-2">
       <h1 className="text-2xl font-bold">
-        <span>{params.id}</span>'s Projects
+        <span>{params.id}</span>&apos;s Projects
       </h1>
       <ProjectListing
         options={{

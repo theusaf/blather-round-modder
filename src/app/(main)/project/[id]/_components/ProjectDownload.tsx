@@ -145,7 +145,8 @@ export function ProjectDownload({ project }: { project: ProjectType }) {
           <ol className="list-decimal list-inside font-sans">
             <li>Extract the files from the zip somewhere on your computer.</li>
             <li>
-              In a file explorer, navigate to the Blather 'Round game files.
+              In a file explorer, navigate to the Blather &apos;Round game
+              files.
               <ul className="list-disc list-inside ml-4">
                 <li>
                   The path might look something like{" "}

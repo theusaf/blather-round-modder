@@ -39,7 +39,7 @@ function useOutsideAlerter({
       document.removeEventListener("pointerup", handleClick);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [ref]);
+  }, [ref, detectEscape, onClick, onClickOutside, includeRefs]);
 }
 
 /**

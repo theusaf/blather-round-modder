@@ -35,8 +35,8 @@ export function DeleteButton({ project }: { project: ProjectType }) {
           Are you sure you want to delete this project?
         </h4>
         <p>
-          To do so, enter "<span className="font-bold">{project.name}</span>"
-          below.
+          To do so, enter &quot;
+          <span className="font-bold">{project.name}</span>&quot; below.
         </p>
         <LabeledInput
           className={!doesMatch ? "*:border-red-500" : ""}

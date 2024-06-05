@@ -2,9 +2,9 @@
 import { Tooltip } from "@mui/material";
 import { WordListType } from "../types/blather";
 
-
 export function WordListMenuItem({
-  list, onClose,
+  list,
+  onClose,
 }: {
   list: WordListType;
   onClose: () => void;
@@ -13,19 +13,21 @@ export function WordListMenuItem({
 
   return (
     <Tooltip
-      title={<div className="max-h-64 overflow-y-auto">
-        {words.length === 0 ? (
-          <span>Built-in constant for player responses.</span>
-        ) : (
-          <div className="text-left">
-            <ul>
-              {words.map((word, index) => (
-                <li key={index}>{word.word}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>}
+      title={
+        <div className="max-h-64 overflow-y-auto">
+          {words.length === 0 ? (
+            <span>Built-in constant for player responses.</span>
+          ) : (
+            <div className="text-left">
+              <ul>
+                {words.map((word, index) => (
+                  <li key={index}>{word.word}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      }
       placement="left"
       arrow
     >

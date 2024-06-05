@@ -17,7 +17,7 @@ export function WordListMenu({
   const wordLists = useProjectStore((state) => state.wordLists);
   const filteredLists = useMemo(() => {
     return wordLists.filter((list) => filterWordList(list, search));
-  }, [search]);
+  }, [search, wordLists]);
 
   return (
     <OutsideClickDetector

@@ -39,10 +39,14 @@ export function TailoredWordEditSection({
             setList(value);
           }}
         />
-        <WordListTile list="Search!" useValue={false} onClose={(selection) => {
-          if (!selection) return;
-          setList(selection);
-        }} />
+        <WordListTile
+          list="Search!"
+          useValue={false}
+          onClose={(selection) => {
+            if (!selection) return;
+            setList(selection);
+          }}
+        />
         <button
           className="flex items-end mb-2"
           onClick={() => {
