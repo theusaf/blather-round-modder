@@ -1,6 +1,12 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 import { WordListTile } from "./WordListTile";
 
+/**
+ * A styled input field that allows for the input of lists.
+ *
+ * @param value The current value of the list input.
+ * @param onValueChange The function to call when the value changes.
+ */
 export function ListInputField(
   props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
     value: string;

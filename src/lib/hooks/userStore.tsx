@@ -8,6 +8,9 @@ interface UserStoreState {
   logout: () => void;
 }
 
+/**
+ * Retrieves and manages the user's login global state.
+ */
 export const useUserStore = create<UserStoreState>((set) => ({
   user: { loggedIn: false },
   setUser: (user: UserLogin) => set({ user }),

@@ -8,6 +8,16 @@ import {
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { Tooltip } from "@mui/material";
 
+/**
+ * A styled checkbox with a label and optional tooltip.
+ *
+ * @param checked The current checked state of the checkbox.
+ * @param onCheckedChange The function to call when the checked state changes.
+ * @param inputId The ID of the input.
+ * @param label The label for the checkbox.
+ * @param name The name of the input.
+ * @param tooltip The tooltip/help text for the checkbox.
+ */
 export function LabeledCheckbox(
   props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
     checked: boolean;

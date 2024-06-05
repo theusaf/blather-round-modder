@@ -22,6 +22,10 @@ interface ProjectStoreState extends ProjectType {
   idNumber: number;
 }
 
+/**
+ * Retrieves and manages the project's global state.
+ * Used on the project editor page.
+ */
 export const useProjectStore = create<ProjectStoreState>((set, get) => ({
   id: null,
   likes: 0,

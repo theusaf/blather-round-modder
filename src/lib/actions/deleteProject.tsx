@@ -6,6 +6,11 @@ import { getUserSession } from "../util/auth";
 import revalidateProjectPaths from "../util/revalidateProjectPaths";
 import { redirect } from "next/navigation";
 
+/**
+ * Deletes a project from the database.
+ *
+ * @param id The id of the project to delete.
+ */
 export async function deleteProject(id: string) {
   const userSession = await getUserSession();
   if (!userSession) return;

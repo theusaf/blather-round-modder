@@ -7,6 +7,11 @@ const difficultyColors: Record<string, string> = {
   hard: "red",
 };
 
+/**
+ * A label for the difficulty of a prompt.
+ *
+ * @param difficulty The difficulty of the prompt.
+ */
 export function DifficultyLabel({ difficulty }: { difficulty: string }) {
   const color = difficultyColors[difficulty.toLowerCase()];
 

@@ -6,6 +6,11 @@ import { ProjectType } from "../types/project";
 import { getUserSession } from "../util/auth";
 import revalidateProjectPaths from "../util/revalidateProjectPaths";
 
+/**
+ * Saves a project to the database.
+ *
+ * @param project The project to save.
+ */
 export async function saveProject(project: ProjectType) {
   const userDetails = await getUserSession();
   if (!userDetails) return;

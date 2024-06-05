@@ -1,5 +1,13 @@
 import { Modal } from "@mui/material";
 
+/**
+ * A modal with a centered content area.
+ *
+ * @param open Whether the modal is open.
+ * @param onClose The function to call when the modal is closed.
+ * @param children The content of the modal.
+ * @param className Additional classes to apply to the modal content.
+ */
 export default function CenteredModal({
   open,
   onClose,

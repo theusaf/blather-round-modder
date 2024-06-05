@@ -2,6 +2,13 @@
 import { Tooltip } from "@mui/material";
 import { WordListType } from "../types/blather";
 
+/**
+ * A menu item that displays the words in the list when hovered.
+ *
+ * @param list The list text for this item.
+ * @param onClose The function to call when the menu is closed.
+ * @returns
+ */
 export function WordListMenuItem({
   list,
   onClose,

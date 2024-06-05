@@ -1,5 +1,8 @@
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
+/**
+ * A styled card with a border, shadow, and padding.
+ */
 export default function SectionCard(
   props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 ) {

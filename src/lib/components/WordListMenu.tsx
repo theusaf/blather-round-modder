@@ -6,6 +6,12 @@ import OutsideClickDetector from "./OutsideClickDetector";
 import { WordListType } from "../types/blather";
 import { WordListMenuItem } from "./WordListMenuItem";
 
+/**
+ * A menu that displays a list of available lists with a filter.
+ *
+ * @param onClose The function to call when the menu is closed.
+ * @param initialValue The initial value of the search input.
+ */
 export function WordListMenu({
   onClose,
   initialValue,

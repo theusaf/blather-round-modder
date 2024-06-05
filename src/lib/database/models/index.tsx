@@ -8,6 +8,13 @@ export abstract class Model {
   abstract toJSON(): unknown;
 }
 
+/**
+ * Executes a Firestore query with the given options.
+ *
+ * @param baseQuery The base query/collection to start with.
+ * @param queryOptions The options to apply to the query.
+ * @returns The data from the query.
+ */
 export async function executeQuery<T, TIface extends T = T>(
   baseQuery: Query,
   queryOptions?: QueryOptions<TIface>,

@@ -10,6 +10,15 @@ interface OutsideClickDetectorProps {
   detectEscape: boolean;
 }
 
+/**
+ * Hook that alerts clicks outside of the passed ref.
+ *
+ * @param ref The ref to the element to detect clicks outside of.
+ * @param onClick The function to call when a click occurs anywhere.
+ * @param onClickOutside The function to call when a click outside occurs outside of the element.
+ * @param detectEscape Whether to detect the escape key.
+ * @param includeRefs An array of refs to exclude in the regular click detection.
+ */
 function useOutsideAlerter({
   ref,
   onClick,

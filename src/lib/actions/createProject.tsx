@@ -5,6 +5,12 @@ import { getUserSession } from "../util/auth";
 import { getBaseProject } from "../util/getBaseProject";
 import revalidateProjectPaths from "../util/revalidateProjectPaths";
 
+/**
+ * Creates a project in the database.
+ *
+ * @param name The name of the project.
+ * @param type How the project should be created.
+ */
 export async function createProject(name: string, type: string) {
   const userSession = await getUserSession();
   if (!userSession) return;

@@ -12,6 +12,9 @@ export interface ProjectType {
   wordLists: WordListType[];
 }
 
+/**
+ * A project with only the necessary fields for the project list.
+ */
 export interface ShallowProjectType {
   id: string | null;
   likes: number;

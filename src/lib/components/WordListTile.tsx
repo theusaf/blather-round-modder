@@ -3,6 +3,15 @@ import { MouseEvent, useEffect, useRef, useState } from "react";
 import { Tooltip } from "@mui/material";
 import { WordListMenu } from "./WordListMenu";
 
+/**
+ * A button that displays a word list and opens a list menu when clicked.
+ *
+ * @param list The current list value.
+ * @param open Whether the menu is open.
+ * @param onClose The function to call when the menu is closed.
+ * @param onOpen The function to call when the menu is opened.
+ * @param useValue Whether to use the value of the list. If set, this is a controlled component.
+ */
 export function WordListTile({
   list,
   open,

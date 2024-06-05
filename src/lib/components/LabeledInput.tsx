@@ -4,6 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
+/**
+ * A styled input with a label and optional tooltip.
+ *
+ * @param label The label for the input.
+ * @param name The name of the input.
+ * @param inputId The ID of the input.
+ * @param value The current value of the input.
+ * @param onValueChange The function to call when the value changes.
+ * @param type The type of the input.
+ * @param placeholder The placeholder text for the input.
+ * @param tooltip The tooltip/help text for the input.
+ */
 export function LabeledInput<T extends string | number | string[]>(
   props: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
     label: string;

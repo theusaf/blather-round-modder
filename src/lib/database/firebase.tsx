@@ -13,4 +13,7 @@ const app =
       })
     : existingApps[0];
 
+/**
+ * The Firestore database instance.
+ */
 export const firestore = getFirestore(app);

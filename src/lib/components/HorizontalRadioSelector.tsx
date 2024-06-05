@@ -1,6 +1,14 @@
 "use client";
 import { Tab, TabList, Tabs } from "@mui/joy";
 
+/**
+ * A horizontal radio selector.
+ *
+ * @param values The values to choose from.
+ * @param value The current value.
+ * @param onChange The function to call when the value changes.
+ * @param label The label for the selector.
+ */
 export function HorizontalRadioSelector({
   values,
   value,

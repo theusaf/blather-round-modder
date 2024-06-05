@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
+/**
+ * The application's navigation icon.
+ */
 export default function NavIcon() {
   return (
     <Link href="/" className="flex gap-2 items-center mr-4">
