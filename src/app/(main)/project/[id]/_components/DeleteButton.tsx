@@ -19,7 +19,7 @@ export function DeleteButton({ project }: { project: ProjectType }) {
   return (
     <>
       <button
-        className="p-2 rounded-md bg-red-500 text-white"
+        className="p-2 rounded-md bg-red-500 text-white w-full"
         onClick={() => setModalOpen(true)}
       >
         Delete

@@ -55,13 +55,13 @@ export default async function ProjectPage({
   return (
     <main className="p-2">
       <div className="flex justify-between">
-        <div>
+        <div className="flex-1">
           <h1 className="text-2xl font-bold">
             {project.name || "Untitled Project"}
           </h1>
           <p>{project.description}</p>
         </div>
-        <div className="flex gap-2 h-min">
+        <div className="grid grid-cols-1 md:flex gap-2 h-min">
           <ProjectDownload
             project={{
               id: project.id,
@@ -76,14 +76,14 @@ export default async function ProjectPage({
             }}
           />
           {userDetails?.sub === project.ownerId && (
-            <Link href={`/project/${params.id}/edit`}>
-              <button className="p-2 rounded-md bg-emerald-700 text-white">
+            <Link href={`/project/${params.id}/edit`} className="w-full">
+              <button className="p-2 rounded-md bg-emerald-700 text-white w-full">
                 Edit
               </button>
             </Link>
           )}
-          <Link href={`/project/${params.id}/remix`}>
-            <button className="p-2 rounded-md bg-emerald-700 text-white">
+          <Link href={`/project/${params.id}/remix`} className="w-full">
+            <button className="p-2 rounded-md bg-emerald-700 text-white w-full">
               Remix
             </button>
           </Link>
