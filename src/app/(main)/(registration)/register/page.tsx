@@ -1,5 +1,6 @@
 "use client";
 import { registerWithPasswordAction } from "@/lib/actions/register";
+import { ResolvingMetadata } from "next";
 import { startProgress, stopProgress } from "next-nprogress-bar";
 import Link from "next/link";
 import { useFormState } from "react-dom";

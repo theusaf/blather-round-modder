@@ -2,6 +2,13 @@ import "server-only";
 import Project from "@/lib/database/models/project";
 import ProjectListing from "../_components/ProjectListing";
 import { ShallowProjectType } from "@/lib/types/project";
+import { ResolvingMetadata } from "next";
+
+export async function generateMetadata(_: unknown, parent: ResolvingMetadata) {
+  return {
+    title: `${(await parent).title?.absolute} - Projects`,
+  };
+}
 
 export default async function ProjectsPage() {
   const limit = 10;

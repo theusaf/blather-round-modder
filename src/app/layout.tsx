@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import UserLoginHandler from "@/lib/components/UserLoginHandler";
@@ -6,9 +6,24 @@ import { getUserSession } from "@/lib/util/auth";
 
 const mainFont = Montserrat({ subsets: ["latin"] });
 
+export const viewport: Viewport = {
+  themeColor: "#f9fafb",
+};
+
 export const metadata: Metadata = {
-  title: "Final Project - Editor for Blather Round",
-  description: "Daniel Lau, Oregon State University",
+  title: "Editor for Blather Round",
+  description:
+    "Blather Round Editor is a web application that allows users to create and edit custom projects for the game Blather 'Round by Jackbox Games. Created as part of a project by Daniel Lau at Oregon State University.",
+  keywords: [
+    "Blather Round",
+    "Jackbox Games",
+    "editor",
+    "custom",
+    "projects",
+    "mod",
+    "prompts",
+  ],
+  appleWebApp: true,
 };
 
 export default async function RootLayout({

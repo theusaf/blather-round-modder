@@ -2,6 +2,22 @@ import "server-only";
 import ProjectListing from "../../_components/ProjectListing";
 import { ShallowProjectType } from "@/lib/types/project";
 import Project from "@/lib/database/models/project";
+import { ResolvingMetadata } from "next";
+import { getUserSession } from "@/lib/util/auth";
+
+export async function generateMetadata(
+  {
+    params: { id },
+  }: {
+    params: { id: string };
+  },
+  parent: ResolvingMetadata,
+) {
+  const userDetails = await getUserSession();
+  return {
+    title: `${(await parent).title?.absolute} - ${userDetails?.sub}'s Profile`,
+  };
+}
 
 export default async function ProfilePage({
   params,

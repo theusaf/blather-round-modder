@@ -2,6 +2,16 @@ import SectionCard from "@/lib/components/SectionCard";
 import { CreationForm } from "./_components/CreationForm";
 import Link from "next/link";
 import { getUserSession } from "@/lib/util/auth";
+import { ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+  _: unknown,
+  parent: ResolvingMetadata,
+) {
+  return {
+    title: `${(await parent).title?.absolute} - Create Project`,
+  };
+}
 
 export default async function CreateProjectPage() {
   const userDetails = await getUserSession();

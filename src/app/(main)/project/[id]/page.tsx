@@ -6,6 +6,28 @@ import { notFound } from "next/navigation";
 import { getUserSession } from "@/lib/util/auth";
 import { ProjectDownload } from "./_components/ProjectDownload";
 import { DeleteButton } from "./_components/DeleteButton";
+import { ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+  {
+    params: { id },
+  }: {
+    params: { id: string };
+  },
+  parent: ResolvingMetadata,
+) {
+  const project = await Project.findById(id);
+  if (!project) return;
+  const userDetails = await getUserSession();
+  let title =
+    !project.public && project.ownerId !== userDetails?.sub
+      ? "No Permission"
+      : project.name;
+  return {
+    title: `${(await parent).title?.absolute} - ${title}`,
+    description: project.description,
+  };
+}
 
 export default async function ProjectPage({
   params,
