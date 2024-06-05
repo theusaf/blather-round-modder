@@ -1,9 +1,10 @@
 import "server-only";
 import ProjectListing from "../../_components/ProjectListing";
-import { ShallowProjectType } from "@/lib/types/project";
+import { ProjectType, ShallowProjectType } from "@/lib/types/project";
 import Project from "@/lib/database/models/project";
 import { ResolvingMetadata } from "next";
 import { getUserSession } from "@/lib/util/auth";
+import { QueryOptions } from "@/lib/types/database";
 
 export async function generateMetadata(
   {
@@ -25,12 +26,18 @@ export default async function ProfilePage({
   params: { id: string };
 }) {
   const limit = 10;
-  const projects = await Project.findAll({
+  const userDetails = await getUserSession();
+  const options: QueryOptions<ProjectType> = {
     limit,
     where: {
       ownerId: params.id,
     },
-  });
+  };
+  if (userDetails?.sub !== params.id) {
+    options.where!.public = true;
+  }
+
+  const projects = await Project.findAll(options);
 
   return (
     <main className="p-2">

@@ -24,6 +24,9 @@ export default function ProjectListing({
   return (
     <>
       <div className="flex flex-wrap gap-4">
+        {projects.length === 0 && (
+          <div className="p-2 text-center">No projects found</div>
+        )}
         {projects.map((project) => (
           <div
             key={project.id}
