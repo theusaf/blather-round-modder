@@ -31,7 +31,9 @@ export default function ProjectListing({
           >
             <div>
               <h3 className="text-xl font-semibold">{project.name}</h3>
-              <p>{project.ownerId}</p>
+              <Link href={`/profile/${encodeURIComponent(project.ownerId!)}`}>
+                <p>{project.ownerId}</p>
+              </Link>
             </div>
             <hr />
             <p className="flex-1">{project.description}</p>
