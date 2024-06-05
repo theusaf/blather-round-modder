@@ -1,12 +1,13 @@
 {
-  "name": "project-final",
-  "version": "0.1.0",
+  "name": "blather-round-modder",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "npm rebuild argon2 --build-from-source"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
