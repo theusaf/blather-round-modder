@@ -21,7 +21,8 @@ export function TailoredWordEditSection({
           label="Add Tailored Word"
           name="modal-list-tailored-word"
           inputId="modal-list-tailored-word"
-          placeholder="Enter tailored word"
+          placeholder="Enter tailored word or <list>"
+          tooltip="May make some words more likely or add a custom related word to a list. It is recommended to have at least 10 per prompt."
           value={word}
           className="w-0"
           onValueChange={(value) => {

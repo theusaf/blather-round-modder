@@ -103,6 +103,7 @@ export function PromptEditModal({
           inputId="modal-list-subcategory"
           placeholder="Enter subcategory"
           value={promptData.subcategory}
+          tooltip="Optional. Use to specify different responses for different subcategories. Setting this will cause the game to use response sentences from the list <response-sentence-{category}-{subcategory}>"
           onValueChange={(value) => {
             setPromptData(
               produce(promptData, (draft) => {

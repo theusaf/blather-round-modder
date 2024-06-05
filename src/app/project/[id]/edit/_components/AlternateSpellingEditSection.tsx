@@ -17,6 +17,7 @@ export function AlternateSpellingEditSection({
         name="modal-list-alternate-spelling"
         inputId="modal-list-alternate-spelling"
         placeholder="Enter alternate spelling"
+        tooltip="An alternative spelling for the prompt. Should not include typos. Useful when the prompt is known by multiple names."
         value={value}
         onValueChange={(value) => {
           setValue(value);

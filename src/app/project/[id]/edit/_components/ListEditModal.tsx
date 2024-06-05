@@ -79,6 +79,7 @@ export function ListEditModal({
           placeholder="Enter max choices"
           value={listData.maxChoices}
           type="number"
+          tooltip="When this list is used in a sentence structure, limits how many words can be chosen at a time."
           onValueChange={(value) => {
             setListData(
               produce(listData, (draft) => {
@@ -93,6 +94,7 @@ export function ListEditModal({
           inputId="modal-list-amount"
           placeholder="Enter amount"
           value={listData.amount}
+          tooltip="Probably determines the maximum number of times this list can be used. Usually, leave blank."
           type="number"
           onValueChange={(value) => {
             setListData(
@@ -108,6 +110,7 @@ export function ListEditModal({
           inputId="modal-list-placeholder"
           placeholder="Enter placeholder"
           value={listData.placeholder}
+          tooltip="Text to show when no words are chosen."
           onValueChange={(value) => {
             setListData(
               produce(listData, (draft) => {
@@ -126,6 +129,7 @@ export function ListEditModal({
             );
           }}
           inputId="modal-list-optional"
+          tooltip="Whether the player has to select a word from this list."
           label="Optional"
         />
       </div>
@@ -191,7 +195,7 @@ function NewWordInput({
         label="New Word"
         name="modal-list-new-word"
         inputId="modal-list-new-word"
-        placeholder="Enter text..."
+        placeholder="Enter text or <list>..."
         className="w-0" // CSS is strange...
         value={newWord}
         onKeyDown={(event) => {
@@ -213,6 +217,7 @@ function NewWordInput({
         }}
         inputId="modal-list-new-word-always-choose"
         label="Always Choose"
+        tooltip="Whether this word should always be shown when this list is used."
       />
       <button
         className="mb-1"

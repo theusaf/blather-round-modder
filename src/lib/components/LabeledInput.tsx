@@ -1,4 +1,7 @@
 "use client";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Tooltip } from "@mui/material";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 export function LabeledInput<T extends string | number | string[]>(
@@ -10,6 +13,7 @@ export function LabeledInput<T extends string | number | string[]>(
     onValueChange: (value: T) => void;
     type?: string;
     placeholder?: string;
+    tooltip?: string;
   },
 ) {
   const divProps: Record<string, unknown> = { ...props };
@@ -20,6 +24,7 @@ export function LabeledInput<T extends string | number | string[]>(
   delete divProps.onValueChange;
   delete divProps.type;
   delete divProps.placeholder;
+  delete divProps.tooltip;
 
   return (
     <div
@@ -29,7 +34,14 @@ export function LabeledInput<T extends string | number | string[]>(
       >)}
       className={`flex-1 flex flex-col ${props.className ?? ""}`}
     >
-      <label htmlFor={props.inputId}>{props.label}</label>
+      <div className="flex gap-2 items-center">
+        <label htmlFor={props.inputId}>{props.label}</label>
+        {props.tooltip && (
+          <Tooltip title={props.tooltip} arrow placement="top">
+            <FontAwesomeIcon icon={faQuestionCircle} />
+          </Tooltip>
+        )}
+      </div>
       <input
         id={props.inputId}
         name={props.name}

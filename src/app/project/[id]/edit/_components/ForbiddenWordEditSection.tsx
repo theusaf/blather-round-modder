@@ -17,6 +17,7 @@ export function ForbiddenWordEditSection({
         name="modal-list-forbidden-word"
         inputId="modal-list-forbidden-word"
         placeholder="Enter forbidden word"
+        tooltip="A word that should not appear in list choices. Can prevent a prompt from being guessed too easily. Does not affect player input."
         value={value}
         onValueChange={(value) => {
           setValue(value);

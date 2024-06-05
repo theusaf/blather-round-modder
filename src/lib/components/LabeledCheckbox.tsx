@@ -1,8 +1,12 @@
 "use client";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquareCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faQuestionCircle,
+  faSquareCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
+import { Tooltip } from "@mui/material";
 
 export function LabeledCheckbox(
   props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
@@ -11,6 +15,7 @@ export function LabeledCheckbox(
     inputId: string;
     label: string;
     name?: string;
+    tooltip?: string;
   },
 ) {
   const divProps: Record<string, unknown> = { ...props };
@@ -19,6 +24,7 @@ export function LabeledCheckbox(
   delete divProps.inputId;
   delete divProps.label;
   delete divProps.name;
+  delete divProps.tooltip;
   return (
     <div
       {...(divProps as DetailedHTMLProps<
@@ -48,9 +54,16 @@ export function LabeledCheckbox(
           icon={props.checked ? faSquareCheck : faSquare}
         />
       </button>
-      <label htmlFor={props.inputId} className="cursor-pointer">
-        {props.label}
-      </label>
+      <div className="flex gap-2 items-center">
+        <label htmlFor={props.inputId} className="cursor-pointer">
+          {props.label}
+        </label>
+        {props.tooltip && (
+          <Tooltip title={props.tooltip} arrow placement="top">
+            <FontAwesomeIcon icon={faQuestionCircle} />
+          </Tooltip>
+        )}
+      </div>
     </div>
   );
 }
