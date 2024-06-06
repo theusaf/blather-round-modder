@@ -7,6 +7,6 @@ export async function generateMetadata(_: unknown, parent: ResolvingMetadata) {
   };
 }
 
-export default function ({ children }: { children: ReactNode }) {
+export default function RegisterLayout({ children }: { children: ReactNode }) {
   return children;
 }

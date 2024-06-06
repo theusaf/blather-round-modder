@@ -35,20 +35,21 @@ export default function ScrollableStepSection<T>({
       threshold: [0.5],
     });
 
-    for (const ref of stepRefs.current) {
+    const values = stepRefs.current;
+    for (const ref of values) {
       if (ref) {
         observer.observe(ref);
       }
     }
 
     return () => {
-      for (const ref of stepRefs.current) {
+      for (const ref of values) {
         if (ref) {
           observer.unobserve(ref);
         }
       }
     };
-  }, []);
+  }, [onStepChange, steps]);
   return (
     <div ref={sectionRef} className={`relative ${className ?? ""}`}>
       <div ref={contentRef} className="sticky top-0">
