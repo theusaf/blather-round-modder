@@ -32,7 +32,7 @@ export const steps: Step[] = [
     clues: [
       "It's a recent not bad rectangle tool",
       "It makes lots of party fun",
-      "It's found in the same place as *iPad*",
+      "It's found in the same place as IPAD",
     ],
     guesses: ["iPad", "Twister", "Monopoly"],
   },
@@ -41,7 +41,7 @@ export const steps: Step[] = [
     clues: [
       "It's a recent not bad rectangle tool",
       "It makes lots of party fun",
-      "It's found in the same place as *iPad*",
+      "It's found in the same place as IPAD",
     ],
     guesses: ["iPad", "Twister", "Monopoly", "laptop", "Blather 'Round"],
   },
@@ -50,7 +50,7 @@ export const steps: Step[] = [
     clues: [
       "It's a recent not bad rectangle tool",
       "It makes lots of party fun",
-      "It's found in the same place as *iPad*",
+      "It's found in the same place as IPAD",
       "Talk about free!",
     ],
     guesses: ["iPad", "Twister", "Monopoly", "laptop", "Blather 'Round"],
@@ -60,7 +60,7 @@ export const steps: Step[] = [
     clues: [
       "It's a recent not bad rectangle tool",
       "It makes lots of party fun",
-      "It's found in the same place as *iPad*",
+      "It's found in the same place as IPAD",
       "Talk about free!",
     ],
     guesses: [

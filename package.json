@@ -21,6 +21,7 @@
     "@mui/material": "^5.15.19",
     "@zip.js/zip.js": "^2.7.45",
     "argon2": "^0.40.3",
+    "common-tags": "^1.8.2",
     "contrast-color": "^1.0.1",
     "firebase": "^10.12.2",
     "firebase-admin": "^12.1.1",
@@ -36,6 +37,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/common-tags": "^1.8.4",
     "@types/contrast-color": "^1.0.3",
     "@types/node": "^20.14.1",
     "@types/react": "^18.3.3",

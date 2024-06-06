@@ -18,6 +18,10 @@ export default function AnimatedHomeSection() {
   const [step, setStep] = useState<Step>(steps[0]);
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
   const [, rebuild] = useReducer((x) => x + 1, 0);
+  const [isServer, setIsServer] = useState(true);
+  useEffect(() => {
+    setIsServer(false);
+  }, []);
   const availableHeight = useRef<number>(0);
   if (containerRef) {
     const top = containerRef.getBoundingClientRect().top;
@@ -38,7 +42,7 @@ export default function AnimatedHomeSection() {
 
   return (
     <>
-      {width > 750 && (
+      {!isServer && width > 750 && (
         <ScrollableStepSection
           steps={steps}
           className={`bg-sky-900 ${availableHeight.current === 0 ? "hidden" : ""} ${blockyFont.className}`}
