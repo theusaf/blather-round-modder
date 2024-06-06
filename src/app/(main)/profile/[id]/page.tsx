@@ -6,14 +6,7 @@ import { ResolvingMetadata } from "next";
 import { getUserSession } from "@/lib/util/auth";
 import { QueryOptions } from "@/lib/types/database";
 
-export async function generateMetadata(
-  {
-    params: { id },
-  }: {
-    params: { id: string };
-  },
-  parent: ResolvingMetadata,
-) {
+export async function generateMetadata(_: unknown, parent: ResolvingMetadata) {
   const userDetails = await getUserSession();
   return {
     title: `${(await parent).title?.absolute} - ${userDetails?.sub}'s Profile`,
