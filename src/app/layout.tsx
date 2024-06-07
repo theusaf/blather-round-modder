@@ -13,7 +13,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Editor for Blather Round",
   description:
-    "Blather Round Editor is a web application that allows users to create and edit custom projects for the game Blather 'Round by Jackbox Games. Created as part of a project by Daniel Lau at Oregon State University.",
+    "Blather Round Editor is a web application that allows users to create and edit custom projects for the game Blather 'Round by Jackbox Games.",
   keywords: [
     "Blather Round",
     "Jackbox Games",
