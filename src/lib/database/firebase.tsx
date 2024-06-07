@@ -8,7 +8,11 @@ const app =
   existingApps.length === 0
     ? initializeApp({
         credential: credential.cert(
-          JSON.parse(process.env.FIREBASE_CREDENTIALS!),
+          JSON.parse(
+            process.env.NODE_ENV === "production"
+              ? process.env.FIREBASE_CREDENTIALS!
+              : process.env.FIREBASE_CREDENTIALS_DEV!,
+          ),
         ),
       })
     : existingApps[0];
