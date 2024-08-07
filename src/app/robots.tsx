@@ -14,7 +14,7 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
 			"https://blather-mod.theusaf.org/sitemap.xml",
 			...projectMaps.map(
 				(projectMap) =>
-					`https://blather-mod.theusaf.org/projects/${projectMap.id}.xml`,
+					`https://blather-mod.theusaf.org/projects/sitemap/${projectMap.id}.xml`,
 			),
 		],
 	};
