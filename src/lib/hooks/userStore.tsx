@@ -1,18 +1,18 @@
 "use client";
 import { create } from "zustand";
-import { UserLogin } from "../types/session";
+import type { UserLogin } from "../types/session";
 
 interface UserStoreState {
-  user: UserLogin;
-  setUser: (user: UserLogin) => void;
-  logout: () => void;
+	user: UserLogin;
+	setUser: (user: UserLogin) => void;
+	logout: () => void;
 }
 
 /**
  * Retrieves and manages the user's login global state.
  */
 export const useUserStore = create<UserStoreState>((set) => ({
-  user: { loggedIn: false },
-  setUser: (user: UserLogin) => set({ user }),
-  logout: () => set({ user: { loggedIn: false } }),
+	user: { loggedIn: false },
+	setUser: (user: UserLogin) => set({ user }),
+	logout: () => set({ user: { loggedIn: false } }),
 }));

@@ -10,7 +10,7 @@ import { decrypt } from "./session";
  * @returns The hashed password.
  */
 export function hash(plaintext: string): Promise<string> {
-  return argon2.hash(plaintext);
+	return argon2.hash(plaintext);
 }
 
 /**
@@ -21,7 +21,7 @@ export function hash(plaintext: string): Promise<string> {
  * @returns Whether the password is correct.
  */
 export function verify(hash: string, plaintext: string): Promise<boolean> {
-  return argon2.verify(hash, plaintext);
+	return argon2.verify(hash, plaintext);
 }
 
 /**
@@ -30,7 +30,7 @@ export function verify(hash: string, plaintext: string): Promise<boolean> {
  * @returns The user session.
  */
 export async function getUserSession() {
-  const session = cookies().get("session");
-  const userDetails = await decrypt(session?.value);
-  return userDetails;
+	const session = cookies().get("session");
+	const userDetails = await decrypt(session?.value);
+	return userDetails;
 }

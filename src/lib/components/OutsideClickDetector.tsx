@@ -1,13 +1,18 @@
 "use client";
-import React, { useRef, useEffect, RefObject, ReactNode } from "react";
+import React, {
+	useRef,
+	useEffect,
+	type RefObject,
+	type ReactNode,
+} from "react";
 
 // Source: https://stackoverflow.com/a/42234988/
 
 interface OutsideClickDetectorProps {
-  onClickOutside: () => void;
-  onClick: () => void;
-  includeRefs: RefObject<HTMLElement>[];
-  detectEscape: boolean;
+	onClickOutside: () => void;
+	onClick: () => void;
+	includeRefs: RefObject<HTMLElement>[];
+	detectEscape: boolean;
 }
 
 /**
@@ -20,36 +25,36 @@ interface OutsideClickDetectorProps {
  * @param includeRefs An array of refs to exclude in the regular click detection.
  */
 function useOutsideAlerter({
-  ref,
-  onClick,
-  onClickOutside,
-  detectEscape = false,
-  includeRefs = [],
+	ref,
+	onClick,
+	onClickOutside,
+	detectEscape = false,
+	includeRefs = [],
 }: OutsideClickDetectorProps & { ref: RefObject<HTMLElement> }) {
-  useEffect(() => {
-    function handleClick(event: Event) {
-      if (includeRefs.some((r) => r.current?.contains(event.target as Node)))
-        return;
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClickOutside?.();
-      }
-      onClick?.();
-    }
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.code === "Enter") {
-        handleClick(event);
-      } else if (detectEscape && event.code === "Escape") {
-        onClickOutside?.();
-        onClick?.();
-      }
-    }
-    document.addEventListener("pointerup", handleClick);
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("pointerup", handleClick);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [ref, detectEscape, onClick, onClickOutside, includeRefs]);
+	useEffect(() => {
+		function handleClick(event: Event) {
+			if (includeRefs.some((r) => r.current?.contains(event.target as Node)))
+				return;
+			if (ref.current && !ref.current.contains(event.target as Node)) {
+				onClickOutside?.();
+			}
+			onClick?.();
+		}
+		function handleKeyDown(event: KeyboardEvent) {
+			if (event.code === "Enter") {
+				handleClick(event);
+			} else if (detectEscape && event.code === "Escape") {
+				onClickOutside?.();
+				onClick?.();
+			}
+		}
+		document.addEventListener("pointerup", handleClick);
+		document.addEventListener("keydown", handleKeyDown);
+		return () => {
+			document.removeEventListener("pointerup", handleClick);
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [ref, detectEscape, onClick, onClickOutside, includeRefs]);
 }
 
 /**
@@ -61,22 +66,22 @@ function useOutsideAlerter({
  * @param includeRefs An array of refs to exclude in the click detection
  */
 export default function OutsideClickDetector({
-  children,
-  onClickOutside,
-  onClick,
-  includeRefs = [],
-  detectEscape = false,
+	children,
+	onClickOutside,
+	onClick,
+	includeRefs = [],
+	detectEscape = false,
 }: {
-  children: ReactNode;
+	children: ReactNode;
 } & Partial<OutsideClickDetectorProps>) {
-  const wrapperRef = useRef(null);
-  useOutsideAlerter({
-    ref: wrapperRef,
-    onClickOutside: onClickOutside ?? (() => {}),
-    onClick: onClick ?? (() => {}),
-    includeRefs,
-    detectEscape,
-  });
+	const wrapperRef = useRef(null);
+	useOutsideAlerter({
+		ref: wrapperRef,
+		onClickOutside: onClickOutside ?? (() => {}),
+		onClick: onClick ?? (() => {}),
+		includeRefs,
+		detectEscape,
+	});
 
-  return <div ref={wrapperRef}>{children}</div>;
+	return <div ref={wrapperRef}>{children}</div>;
 }

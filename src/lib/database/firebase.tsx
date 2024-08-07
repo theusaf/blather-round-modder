@@ -5,17 +5,17 @@ import { getFirestore } from "firebase-admin/firestore";
 
 const existingApps = getApps();
 const app =
-  existingApps.length === 0
-    ? initializeApp({
-        credential: credential.cert(
-          JSON.parse(
-            process.env.NODE_ENV === "production"
-              ? process.env.FIREBASE_CREDENTIALS!
-              : process.env.FIREBASE_CREDENTIALS_DEV!,
-          ),
-        ),
-      })
-    : existingApps[0];
+	existingApps.length === 0
+		? initializeApp({
+				credential: credential.cert(
+					JSON.parse(
+						process.env.NODE_ENV === "production"
+							? process.env.FIREBASE_CREDENTIALS!
+							: process.env.FIREBASE_CREDENTIALS_DEV!,
+					),
+				),
+			})
+		: existingApps[0];
 
 /**
  * The Firestore database instance.

@@ -2,9 +2,9 @@
 import { contrastColor } from "contrast-color";
 
 const difficultyColors: Record<string, string> = {
-  easy: "green",
-  medium: "yellow",
-  hard: "red",
+	easy: "green",
+	medium: "yellow",
+	hard: "red",
 };
 
 /**
@@ -13,17 +13,17 @@ const difficultyColors: Record<string, string> = {
  * @param difficulty The difficulty of the prompt.
  */
 export function DifficultyLabel({ difficulty }: { difficulty: string }) {
-  const color = difficultyColors[difficulty.toLowerCase()];
+	const color = difficultyColors[difficulty.toLowerCase()];
 
-  return (
-    <div
-      style={{
-        backgroundColor: color,
-        color: contrastColor({ bgColor: color }),
-      }}
-      className="p-1 rounded-md text-xs"
-    >
-      {difficulty}
-    </div>
-  );
+	return (
+		<div
+			style={{
+				backgroundColor: color,
+				color: contrastColor({ bgColor: color }),
+			}}
+			className="p-1 rounded-md text-xs"
+		>
+			{difficulty}
+		</div>
+	);
 }

@@ -12,15 +12,15 @@ import { redirect } from "next/navigation";
  * @param id The id of the project to delete.
  */
 export async function deleteProject(id: string) {
-  const userSession = await getUserSession();
-  if (!userSession) return;
-  if (typeof id !== "string" || !id) return;
-  const project = await Project.findById(id);
-  if (!project) return;
-  if (project.ownerId !== userSession.sub) return;
-  await project.delete();
-  revalidateProjectPaths(userSession.sub);
-  revalidatePath(`/project/${id}`);
-  revalidatePath(`/project/${id}/edit`);
-  redirect("/");
+	const userSession = await getUserSession();
+	if (!userSession) return;
+	if (typeof id !== "string" || !id) return;
+	const project = await Project.findById(id);
+	if (!project) return;
+	if (project.ownerId !== userSession.sub) return;
+	await project.delete();
+	revalidateProjectPaths(userSession.sub);
+	revalidatePath(`/project/${id}`);
+	revalidatePath(`/project/${id}/edit`);
+	redirect("/");
 }

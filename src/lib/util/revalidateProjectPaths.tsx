@@ -8,6 +8,6 @@ import { revalidatePath } from "next/cache";
  * @param username The username of the project owner.
  */
 export default function revalidateProjectPaths(username: string) {
-  revalidatePath("/projects");
-  revalidatePath(`/profile/${encodeURIComponent(username)}`);
+	revalidatePath("/projects");
+	revalidatePath(`/profile/${encodeURIComponent(username)}`);
 }

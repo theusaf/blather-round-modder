@@ -7,12 +7,12 @@ import Project from "../database/models/project";
  * @returns The base project.
  */
 export async function getBaseProject() {
-  return (
-    await Project.findAll({
-      limit: 1,
-      where: {
-        ownerId: "jackbox",
-      },
-    })
-  )[0];
+	return (
+		await Project.findAll({
+			limit: 1,
+			where: {
+				ownerId: "jackbox",
+			},
+		})
+	)[0];
 }

@@ -1,6 +1,6 @@
 {
-  "name": "Editor for Blather 'Round",
-  "short_name": "Blather 'Round Editor",
-  "description": "Blather Round Editor is a web application that allows users to create and edit custom projects for the game Blather 'Round by Jackbox Games.",
-  "start_url": "/"
+	"name": "Editor for Blather 'Round",
+	"short_name": "Blather 'Round Editor",
+	"description": "Blather Round Editor is a web application that allows users to create and edit custom projects for the game Blather 'Round by Jackbox Games.",
+	"start_url": "/"
 }
