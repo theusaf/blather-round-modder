@@ -206,7 +206,17 @@ export function PromptEditModal({
 					{promptData.tailoredWords.map((word, index) => (
 						<SectionCard key={index} className="border-slate-400">
 							<div className="flex gap-2 items-center">
-								<WordListTile list={word.list.slice(1, -1)} />
+								<WordListTile
+									onClose={(list) => {
+										if (!list) return;
+										setPromptData(
+											produce(promptData, (draft) => {
+												draft.tailoredWords[index].list = `<${list}>`;
+											}),
+										);
+									}}
+									list={word.list.slice(1, -1)}
+								/>
 								<span>{word.word}</span>
 								<button
 									type="button"
