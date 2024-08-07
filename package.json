@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "style": "npx @biomejs/biome format --write src && npx @biomejs/biome lint --write src",
     "postinstall": "node -e \"if (process.env.NODE_ENV === 'production'){process.exit(1)} \" || npm rebuild argon2 --build-from-source"
   },
   "dependencies": {
