@@ -6,7 +6,7 @@ import Image from "next/image";
  */
 export default function NavIcon() {
 	return (
-		<Link href="/" className="flex gap-2 items-center mr-4">
+		<Link href="/" className="flex gap-2 items-center sm:mr-4">
 			<Image
 				src="/images/logo.svg"
 				className="h-12 w-12"

@@ -1,6 +1,13 @@
 import type { WordListType } from "@/lib/types/blather";
 
-export function filterWordList(list: WordListType, search: string) {
+/**
+ * Checks if a word list matches a search string.
+ *
+ * @param list The list to filter
+ * @param search The search string
+ * @returns Whether the list matches the search
+ */
+export function filterWordList(list: WordListType, search: string): boolean {
 	const lowerListName = list.name.toLowerCase();
 	const lowerListNameWithSpaces = lowerListName.replace(/-/g, " ");
 	const lowerSearch = search.toLowerCase();

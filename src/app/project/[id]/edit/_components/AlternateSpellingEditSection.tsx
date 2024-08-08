@@ -23,7 +23,7 @@ export function AlternateSpellingEditSection({
 					setValue(value);
 				}}
 				onKeyDown={(event) => {
-					if (event.code === "Enter") {
+					if (event.key === "Enter") {
 						if (value.trim() === "") return;
 						onSubmit(value);
 						setValue("");

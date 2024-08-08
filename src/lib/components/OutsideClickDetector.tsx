@@ -41,9 +41,9 @@ function useOutsideAlerter({
 			onClick?.();
 		}
 		function handleKeyDown(event: KeyboardEvent) {
-			if (event.code === "Enter") {
+			if (event.key === "Enter") {
 				handleClick(event);
-			} else if (detectEscape && event.code === "Escape") {
+			} else if (detectEscape && event.key === "Escape") {
 				onClickOutside?.();
 				onClick?.();
 			}

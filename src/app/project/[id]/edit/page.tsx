@@ -4,12 +4,14 @@ import { ProjectTabMenu } from "./_components/ProjectTabMenu";
 import PromptSection from "./_components/sections/prompts";
 import WordListSection from "./_components/sections/wordLists";
 import SentenceStructureSection from "./_components/sections/sentenceStructures";
+import { SearchModal } from "./_components/SearchModal";
 
 export default function ProjectEditPage() {
 	const [activeTab, setActiveTab] = useState("prompts");
 
 	return (
 		<div className="flex flex-col md:flex-row h-full">
+			<SearchModal />
 			<ProjectTabMenu
 				activeTab={activeTab}
 				onTabSelect={(tab) => setActiveTab(tab)}

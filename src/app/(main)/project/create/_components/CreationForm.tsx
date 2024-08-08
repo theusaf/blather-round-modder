@@ -27,7 +27,7 @@ export function CreationForm() {
 					onChange={(e) => setName(e.target.value)}
 					type="text"
 					onKeyDown={(e) => {
-						if (e.code === "Enter") {
+						if (e.key === "Enter") {
 							e.preventDefault();
 						}
 					}}

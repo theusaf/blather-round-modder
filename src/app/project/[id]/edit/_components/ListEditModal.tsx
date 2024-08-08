@@ -204,7 +204,7 @@ function NewWordInput({
 				className="w-0" // CSS is strange...
 				value={newWord}
 				onKeyDown={(event) => {
-					if (event.code === "Enter") {
+					if (event.key === "Enter") {
 						if (newWord === "") return;
 						onComplete(newWord, alwaysChoose);
 						setAlwaysChoose(false);
