@@ -136,6 +136,7 @@ export function ListEditModal({
 			</div>
 			<hr className="border-black my-2" />
 			<NewWordInput
+				isResponseSentence={listData.name.startsWith("response-sentence-")}
 				onComplete={(word, alwaysChoose) => {
 					setListData(
 						produce(listData, (draft) => {
@@ -185,11 +186,13 @@ export function ListEditModal({
 
 function NewWordInput({
 	onComplete,
+	isResponseSentence,
 }: {
 	onComplete: (word: string, alwaysChoose: boolean) => void;
+	isResponseSentence: boolean;
 }) {
 	const [newWord, setNewWord] = useState("");
-	const [alwaysChoose, setAlwaysChoose] = useState(false);
+	const [alwaysChoose, setAlwaysChoose] = useState(isResponseSentence);
 
 	return (
 		<div className="flex gap-2 items-end">
@@ -226,7 +229,7 @@ function NewWordInput({
 				className="mb-1"
 				onClick={() => {
 					onComplete(newWord, alwaysChoose);
-					setAlwaysChoose(false);
+					setAlwaysChoose(isResponseSentence);
 					setNewWord("");
 				}}
 			>
