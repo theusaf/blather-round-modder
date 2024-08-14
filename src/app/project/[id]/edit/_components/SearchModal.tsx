@@ -38,10 +38,8 @@ type SearchResult =
 
 export function SearchModal({
 	setModal,
-	setModalData,
 }: {
-	setModal: (value: Modal) => void;
-	setModalData: (value: PromptType | WordListType | null) => void;
+	setModal: (value: [Modal, PromptType | WordListType | null]) => void;
 }) {
 	const [open, setOpen] = useState(false);
 	const [search, setSearch] = useState("");
@@ -159,33 +157,31 @@ export function SearchModal({
 									onClick={() => {
 										switch (result.type) {
 											case "prompt": {
-												setModalData(result.data);
-												setModal(Modal.Prompt);
+												setModal([Modal.Prompt, result.data]);
 												break;
 											}
 											case "action": {
 												switch (result.id) {
 													case "new-prompt": {
-														setModalData(newPromptData);
-														setModal(Modal.Prompt);
+														setModal([Modal.Prompt, newPromptData]);
 														break;
 													}
 													case "new-list": {
-														setModal(Modal.WordList);
-														setModalData(newBlankWordList);
+														setModal([Modal.WordList, newBlankWordList]);
 														break;
 													}
 													case "new-list-response": {
-														setModal(Modal.WordList);
-														setModalData(getNewResponseList(null));
+														setModal([
+															Modal.WordList,
+															getNewResponseList(null),
+														]);
 														break;
 													}
 												}
 												break;
 											}
 											case "list": {
-												setModal(Modal.WordList);
-												setModalData(result.data);
+												setModal([Modal.WordList, result.data]);
 												break;
 											}
 										}

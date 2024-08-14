@@ -24,15 +24,14 @@ export default function ProjectEditPage() {
 	const getNextId = useProjectStore((state) => state.getNextId);
 
 	const [activeTab, setActiveTab] = useState("prompts");
-	const [modal, setModal] = useState(Modal.None);
-	const [modalData, setModalData] = useState<PromptType | WordListType | null>(
-		null,
-	);
+	const [[modal, modalData], setModal] = useState<
+		[Modal, PromptType | WordListType | null]
+	>([Modal.None, null]);
 
 	return (
 		<>
 			<div className="flex flex-col md:flex-row h-full">
-				<SearchModal setModal={setModal} setModalData={setModalData} />
+				<SearchModal setModal={setModal} />
 				<ProjectTabMenu
 					activeTab={activeTab}
 					onTabSelect={(tab) => setActiveTab(tab)}
@@ -41,81 +40,83 @@ export default function ProjectEditPage() {
 					{activeTab === "prompts" && (
 						<PromptSection
 							setModal={(data) => {
-								setModalData(data);
-								setModal(Modal.Prompt);
+								setModal([Modal.Prompt, data]);
 							}}
 						/>
 					)}
 					{activeTab === "wordLists" && (
 						<WordListSection
 							setModal={(data) => {
-								setModalData(data);
-								setModal(Modal.WordList);
+								setModal([Modal.WordList, data]);
 							}}
 						/>
 					)}
 					{activeTab === "sentenceStructures" && <SentenceStructureSection />}
 				</section>
 			</div>
-			<PromptEditModal
-				initialInput={modalData as PromptType}
-				onComplete={(result) => {
-					if (result.id === "000") {
-						if (result.password) {
+			{modal === Modal.Prompt && (
+				<PromptEditModal
+					initialInput={modalData as PromptType}
+					onComplete={(result) => {
+						if (result.id === "000") {
+							if (result.password) {
+								setPrompts(
+									produce(prompts, (draft) => {
+										draft.push(
+											produce(result, (draft) => {
+												draft.id = getNextId().toString() as NumberedString;
+											}),
+										);
+									}),
+								);
+							}
+						} else {
 							setPrompts(
 								produce(prompts, (draft) => {
-									draft.push(
-										produce(result, (draft) => {
-											draft.id = getNextId().toString() as NumberedString;
-										}),
+									const index = draft.findIndex(
+										(prompt) => prompt.id === result.id,
 									);
+									draft[index] = result;
 								}),
 							);
 						}
-					} else {
-						setPrompts(
-							produce(prompts, (draft) => {
-								const index = draft.findIndex(
-									(prompt) => prompt.id === result.id,
+						setModal([Modal.None, null]);
+					}}
+					open={modal === Modal.Prompt}
+				/>
+			)}
+			{modal === Modal.WordList && (
+				<ListEditModal
+					listModal={modalData as WordListType}
+					onComplete={(result) => {
+						if (result.id === "000") {
+							if (result.name) {
+								// new list item
+								setWordLists(
+									produce(wordLists, (draft) => {
+										const finalResult = produce(result, (draft) => {
+											draft.id = getNextId().toString() as NumberedString;
+										});
+										draft.push(finalResult);
+									}),
 								);
-								draft[index] = result;
-							}),
-						);
-					}
-					setModalData(null);
-					setModal(Modal.None);
-				}}
-				open={modal === Modal.Prompt}
-			/>
-			<ListEditModal
-				listModal={modalData as WordListType}
-				onComplete={(result) => {
-					if (result.id === "000") {
-						if (result.name) {
-							// new list item
+							}
+						} else {
+							// update list item
 							setWordLists(
 								produce(wordLists, (draft) => {
-									const finalResult = produce(result, (draft) => {
-										draft.id = getNextId().toString() as NumberedString;
-									});
-									draft.push(finalResult);
+									const index = draft.findIndex(
+										(item) => item.id === result.id,
+									);
+									draft[index] = result;
 								}),
 							);
 						}
-					} else {
-						// update list item
-						setWordLists(
-							produce(wordLists, (draft) => {
-								const index = draft.findIndex((item) => item.id === result.id);
-								draft[index] = result;
-							}),
-						);
-					}
-					setModal(Modal.None);
-					setModalData(null);
-				}}
-				open={modal === Modal.WordList}
-			/>
+						setModal([Modal.None, null]);
+					}}
+					open={modal === Modal.WordList}
+				/>
+			)}
 		</>
 	);
 }
