@@ -31,6 +31,7 @@ export async function GET(
 	}
 	const project = new Project({
 		name: `Copy of ${baseProject.name}`,
+		description: baseProject.description,
 		ownerId: user.sub,
 		public: false,
 		prompts: baseProject.prompts,
