@@ -6,6 +6,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
 import { useState } from "react";
+import { getNewResponseList, newBlankWordList } from "../_util/newItems";
 
 export function AddWordListButton({
 	onSelect,
@@ -25,15 +26,7 @@ export function AddWordListButton({
 							<button
 								onClick={() => {
 									setChoiceOpen(false);
-									onSelect({
-										amount: "",
-										id: "000",
-										maxChoices: "",
-										name: "",
-										optional: false,
-										placeholder: "",
-										words: [],
-									});
+									onSelect(newBlankWordList);
 								}}
 								type="button"
 								className="text-left font-sans p-2 bg-slate-300 border-slate-600 border-2 text-black cursor-pointer"
@@ -43,41 +36,16 @@ export function AddWordListButton({
 							</button>
 							<button
 								onClick={() => {
-									const responsePhrases =
-										useProjectStore
-											.getState()
-											.wordLists.find(
-												(list) => list.name === "response-sentence",
-											)
-											?.words.map((word) => {
-												return {
-													...word,
-													alwaysChoose: true,
-												};
-											}) ??
-										[
-											"It's a lot like",
-											"It's kinda similar to",
-											"It's nothing like",
-											"It has the same vibe as",
-											"It's a different genre than",
-											"It's not the same form as",
-										].map((word) => {
-											return {
-												alwaysChoose: true,
-												word,
-											};
-										});
 									setChoiceOpen(false);
-									onSelect({
-										amount: "",
-										id: "000",
-										maxChoices: "1",
-										name: "response-sentence-EDITME",
-										optional: false,
-										placeholder: "It's a lot like",
-										words: responsePhrases,
-									});
+									onSelect(
+										getNewResponseList(
+											useProjectStore
+												.getState()
+												.wordLists.find(
+													(list) => list.name === "response-sentence",
+												),
+										),
+									);
 								}}
 								type="button"
 								className="text-left p-2 bg-slate-300 border-slate-600 border-2 text-black cursor-pointer"

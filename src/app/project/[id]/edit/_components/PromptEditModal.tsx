@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { WordListTile } from "@/lib/components/WordListTile";
 import CenteredModal from "@/lib/components/CenteredModal";
+import { newPromptData } from "../_util/newItems";
 
 export function PromptEditModal({
 	initialInput,
@@ -24,17 +25,7 @@ export function PromptEditModal({
 	open: boolean;
 }) {
 	const [promptData, setPromptData] = useState<PromptType>(
-		initialInput ?? {
-			category: "thing",
-			subcategory: "",
-			difficulty: "easy",
-			password: "",
-			id: "000",
-			us: false,
-			alternateSpellings: [],
-			forbiddenWords: [],
-			tailoredWords: [],
-		},
+		initialInput ?? newPromptData,
 	);
 	useEffect(() => {
 		if (initialInput) {

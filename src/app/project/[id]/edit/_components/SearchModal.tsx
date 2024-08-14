@@ -5,8 +5,20 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { filterPrompt } from "../_util/filterPrompt";
 import { filterWordList } from "../_util/filterWordList";
 import { similarity } from "@/lib/util/similarity";
-import type { Modal } from "../_util/modal";
+import { Modal } from "../_util/modal";
 import type { PromptType, WordListType } from "@/lib/types/blather";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faArrowRight,
+	faBolt,
+	faComments,
+	faList,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+	getNewResponseList,
+	newBlankWordList,
+	newPromptData,
+} from "../_util/newItems";
 
 type SearchResult =
 	| {
@@ -138,27 +150,70 @@ export function SearchModal({
 						<div className="text-center">No results found.</div>
 					)}
 					{!searching && results.length > 0 && (
-						<div>
-							{results.map((result) => {
-								switch (result.type) {
-									case "prompt":
-										return (
-											<div key={result.id}>Prompt: {result.data.password}</div>
-										);
-									case "list":
-										return <div key={result.id}>List: {result.data.name}</div>;
-									case "action":
-										return (
-											<div key={result.id}>
-												Action:{" "}
-												{
-													actions.find((action) => action.id === result.id)
-														?.term
+						<div className="grid grid-flow-row gap-2">
+							{results.map((result) => (
+								<button
+									type="button"
+									key={result.id}
+									className="p-2 gap-2 flex items-center justify-between rounded-md bg-slate-200 shadow-md"
+									onClick={() => {
+										switch (result.type) {
+											case "prompt": {
+												setModalData(result.data);
+												setModal(Modal.Prompt);
+												break;
+											}
+											case "action": {
+												switch (result.id) {
+													case "new-prompt": {
+														setModalData(newPromptData);
+														setModal(Modal.Prompt);
+														break;
+													}
+													case "new-list": {
+														setModal(Modal.WordList);
+														setModalData(newBlankWordList);
+														break;
+													}
+													case "new-list-response": {
+														setModal(Modal.WordList);
+														setModalData(getNewResponseList(null));
+														break;
+													}
 												}
-											</div>
-										);
-								}
-							})}
+												break;
+											}
+											case "list": {
+												setModal(Modal.WordList);
+												setModalData(result.data);
+												break;
+											}
+										}
+										setOpen(false);
+									}}
+								>
+									<div className="flex gap-2 items-center">
+										<FontAwesomeIcon
+											icon={
+												result.type === "prompt"
+													? faComments
+													: result.type === "list"
+														? faList
+														: faBolt
+											}
+										/>
+										<span>
+											{result.type === "prompt"
+												? result.data.password
+												: result.type === "list"
+													? result.data.name
+													: actions.find((action) => action.id === result.id)
+															?.term}
+										</span>
+									</div>
+									<FontAwesomeIcon icon={faArrowRight} />
+								</button>
+							))}
 						</div>
 					)}
 				</div>

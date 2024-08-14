@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PromptListing } from "../PromptListing";
 import type { Category, Difficulty, PromptType } from "@/lib/types/blather";
 import { useMemo, useState } from "react";
+import { newPromptData } from "../../_util/newItems";
 
 export default function PromptSection({
 	setModal,
@@ -70,17 +71,7 @@ export default function PromptSection({
 							type="button"
 							className="flex items-center h-full"
 							onClick={() => {
-								setModal({
-									category: "thing",
-									subcategory: "",
-									difficulty: "easy",
-									password: "",
-									id: "000",
-									us: false,
-									alternateSpellings: [],
-									forbiddenWords: [],
-									tailoredWords: [],
-								});
+								setModal(newPromptData);
 							}}
 						>
 							<FontAwesomeIcon className="w-8 h-8" icon={faPlusCircle} />
