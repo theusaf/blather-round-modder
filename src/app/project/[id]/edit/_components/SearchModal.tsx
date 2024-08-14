@@ -5,6 +5,8 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { filterPrompt } from "../_util/filterPrompt";
 import { filterWordList } from "../_util/filterWordList";
 import { similarity } from "@/lib/util/similarity";
+import type { Modal } from "../_util/modal";
+import type { PromptType, WordListType } from "@/lib/types/blather";
 
 type SearchResult =
 	| {
@@ -16,7 +18,13 @@ type SearchResult =
 			id: "new-prompt" | "new-list" | "new-list-response";
 	  };
 
-export function SearchModal() {
+export function SearchModal({
+	setModal,
+	setModalData,
+}: {
+	setModal: (value: Modal) => void;
+	setModalData: (value: PromptType | WordListType | null) => void;
+}) {
 	const [open, setOpen] = useState(false);
 	const [search, setSearch] = useState("");
 	const [searching, setSearching] = useState(false);

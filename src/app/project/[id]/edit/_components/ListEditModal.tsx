@@ -47,139 +47,145 @@ export function ListEditModal({
 
 	return (
 		<CenteredModal open={open} onClose={handleComplete}>
-			<div className="flex gap-2">
-				<LabeledInput
-					label="Name"
-					name="modal-list-name"
-					inputId="modal-list-name"
-					placeholder="Enter name"
-					value={listData.name}
-					onValueChange={(value) => {
-						setListData(
-							produce(listData, (draft) => {
-								draft.name = value;
-							}),
-						);
-					}}
-				/>
-				<div className="flex items-start">
-					<button
-						type="button"
-						className="bg-emerald-700 rounded-md text-white p-2"
-						onClick={handleComplete}
-					>
-						Done
-					</button>
-				</div>
-			</div>
-			<div className="flex flex-wrap gap-2 mt-2">
-				<LabeledInput
-					label="Max Choices"
-					name="modal-list-max-choices"
-					inputId="modal-list-max-choices"
-					placeholder="Enter max choices"
-					value={listData.maxChoices}
-					type="number"
-					tooltip="When this list is used in a sentence structure, limits how many words can be chosen at a time."
-					onValueChange={(value) => {
-						setListData(
-							produce(listData, (draft) => {
-								draft.maxChoices = value;
-							}),
-						);
-					}}
-				/>
-				<LabeledInput
-					label="Amount"
-					name="modal-list-amount"
-					inputId="modal-list-amount"
-					placeholder="Enter amount"
-					value={listData.amount}
-					tooltip="Probably determines the maximum number of times this list can be used. Usually, leave blank."
-					type="number"
-					onValueChange={(value) => {
-						setListData(
-							produce(listData, (draft) => {
-								draft.amount = value;
-							}),
-						);
-					}}
-				/>
-				<LabeledInput
-					label="Placeholder"
-					name="modal-list-placeholder"
-					inputId="modal-list-placeholder"
-					placeholder="Enter placeholder"
-					value={listData.placeholder}
-					tooltip="Text to show when no words are chosen."
-					onValueChange={(value) => {
-						setListData(
-							produce(listData, (draft) => {
-								draft.placeholder = value;
-							}),
-						);
-					}}
-				/>
-				<LabeledCheckbox
-					checked={listData.optional}
-					onCheckedChange={(value) => {
-						setListData(
-							produce(listData, (draft) => {
-								draft.optional = value;
-							}),
-						);
-					}}
-					inputId="modal-list-optional"
-					tooltip="Whether the player has to select a word from this list."
-					label="Optional"
-				/>
-			</div>
-			<hr className="border-black my-2" />
-			<NewWordInput
-				isResponseSentence={listData.name.startsWith("response-sentence-")}
-				onComplete={(word, alwaysChoose) => {
-					setListData(
-						produce(listData, (draft) => {
-							draft.words.push({ word, alwaysChoose });
-						}),
-					);
-				}}
-			/>
-			<div className="flex flex-wrap gap-2 mt-2">
-				{listData.words.map((word, index) => (
-					<SectionCard key={index}>
-						<div className="flex gap-2">
-							<div className="font-semibold">{word.word}</div>
-							<div>
-								<Tooltip
-									title={
-										word.alwaysChoose ? "Always Choose" : "Don't Always Choose"
-									}
-								>
-									<FontAwesomeIcon
-										className="w-4 h-4 cursor-help"
-										icon={word.alwaysChoose ? faListCheck : faList}
-									/>
-								</Tooltip>
-							</div>
-							<div>
-								<button
-									type="button"
-									onClick={() => {
-										setListData(
-											produce(listData, (draft) => {
-												draft.words.splice(index, 1);
-											}),
-										);
-									}}
-								>
-									<FontAwesomeIcon className="w-4 h-4" icon={faTrash} />
-								</button>
-							</div>
+			{open && (
+				<>
+					<div className="flex gap-2">
+						<LabeledInput
+							label="Name"
+							name="modal-list-name"
+							inputId="modal-list-name"
+							placeholder="Enter name"
+							value={listData.name}
+							onValueChange={(value) => {
+								setListData(
+									produce(listData, (draft) => {
+										draft.name = value;
+									}),
+								);
+							}}
+						/>
+						<div className="flex items-start">
+							<button
+								type="button"
+								className="bg-emerald-700 rounded-md text-white p-2"
+								onClick={handleComplete}
+							>
+								Done
+							</button>
 						</div>
-					</SectionCard>
-				))}
-			</div>
+					</div>
+					<div className="flex flex-wrap gap-2 mt-2">
+						<LabeledInput
+							label="Max Choices"
+							name="modal-list-max-choices"
+							inputId="modal-list-max-choices"
+							placeholder="Enter max choices"
+							value={listData.maxChoices}
+							type="number"
+							tooltip="When this list is used in a sentence structure, limits how many words can be chosen at a time."
+							onValueChange={(value) => {
+								setListData(
+									produce(listData, (draft) => {
+										draft.maxChoices = value;
+									}),
+								);
+							}}
+						/>
+						<LabeledInput
+							label="Amount"
+							name="modal-list-amount"
+							inputId="modal-list-amount"
+							placeholder="Enter amount"
+							value={listData.amount}
+							tooltip="Probably determines the maximum number of times this list can be used. Usually, leave blank."
+							type="number"
+							onValueChange={(value) => {
+								setListData(
+									produce(listData, (draft) => {
+										draft.amount = value;
+									}),
+								);
+							}}
+						/>
+						<LabeledInput
+							label="Placeholder"
+							name="modal-list-placeholder"
+							inputId="modal-list-placeholder"
+							placeholder="Enter placeholder"
+							value={listData.placeholder}
+							tooltip="Text to show when no words are chosen."
+							onValueChange={(value) => {
+								setListData(
+									produce(listData, (draft) => {
+										draft.placeholder = value;
+									}),
+								);
+							}}
+						/>
+						<LabeledCheckbox
+							checked={listData.optional}
+							onCheckedChange={(value) => {
+								setListData(
+									produce(listData, (draft) => {
+										draft.optional = value;
+									}),
+								);
+							}}
+							inputId="modal-list-optional"
+							tooltip="Whether the player has to select a word from this list."
+							label="Optional"
+						/>
+					</div>
+					<hr className="border-black my-2" />
+					<NewWordInput
+						isResponseSentence={listData.name.startsWith("response-sentence-")}
+						onComplete={(word, alwaysChoose) => {
+							setListData(
+								produce(listData, (draft) => {
+									draft.words.push({ word, alwaysChoose });
+								}),
+							);
+						}}
+					/>
+					<div className="flex flex-wrap gap-2 mt-2">
+						{listData.words.map((word, index) => (
+							<SectionCard key={index}>
+								<div className="flex gap-2">
+									<div className="font-semibold">{word.word}</div>
+									<div>
+										<Tooltip
+											title={
+												word.alwaysChoose
+													? "Always Choose"
+													: "Don't Always Choose"
+											}
+										>
+											<FontAwesomeIcon
+												className="w-4 h-4 cursor-help"
+												icon={word.alwaysChoose ? faListCheck : faList}
+											/>
+										</Tooltip>
+									</div>
+									<div>
+										<button
+											type="button"
+											onClick={() => {
+												setListData(
+													produce(listData, (draft) => {
+														draft.words.splice(index, 1);
+													}),
+												);
+											}}
+										>
+											<FontAwesomeIcon className="w-4 h-4" icon={faTrash} />
+										</button>
+									</div>
+								</div>
+							</SectionCard>
+						))}
+					</div>
+				</>
+			)}
 		</CenteredModal>
 	);
 }

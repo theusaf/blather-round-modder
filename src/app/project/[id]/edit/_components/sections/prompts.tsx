@@ -3,21 +3,15 @@ import { useProjectStore } from "@/lib/hooks/projectStore";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PromptListing } from "../PromptListing";
-import type {
-	Category,
-	Difficulty,
-	NumberedString,
-	PromptType,
-} from "@/lib/types/blather";
+import type { Category, Difficulty, PromptType } from "@/lib/types/blather";
 import { useMemo, useState } from "react";
-import { produce } from "immer";
-import { PromptEditModal } from "../PromptEditModal";
 
-export default function PromptSection() {
+export default function PromptSection({
+	setModal,
+}: {
+	setModal: (data: PromptType) => void;
+}) {
 	const prompts = useProjectStore((state) => state.prompts);
-	const setPrompts = useProjectStore((state) => state.setPrompts);
-	const getNextId = useProjectStore((state) => state.getNextId);
-	const [modal, setModal] = useState<PromptType | null>(null);
 	const [search, setSearch] = useState<string>("");
 	const [filterCategory, setFilterCategory] = useState<Category | "">("");
 	const [filterDifficulty, setFilterDifficulty] = useState<Difficulty | "">("");
@@ -96,35 +90,6 @@ export default function PromptSection() {
 				<hr className="my-2" />
 				<PromptListing setModal={setModal} prompts={filteredPrompts} />
 			</div>
-			<PromptEditModal
-				initialInput={modal}
-				onComplete={(result) => {
-					if (result.id === "000") {
-						if (result.password) {
-							setPrompts(
-								produce(prompts, (draft) => {
-									draft.push(
-										produce(result, (draft) => {
-											draft.id = getNextId().toString() as NumberedString;
-										}),
-									);
-								}),
-							);
-						}
-					} else {
-						setPrompts(
-							produce(prompts, (draft) => {
-								const index = draft.findIndex(
-									(prompt) => prompt.id === result.id,
-								);
-								draft[index] = result;
-							}),
-						);
-					}
-					setModal(null);
-				}}
-				open={modal !== null}
-			/>
 		</>
 	);
 }
