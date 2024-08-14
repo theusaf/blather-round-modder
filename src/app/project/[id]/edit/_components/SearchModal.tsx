@@ -10,8 +10,14 @@ import type { PromptType, WordListType } from "@/lib/types/blather";
 
 type SearchResult =
 	| {
-			type: "prompt" | "list";
+			type: "prompt";
 			id: string;
+			data: PromptType;
+	  }
+	| {
+			type: "list";
+			id: string;
+			data: WordListType;
 	  }
 	| {
 			type: "action";
@@ -69,10 +75,12 @@ export function SearchModal({
 			...filteredPrompts.map((prompt) => ({
 				type: "prompt" as const,
 				id: prompt.id,
+				data: prompt,
 			})),
 			...filteredWordLists.map((list) => ({
 				type: "list" as const,
 				id: list.id,
+				data: list,
 			})),
 			...filteredActions.map((action) => ({
 				type: "action" as const,
@@ -135,21 +143,10 @@ export function SearchModal({
 								switch (result.type) {
 									case "prompt":
 										return (
-											<div key={result.id}>
-												Prompt:{" "}
-												{
-													prompts.find((prompt) => prompt.id === result.id)
-														?.password
-												}
-											</div>
+											<div key={result.id}>Prompt: {result.data.password}</div>
 										);
 									case "list":
-										return (
-											<div key={result.id}>
-												List:{" "}
-												{wordLists.find((list) => list.id === result.id)?.name}
-											</div>
-										);
+										return <div key={result.id}>List: {result.data.name}</div>;
 									case "action":
 										return (
 											<div key={result.id}>
