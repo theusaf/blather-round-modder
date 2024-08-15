@@ -6,6 +6,7 @@ import { PromptListing } from "../PromptListing";
 import type { Category, Difficulty, PromptType } from "@/lib/types/blather";
 import { useMemo, useState } from "react";
 import { newPromptData } from "../../_util/newItems";
+import { filterPrompt } from "../../_util/filterPrompt";
 
 export default function PromptSection({
 	setModal,
@@ -23,7 +24,7 @@ export default function PromptSection({
 				if (filterCategory && prompt.category !== filterCategory) return false;
 				if (filterDifficulty && prompt.difficulty !== filterDifficulty)
 					return false;
-				return prompt.password.toLowerCase().includes(search.toLowerCase());
+				return filterPrompt(prompt, search);
 			}),
 		[prompts, search, filterCategory, filterDifficulty],
 	);

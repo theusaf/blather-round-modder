@@ -15,6 +15,8 @@ export function filterPrompt(prompt: PromptType, search: string): boolean {
 		prompt.alternateSpellings.some((word) =>
 			word.toLowerCase().includes(search.toLowerCase()),
 		) ||
+		prompt.subcategory.toLowerCase().includes(search.toLowerCase()) ||
+		similarity(prompt.subcategory, search) >= compareValue ||
 		similarity(prompt.password, search) >= compareValue ||
 		prompt.alternateSpellings.some(
 			(word) => similarity(word, search) >= compareValue,
