@@ -1,8 +1,8 @@
 "use client";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import { type ReactNode, useEffect } from "react";
-import type { UserLogin } from "../types/session";
 import { useUserStore } from "../hooks/userStore";
+import type { UserLogin } from "../types/session";
 
 /**
  * A component which syncs the user's login state passed from the server components.

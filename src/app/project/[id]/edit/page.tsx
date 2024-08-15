@@ -1,21 +1,21 @@
 "use client";
-import { useState } from "react";
-import { ProjectTabMenu } from "./_components/ProjectTabMenu";
-import PromptSection from "./_components/sections/prompts";
-import WordListSection from "./_components/sections/wordLists";
-import SentenceStructureSection from "./_components/sections/sentenceStructures";
-import { SearchModal } from "./_components/SearchModal";
-import { Modal } from "./_util/modal";
 import { useProjectStore } from "@/lib/hooks/projectStore";
-import { PromptEditModal } from "./_components/PromptEditModal";
 import type {
 	NumberedString,
 	PromptType,
 	WordListType,
 } from "@/lib/types/blather";
 import { produce } from "immer";
+import { useState } from "react";
 import { ListEditModal } from "./_components/ListEditModal";
 import NavBar from "./_components/NavBar";
+import { ProjectTabMenu } from "./_components/ProjectTabMenu";
+import { PromptEditModal } from "./_components/PromptEditModal";
+import { SearchModal } from "./_components/SearchModal";
+import PromptSection from "./_components/sections/prompts";
+import SentenceStructureSection from "./_components/sections/sentenceStructures";
+import WordListSection from "./_components/sections/wordLists";
+import { Modal } from "./_util/modal";
 
 export default function ProjectEditPage() {
 	const wordLists = useProjectStore((state) => state.wordLists);

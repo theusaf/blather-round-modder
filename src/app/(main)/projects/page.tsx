@@ -1,8 +1,8 @@
 import "server-only";
 import Project from "@/lib/database/models/project";
-import ProjectListing from "../_components/ProjectListing";
 import type { ShallowProjectType } from "@/lib/types/project";
 import type { ResolvingMetadata } from "next";
+import ProjectListing from "../_components/ProjectListing";
 
 export async function generateMetadata(_: unknown, parent: ResolvingMetadata) {
 	return {

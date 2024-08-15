@@ -1,6 +1,6 @@
 "use client";
-import { type MouseEvent, useEffect, useRef, useState } from "react";
 import { Tooltip } from "@mui/material";
+import { type MouseEvent, useEffect, useRef, useState } from "react";
 import { WordListMenu } from "./WordListMenu";
 
 /**

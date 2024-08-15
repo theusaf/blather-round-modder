@@ -1,9 +1,9 @@
 "use client";
+import { filterWordList } from "@/app/project/[id]/edit/_util/filterWordList";
 import { useMemo, useState } from "react";
 import { useProjectStore } from "../hooks/projectStore";
-import { filterWordList } from "@/app/project/[id]/edit/_util/filterWordList";
-import OutsideClickDetector from "./OutsideClickDetector";
 import type { WordListType } from "../types/blather";
+import OutsideClickDetector from "./OutsideClickDetector";
 import { WordListMenuItem } from "./WordListMenuItem";
 
 /**

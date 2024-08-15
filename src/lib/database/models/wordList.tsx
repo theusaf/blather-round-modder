@@ -4,10 +4,10 @@ import type {
 	OptionalNumberedString,
 	WordListType,
 } from "@/lib/types/blather";
-import { Model } from "firebase-admin/machine-learning";
-import type Project from "./project";
 import type { QueryOptions } from "@/lib/types/database";
 import type { ProjectType } from "@/lib/types/project";
+import { Model } from "firebase-admin/machine-learning";
+import type Project from "./project";
 
 export default class WordList extends Model implements WordListType {
 	amount: OptionalNumberedString;

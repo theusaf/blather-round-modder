@@ -1,6 +1,6 @@
+import { stripIndent } from "common-tags";
 import type { Step } from "./AnimatedHomeSection";
 import { GuessesList } from "./GuessesList";
-import { stripIndent } from "common-tags";
 
 const colors = ["white", "green", "blue", "orange", "red"];
 

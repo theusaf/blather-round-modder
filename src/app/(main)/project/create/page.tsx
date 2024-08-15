@@ -1,8 +1,8 @@
 import SectionCard from "@/lib/components/SectionCard";
-import { CreationForm } from "./_components/CreationForm";
-import Link from "next/link";
 import { getUserSession } from "@/lib/util/auth";
 import type { ResolvingMetadata } from "next";
+import Link from "next/link";
+import { CreationForm } from "./_components/CreationForm";
 
 export async function generateMetadata(_: unknown, parent: ResolvingMetadata) {
 	return {

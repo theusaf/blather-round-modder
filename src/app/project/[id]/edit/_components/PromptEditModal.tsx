@@ -1,19 +1,19 @@
 "use client";
-import type { Category, Difficulty, PromptType } from "@/lib/types/blather";
-import { useEffect, useState } from "react";
-import { LabeledInput } from "@/lib/components/LabeledInput";
-import { produce } from "immer";
-import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
+import CenteredModal from "@/lib/components/CenteredModal";
 import { HorizontalRadioSelector } from "@/lib/components/HorizontalRadioSelector";
+import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
+import { LabeledInput } from "@/lib/components/LabeledInput";
+import SectionCard from "@/lib/components/SectionCard";
+import { WordListTile } from "@/lib/components/WordListTile";
+import type { Category, Difficulty, PromptType } from "@/lib/types/blather";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { produce } from "immer";
+import { useEffect, useState } from "react";
+import { newPromptData } from "../_util/newItems";
 import { AlternateSpellingEditSection } from "./AlternateSpellingEditSection";
 import { ForbiddenWordEditSection } from "./ForbiddenWordEditSection";
 import { TailoredWordEditSection } from "./TailoredWordEditSection";
-import SectionCard from "@/lib/components/SectionCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { WordListTile } from "@/lib/components/WordListTile";
-import CenteredModal from "@/lib/components/CenteredModal";
-import { newPromptData } from "../_util/newItems";
 
 export function PromptEditModal({
 	initialInput,

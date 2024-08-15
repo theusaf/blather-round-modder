@@ -1,12 +1,12 @@
 "use client";
 import { useProjectStore } from "@/lib/hooks/projectStore";
+import type { Category, Difficulty, PromptType } from "@/lib/types/blather";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PromptListing } from "../PromptListing";
-import type { Category, Difficulty, PromptType } from "@/lib/types/blather";
 import { useMemo, useState } from "react";
-import { newPromptData } from "../../_util/newItems";
 import { filterPrompt } from "../../_util/filterPrompt";
+import { newPromptData } from "../../_util/newItems";
+import { PromptListing } from "../PromptListing";
 
 export default function PromptSection({
 	setModal,

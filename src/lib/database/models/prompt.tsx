@@ -5,9 +5,9 @@ import type {
 	NumberedString,
 	PromptType,
 } from "@/lib/types/blather";
+import type { QueryOptions } from "@/lib/types/database";
 import { Model } from ".";
 import type Project from "./project";
-import type { QueryOptions } from "@/lib/types/database";
 
 export default class Prompt extends Model implements PromptType {
 	alternateSpellings: string[];

@@ -1,19 +1,19 @@
 "use client";
 import CenteredModal from "@/lib/components/CenteredModal";
 import { useProjectStore } from "@/lib/hooks/projectStore";
-import { useState, useRef, useEffect, useCallback } from "react";
-import { filterPrompt } from "../_util/filterPrompt";
-import { filterWordList } from "../_util/filterWordList";
-import { similarity } from "@/lib/util/similarity";
-import { Modal } from "../_util/modal";
 import type { PromptType, WordListType } from "@/lib/types/blather";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { similarity } from "@/lib/util/similarity";
 import {
 	faArrowRight,
 	faBolt,
 	faComments,
 	faList,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { filterPrompt } from "../_util/filterPrompt";
+import { filterWordList } from "../_util/filterWordList";
+import { Modal } from "../_util/modal";
 import {
 	getNewResponseList,
 	newBlankWordList,

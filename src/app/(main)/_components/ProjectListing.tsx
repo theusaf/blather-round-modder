@@ -5,7 +5,7 @@ import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function ProjectListing({
 	projects: initialProjects,

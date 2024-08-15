@@ -1,12 +1,12 @@
 import "server-only";
-import Link from "next/link";
-import Project from "@/lib/database/models/project";
 import SectionCard from "@/lib/components/SectionCard";
-import { notFound } from "next/navigation";
+import Project from "@/lib/database/models/project";
 import { getUserSession } from "@/lib/util/auth";
-import { ProjectDownload } from "./_components/ProjectDownload";
-import { DeleteButton } from "./_components/DeleteButton";
 import type { ResolvingMetadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { DeleteButton } from "./_components/DeleteButton";
+import { ProjectDownload } from "./_components/ProjectDownload";
 
 export async function generateMetadata(
 	{

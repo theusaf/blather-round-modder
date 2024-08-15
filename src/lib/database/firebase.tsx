@@ -1,6 +1,6 @@
 import "server-only";
-import { getApps, initializeApp } from "firebase-admin/app";
 import { credential } from "firebase-admin";
+import { getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
 const existingApps = getApps();

@@ -8,8 +8,8 @@ import type {
 	SentenceStructureType,
 	WordListType,
 } from "../types/blather";
-import User from "./models/user";
 import Project from "./models/project";
+import User from "./models/user";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

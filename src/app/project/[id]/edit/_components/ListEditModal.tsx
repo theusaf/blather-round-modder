@@ -1,11 +1,9 @@
 "use client";
-import type { WordListType } from "@/lib/types/blather";
-import { Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
-import { produce } from "immer";
-import { LabeledInput } from "@/lib/components/LabeledInput";
+import CenteredModal from "@/lib/components/CenteredModal";
 import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
+import { LabeledInput } from "@/lib/components/LabeledInput";
 import SectionCard from "@/lib/components/SectionCard";
+import type { WordListType } from "@/lib/types/blather";
 import {
 	faList,
 	faListCheck,
@@ -13,7 +11,9 @@ import {
 	faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CenteredModal from "@/lib/components/CenteredModal";
+import { Tooltip } from "@mui/material";
+import { produce } from "immer";
+import { useEffect, useState } from "react";
 
 export function ListEditModal({
 	listModal,

@@ -1,13 +1,13 @@
 "use client";
+import { produce } from "immer";
 import { create } from "zustand";
-import type { ProjectType } from "../types/project";
 import type {
 	NumberedString,
 	PromptType,
 	SentenceStructureType,
 	WordListType,
 } from "../types/blather";
-import { produce } from "immer";
+import type { ProjectType } from "../types/project";
 
 interface ProjectStoreState extends ProjectType {
 	setPublic: (value: boolean) => void;

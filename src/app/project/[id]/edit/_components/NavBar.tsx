@@ -1,15 +1,15 @@
 "use client";
-import { useProjectStore } from "@/lib/hooks/projectStore";
 import NavIcon from "@/lib/components/NavIcon";
-import { useState } from "react";
-import { ProjectSettingsModal } from "./ProjectSettingsModal";
-import { ExitButton } from "./ExitButton";
-import { SaveButton } from "./SaveButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { SearchModal } from "./SearchModal";
+import { useProjectStore } from "@/lib/hooks/projectStore";
 import type { PromptType, WordListType } from "@/lib/types/blather";
+import { faCog, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import type { Modal } from "../_util/modal";
+import { ExitButton } from "./ExitButton";
+import { ProjectSettingsModal } from "./ProjectSettingsModal";
+import { SaveButton } from "./SaveButton";
+import { SearchModal } from "./SearchModal";
 
 export default function NavBar({
 	setModal: setPageModal,

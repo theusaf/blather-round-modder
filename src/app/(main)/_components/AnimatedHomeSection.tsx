@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useReducer, useRef, useState } from "react";
-import ScrollableStepSection from "./ScrollableStepSection";
 import { MedievalSharp } from "next/font/google";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { steps } from "../_util/steps";
 import { AnimatedTextDisplay } from "./AnimatedTextDisplay";
+import ScrollableStepSection from "./ScrollableStepSection";
 
 const blockyFont = MedievalSharp({ subsets: ["latin"], weight: "400" });
 

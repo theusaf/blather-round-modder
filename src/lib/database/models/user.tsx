@@ -1,6 +1,6 @@
 import "server-only";
-import { Model, executeQuery, recursiveWhere } from ".";
 import type { QueryOptions } from "@/lib/types/database";
+import { Model, executeQuery, recursiveWhere } from ".";
 import { firestore } from "../firebase";
 
 export default class User extends Model {

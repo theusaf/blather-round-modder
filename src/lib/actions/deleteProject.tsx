@@ -1,10 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import Project from "../database/models/project";
 import { getUserSession } from "../util/auth";
 import revalidateProjectPaths from "../util/revalidateProjectPaths";
-import { redirect } from "next/navigation";
 
 /**
  * Deletes a project from the database.

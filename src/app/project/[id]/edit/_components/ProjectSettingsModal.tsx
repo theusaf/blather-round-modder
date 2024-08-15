@@ -1,8 +1,8 @@
 "use client";
-import { useProjectStore } from "@/lib/hooks/projectStore";
-import { LabeledInput } from "@/lib/components/LabeledInput";
-import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
 import CenteredModal from "@/lib/components/CenteredModal";
+import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
+import { LabeledInput } from "@/lib/components/LabeledInput";
+import { useProjectStore } from "@/lib/hooks/projectStore";
 
 export function ProjectSettingsModal({
 	open,

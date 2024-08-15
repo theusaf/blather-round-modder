@@ -22,7 +22,9 @@ export const newBlankWordList: WordListType = {
 	words: [],
 };
 
-export function getNewResponseList(wordList: WordListType | undefined | null): WordListType {
+export function getNewResponseList(
+	wordList: WordListType | undefined | null,
+): WordListType {
 	const responsePhrases =
 		wordList?.words.map((word) => {
 			return {

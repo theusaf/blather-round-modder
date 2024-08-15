@@ -1,9 +1,9 @@
 "use client";
-import { useState } from "react";
 import { LabeledInput } from "@/lib/components/LabeledInput";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { WordListTile } from "@/lib/components/WordListTile";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 export function TailoredWordEditSection({
 	onSubmit,

@@ -1,9 +1,9 @@
 "use server";
 
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import type { JWTUserLogin } from "@/lib/types/session";
 import { encrypt } from "@/lib/util/session";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import User from "../database/models/user";
 import { verify } from "../util/auth";
 

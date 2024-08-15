@@ -1,6 +1,6 @@
+import NavIcon from "@/lib/components/NavIcon";
 import Link from "next/link";
 import { UserNavMenu } from "./UserNavMenu";
-import NavIcon from "@/lib/components/NavIcon";
 
 export function NavBar() {
 	return (

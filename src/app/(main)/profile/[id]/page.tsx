@@ -1,10 +1,10 @@
 import "server-only";
-import ProjectListing from "../../_components/ProjectListing";
-import type { ProjectType, ShallowProjectType } from "@/lib/types/project";
 import Project from "@/lib/database/models/project";
-import type { ResolvingMetadata } from "next";
-import { getUserSession } from "@/lib/util/auth";
 import type { QueryOptions } from "@/lib/types/database";
+import type { ProjectType, ShallowProjectType } from "@/lib/types/project";
+import { getUserSession } from "@/lib/util/auth";
+import type { ResolvingMetadata } from "next";
+import ProjectListing from "../../_components/ProjectListing";
 
 export async function generateMetadata(_: unknown, parent: ResolvingMetadata) {
 	const userDetails = await getUserSession();

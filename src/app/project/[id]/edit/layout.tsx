@@ -1,12 +1,12 @@
-import type { ProjectType } from "@/lib/types/project";
-import ProjectLoadHandler from "./_components/ProjectLoadHandler";
-import NavBar from "./_components/NavBar";
-import type { ReactNode } from "react";
 import Project from "@/lib/database/models/project";
-import { notFound } from "next/navigation";
+import type { ProjectType } from "@/lib/types/project";
 import { getUserSession } from "@/lib/util/auth";
-import Link from "next/link";
 import type { ResolvingMetadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
+import NavBar from "./_components/NavBar";
+import ProjectLoadHandler from "./_components/ProjectLoadHandler";
 
 export async function generateMetadata(
 	{
@@ -80,9 +80,7 @@ export default async function EditProjectPage({
 	};
 	return (
 		<ProjectLoadHandler project={initialProject}>
-			<div className="flex flex-col h-full">
-				{children}
-			</div>
+			<div className="flex flex-col h-full">{children}</div>
 		</ProjectLoadHandler>
 	);
 }

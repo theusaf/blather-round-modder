@@ -4,11 +4,11 @@ import type {
 	SentenceStructureType,
 	WordListType,
 } from "@/lib/types/blather";
-import type { ProjectType } from "@/lib/types/project";
-import { Model, executeQuery } from ".";
 import type { QueryOptions } from "@/lib/types/database";
-import { firestore } from "../firebase";
+import type { ProjectType } from "@/lib/types/project";
 import { getRandomId } from "@/lib/util/getRandomId";
+import { Model, executeQuery } from ".";
+import { firestore } from "../firebase";
 
 export default class Project extends Model implements ProjectType {
 	id: string | null;
