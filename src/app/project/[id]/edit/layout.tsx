@@ -81,8 +81,7 @@ export default async function EditProjectPage({
 	return (
 		<ProjectLoadHandler project={initialProject}>
 			<div className="flex flex-col h-full">
-				<NavBar />
-				<div className="flex-1">{children}</div>
+				{children}
 			</div>
 		</ProjectLoadHandler>
 	);

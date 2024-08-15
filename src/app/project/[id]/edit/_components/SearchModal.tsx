@@ -38,10 +38,25 @@ type SearchResult =
 
 export function SearchModal({
 	setModal,
+	open: inputOpen,
+	onOpenChange,
 }: {
 	setModal: (value: [Modal, PromptType | WordListType | null]) => void;
+	open?: boolean;
+	onOpenChange?: (state: boolean) => void;
 }) {
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(inputOpen ?? false);
+	const changeOpen = useCallback(
+		(state: boolean) => {
+			if (onOpenChange) onOpenChange(state);
+			else setOpen(state);
+		},
+		[onOpenChange],
+	);
+	useEffect(() => {
+		if (inputOpen !== undefined && inputOpen !== open) setOpen(inputOpen);
+	}, [inputOpen, open]);
+
 	const [search, setSearch] = useState("");
 	const [searching, setSearching] = useState(false);
 	const [results, setResults] = useState<SearchResult[]>([]);
@@ -118,17 +133,17 @@ export function SearchModal({
 		const callback = (event: KeyboardEvent) => {
 			if (event.key.toLowerCase() === "k" && (event.ctrlKey || event.metaKey)) {
 				event.preventDefault();
-				setOpen(true);
+				changeOpen(true);
 			}
 		};
 		window.addEventListener("keydown", callback);
 		return () => {
 			window.removeEventListener("keydown", callback);
 		};
-	}, []);
+	}, [changeOpen]);
 
 	return (
-		<CenteredModal open={open} onClose={() => setOpen(false)}>
+		<CenteredModal open={open} onClose={() => changeOpen(false)}>
 			<div className="flex flex-col gap-2">
 				<input
 					onInput={(event) => {
@@ -185,7 +200,7 @@ export function SearchModal({
 												break;
 											}
 										}
-										setOpen(false);
+										changeOpen(false);
 									}}
 								>
 									<div className="flex gap-2 items-center">
