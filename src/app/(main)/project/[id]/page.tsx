@@ -88,7 +88,7 @@ export default async function ProjectPage({
 							</button>
 						</Link>
 					)}
-					<Link href={`/project/${params.id}/remix`} className="w-full">
+					<Link href={`/project/${params.id}/remix`} prefetch={false} className="w-full">
 						<button
 							type="button"
 							className="p-2 rounded-md bg-emerald-700 text-white w-full"

@@ -50,7 +50,7 @@ export default function ProjectListing({
 										View
 									</button>
 								</Link>
-								<Link href={`/project/${project.id}/remix`}>
+								<Link href={`/project/${project.id}/remix`} prefetch={false}>
 									<button
 										type="button"
 										className="bg-emerald-700 text-white rounded-md p-2"
