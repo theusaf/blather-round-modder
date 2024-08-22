@@ -209,13 +209,6 @@ export default function ValidationSection({
 		}
 	}
 	const topLevelLists = new Set<string>();
-	for (const prompt of prompts) {
-		for (const word of prompt.tailoredWords) {
-			if (/^<[^>]+>$/.test(word.list)) {
-				topLevelLists.add(word.list.slice(1, -1));
-			}
-		}
-	}
 	for (const structure of sentenceStructures) {
 		for (const phrase of structure.structures) {
 			const lists = (phrase.match(/<([^>]+)>/g) ?? []).map((match) =>
@@ -239,6 +232,21 @@ export default function ValidationSection({
 			});
 		}
 	}
+	// duplicate items
+	for (const list of wordLists) {
+		const words = new Set<string>();
+		for (const word of list.words) {
+			if (words.has(word.word)) {
+				validations.push({
+					type: "wordList",
+					severity: "error",
+					message: `Word list "${list.name}" has duplicate item "${word.word}"`,
+					data: list,
+				});
+			}
+			words.add(word.word);
+		}
+	}
 
 	// prompt validation
 	// lacking tailored words
@@ -250,6 +258,84 @@ export default function ValidationSection({
 				message: `Prompt "${prompt.category}/${prompt.password}" does not have tailored words`,
 				data: prompt,
 			});
+		}
+	}
+	// duplicate tailored words
+	for (const prompt of prompts) {
+		const words = new Set<string>();
+		for (const word of prompt.tailoredWords) {
+			if (words.has(word.word)) {
+				validations.push({
+					type: "prompt",
+					severity: "error",
+					message: `Prompt "${prompt.category}/${prompt.password}" has duplicate tailored item "${word.word}"`,
+					data: prompt,
+				});
+			}
+			words.add(word.word);
+		}
+	}
+	// tailored words use lists which cannot be reached
+	const topLevelListMap: Record<string, Set<string>> = {};
+	const recursiveAddList = (listName: string, listsFound: Set<string>) => {
+		const list = listMap[listName];
+		if (!list) return [];
+		const lists = [];
+		for (const word of list.words) {
+			if (/^<[^>]+>$/.test(word.word)) {
+				lists.push(word.word.slice(1, -1));
+			}
+		}
+		if (lists.length === 0) return [];
+		const result: string[] = [];
+		for (const sublist of lists) {
+			if (listsFound.has(sublist)) continue; // prevent infinite recursion
+			result.push(sublist);
+			listsFound.add(sublist);
+			result.push(...recursiveAddList(sublist, listsFound));
+		}
+		return result;
+	};
+	for (const topList of Array.from(topLevelLists)) {
+		topLevelListMap[topList] = new Set(
+			recursiveAddList(topList, new Set([topList])),
+		);
+	}
+	for (const prompt of prompts) {
+		const { category, subcategory, tailoredWords } = prompt;
+		const sentenceStructure = sentenceStructures.find(
+			(structure) => structure.category === category,
+		);
+		const topLevelListKeys = new Set([
+			`response-sentence-${category}`,
+			"response-sentence",
+		]);
+		if (subcategory) {
+			topLevelListKeys.add(`response-sentence-${category}-${subcategory}`);
+		}
+		if (sentenceStructure) {
+			for (const phrase of sentenceStructure.structures) {
+				const lists = (phrase.match(/<([^>]+)>/g) ?? []).map((match) =>
+					match.slice(1, -1),
+				);
+				for (const list of lists) topLevelListKeys.add(list);
+			}
+		}
+		const combinedTopLevelLists = new Set(
+			Array.from(topLevelListKeys).flatMap((key) =>
+				Array.from(topLevelListMap[key] ?? []),
+			),
+		);
+		for (const word of tailoredWords) {
+			const list = word.list.slice(1, -1);
+			if (!combinedTopLevelLists.has(list)) {
+				validations.push({
+					type: "prompt",
+					severity: "error",
+					message: `Prompt "${category}/${prompt.password}" uses tailored word "${word.word}" from list "${list}" which cannot be reached`,
+					data: prompt,
+				});
+			}
 		}
 	}
 
@@ -301,7 +387,9 @@ export default function ValidationSection({
 											: "text-yellow-500"
 									}
 								/>
-								<span className="truncate">{validation.message}</span>
+								<span title={validation.message} className="truncate">
+									{validation.message}
+								</span>
 							</div>
 							<button
 								type="button"
