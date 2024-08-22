@@ -51,7 +51,7 @@ export function getNewResponseList(
 		maxChoices: "1",
 		name: "response-sentence-EDITME",
 		optional: false,
-		placeholder: "It's a lot like",
+		placeholder: "blanky",
 		words: responsePhrases,
 	};
 }

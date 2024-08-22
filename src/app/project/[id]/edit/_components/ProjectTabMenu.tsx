@@ -29,6 +29,12 @@ export function ProjectTabMenu({
 			>
 				Sentence Structures
 			</ProjectTabMenuItem>
+			<ProjectTabMenuItem
+				onClick={() => onTabSelect("validation")}
+				active={activeTab === "validation"}
+			>
+				Check for Errors
+			</ProjectTabMenuItem>
 		</menu>
 	);
 }

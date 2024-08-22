@@ -249,6 +249,7 @@ function SubcategorySuggestion({
 		return Array.from(categories);
 	}, [prompts]);
 
+	// TODO: only filter for the current category
 	const suggestions = subcategories.filter((category) => {
 		return (
 			category.includes(promptData.subcategory) ||
