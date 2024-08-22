@@ -25,7 +25,7 @@ export function PromptListing({
 		const prompt = prompts[index];
 		if (!prompt) return null;
 		return (
-			<div style={style} className="px-1 py-1">
+			<div style={style} className="p-1">
 				<SectionCard className="flex gap-2 w-full justify-between">
 					<div className="flex flex-col gap-2 flex-shrink min-w-0">
 						<div className="flex gap-2 overflow-x-hidden">

@@ -9,10 +9,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
 import { useMemo } from "react";
-import { Modal } from "../../_util/modal";
-import { newBlankWordList } from "../../_util/newItems";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
+import { Modal } from "../../_util/modal";
+import { newBlankWordList } from "../../_util/newItems";
 
 interface BaseValidation {
 	message: string;
@@ -52,7 +52,6 @@ export default function ValidationSection({
 	setTab: (tab: string) => void;
 }) {
 	const now = Date.now();
-	console.log("Start");
 
 	// TODO: If this method becomes too expensive, look for ways to improve performance or add loading spinner while calculating async.
 	const prompts = useProjectStore((state) => state.prompts);
@@ -279,7 +278,7 @@ export default function ValidationSection({
 		}
 	}
 
-	console.log(`End: ${Date.now() - now}ms`);
+	console.debug(`Validation took ${Date.now() - now}ms`);
 
 	let promptCount = 0;
 	let wordListCount = 0;
