@@ -11,6 +11,8 @@ import { produce } from "immer";
 import { useMemo } from "react";
 import { Modal } from "../../_util/modal";
 import { newBlankWordList } from "../../_util/newItems";
+import AutoSizer from "react-virtualized-auto-sizer";
+import { FixedSizeList as List } from "react-window";
 
 interface BaseValidation {
 	message: string;
@@ -283,86 +285,109 @@ export default function ValidationSection({
 	let wordListCount = 0;
 	let sentenceStructureCount = 0;
 
-	return (
-		<div>
-			<h3 className="text-lg font-semibold">Validation</h3>
-			<div className="grid grid-flow-row gap-2">
-				{validations.map((validation) => {
-					let key = "";
-					switch (validation.type) {
-						case "prompt":
-							key = `prompt-${promptCount}`;
-							promptCount++;
-							break;
-						case "wordList":
-							key = `wordList-${wordListCount}`;
-							wordListCount++;
-							break;
-						case "sentenceStructure":
-							key = `sentenceStructure-${sentenceStructureCount}`;
-							sentenceStructureCount++;
-							break;
-					}
-					return (
-						<div
-							key={key}
-							className={`flex gap-2 items-center p-2 rounded-md bg-slate-300 min-w-0 shadow-sm justify-between ${
+	const indexKeyMap: string[] = [];
+	for (let i = 0; i < validations.length; i++) {
+		let key = "";
+		const validation = validations[i];
+		switch (validation.type) {
+			case "prompt":
+				key = `prompt-${promptCount}`;
+				promptCount++;
+				break;
+			case "wordList":
+				key = `wordList-${wordListCount}`;
+				wordListCount++;
+				break;
+			case "sentenceStructure":
+				key = `sentenceStructure-${sentenceStructureCount}`;
+				sentenceStructureCount++;
+				break;
+		}
+		indexKeyMap.push(key);
+	}
+	const getItemKey = (index: number) => indexKeyMap[index];
+
+	const Row = ({
+		index,
+		style,
+	}: { index: number; style: React.CSSProperties }) => {
+		const validation = validations[index];
+		return (
+			<div style={style}>
+				<div
+					className={`flex gap-2 items-center p-2 rounded-md bg-slate-300 min-w-0 shadow-sm justify-between ${
+						validation.severity === "error"
+							? "shadow-red-300"
+							: "shadow-yellow-300"
+					}`}
+				>
+					<div className="flex-shrink min-w-0 flex gap-2 items-center">
+						<FontAwesomeIcon
+							icon={
 								validation.severity === "error"
-									? "shadow-red-300"
-									: "shadow-yellow-300"
-							}`}
+									? faCircleExclamation
+									: faTriangleExclamation
+							}
+							className={
+								validation.severity === "error"
+									? "text-red-500"
+									: "text-yellow-500"
+							}
+						/>
+						<span title={validation.message} className="truncate">
+							{validation.message}
+						</span>
+					</div>
+					<button
+						type="button"
+						onClick={() => {
+							switch (validation.type) {
+								case "sentenceStructure": {
+									setTab("sentenceStructures");
+									break;
+								}
+								case "wordList": {
+									if ((validation as WordListValidation).data) {
+										setModal(
+											(validation as WordListValidation).data!,
+											Modal.WordList,
+										);
+									} else {
+										setTab("wordLists");
+									}
+									break;
+								}
+								case "prompt": {
+									setModal((validation as PromptValidation).data, Modal.Prompt);
+									break;
+								}
+							}
+						}}
+					>
+						<FontAwesomeIcon icon={faCircleRight} />
+					</button>
+				</div>
+			</div>
+		);
+	};
+
+	return (
+		<div className="h-full">
+			<h3 className="text-lg font-semibold">Validation</h3>
+			<div className="h-full">
+				<AutoSizer>
+					{({ height, width }) => (
+						<List
+							height={height}
+							width={width}
+							itemCount={validations.length}
+							itemSize={50}
+							itemKey={getItemKey}
 						>
-							<div className="flex-shrink min-w-0 flex gap-2 items-center">
-								<FontAwesomeIcon
-									icon={
-										validation.severity === "error"
-											? faCircleExclamation
-											: faTriangleExclamation
-									}
-									className={
-										validation.severity === "error"
-											? "text-red-500"
-											: "text-yellow-500"
-									}
-								/>
-								<span title={validation.message} className="truncate">
-									{validation.message}
-								</span>
-							</div>
-							<button
-								type="button"
-								onClick={() => {
-									switch (validation.type) {
-										case "sentenceStructure": {
-											setTab("sentenceStructures");
-											break;
-										}
-										case "wordList": {
-											if ((validation as WordListValidation).data) {
-												setModal(
-													(validation as WordListValidation).data!,
-													Modal.WordList,
-												);
-											} else {
-												setTab("wordLists");
-											}
-											break;
-										}
-										case "prompt": {
-											setModal(
-												(validation as PromptValidation).data,
-												Modal.Prompt,
-											);
-											break;
-										}
-									}
-								}}
-							>
-								<FontAwesomeIcon icon={faCircleRight} />
-							</button>
-						</div>
-					);
-				})}
+							{Row}
+						</List>
+					)}
+				</AutoSizer>
 			</div>
 		</div>
 	);
