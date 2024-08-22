@@ -840,7 +840,7 @@
     },
     {
      "alwaysChoose": false,
-     "word": "<is in relation to>"
+     "word": "<is-in-relation-to>"
     },
     {
      "alwaysChoose": false,
@@ -3530,7 +3530,7 @@
     },
     {
      "alwaysChoose": false,
-     "word": "<gadget>"
+     "word": "<tool>"
     },
     {
      "alwaysChoose": false,

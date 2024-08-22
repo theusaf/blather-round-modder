@@ -227,7 +227,11 @@ export default function ValidationSection({
 		}
 	}
 	for (const list of wordLists) {
-		if (!sublists.has(list.name) && !topLevelLists.has(list.name)) {
+		if (
+			!sublists.has(list.name) &&
+			!topLevelLists.has(list.name) &&
+			!list.name.startsWith("response-sentence")
+		) {
 			validations.push({
 				type: "wordList",
 				severity: "warning",
