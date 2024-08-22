@@ -21,7 +21,7 @@ export function PromptListing({
 	const allPrompts = useProjectStore((state) => state.prompts);
 	const setPrompts = useProjectStore((state) => state.setPrompts);
 
-	const Row = ({ index, style }: { index: number; style: CSSProperties }) => {
+	const Cell = ({ index, style }: { index: number; style: CSSProperties }) => {
 		const prompt = prompts[index];
 		if (!prompt) return null;
 		return (
@@ -106,7 +106,7 @@ export function PromptListing({
 								style: CSSProperties;
 							}) => {
 								const index = getIndex(columnIndex, rowIndex);
-								return <Row index={index} style={style} />;
+								return <Cell index={index} style={style} />;
 							}}
 						</FixedSizeGrid>
 					);
