@@ -37,15 +37,15 @@ function useOutsideAlerter({
 				return;
 			if (ref.current && !ref.current.contains(event.target as Node)) {
 				onClickOutside?.();
+			} else {
+				onClick?.();
 			}
-			onClick?.();
 		}
 		function handleKeyDown(event: KeyboardEvent) {
-			if (event.key === "Enter") {
-				handleClick(event);
-			} else if (detectEscape && event.key === "Escape") {
+			if (detectEscape && event.key === "Escape") {
 				onClickOutside?.();
-				onClick?.();
+			} else {
+				handleClick(event);
 			}
 		}
 		document.addEventListener("pointerup", handleClick);
