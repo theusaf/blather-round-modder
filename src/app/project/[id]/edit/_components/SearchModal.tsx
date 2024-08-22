@@ -54,7 +54,14 @@ export function SearchModal({
 		[onOpenChange],
 	);
 	useEffect(() => {
-		if (inputOpen !== undefined && inputOpen !== open) setOpen(inputOpen);
+		if (inputOpen !== undefined && inputOpen !== open) {
+			if (open === false) {
+				// clear result to avoid accidentally overwriting data in the future
+				setSearch("");
+				setResults([]);
+			}
+			setOpen(inputOpen);
+		}
 	}, [inputOpen, open]);
 
 	const [search, setSearch] = useState("");
