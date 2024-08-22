@@ -3,21 +3,21 @@ import CenteredModal from "@/lib/components/CenteredModal";
 import { HorizontalRadioSelector } from "@/lib/components/HorizontalRadioSelector";
 import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
 import { LabeledInput } from "@/lib/components/LabeledInput";
+import OutsideClickDetector from "@/lib/components/OutsideClickDetector";
 import SectionCard from "@/lib/components/SectionCard";
 import { WordListTile } from "@/lib/components/WordListTile";
+import { useProjectStore } from "@/lib/hooks/projectStore";
 import type { Category, Difficulty, PromptType } from "@/lib/types/blather";
+import { similarity } from "@/lib/util/similarity";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Tooltip } from "@mui/material";
 import { produce } from "immer";
 import { type ReactElement, useEffect, useMemo, useState } from "react";
 import { newPromptData } from "../_util/newItems";
 import { AlternateSpellingEditSection } from "./AlternateSpellingEditSection";
 import { ForbiddenWordEditSection } from "./ForbiddenWordEditSection";
 import { TailoredWordEditSection } from "./TailoredWordEditSection";
-import { Tooltip } from "@mui/material";
-import OutsideClickDetector from "@/lib/components/OutsideClickDetector";
-import { useProjectStore } from "@/lib/hooks/projectStore";
-import { similarity } from "@/lib/util/similarity";
 
 export function PromptEditModal({
 	initialInput,

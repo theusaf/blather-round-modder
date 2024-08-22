@@ -1,9 +1,15 @@
 "use client";
-import type { PromptType, WordListType } from "@/lib/types/blather";
-import { Modal } from "../../_util/modal";
-import { useMemo, useState } from "react";
 import { useProjectStore } from "@/lib/hooks/projectStore";
+import type { PromptType, WordListType } from "@/lib/types/blather";
+import {
+	faCircleExclamation,
+	faCircleRight,
+	faTriangleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
+import { useMemo } from "react";
+import { Modal } from "../../_util/modal";
 import { newBlankWordList } from "../../_util/newItems";
 
 interface BaseValidation {
@@ -40,7 +46,7 @@ export default function ValidationSection({
 	setModal,
 	setTab,
 }: {
-	setModal: (data: PromptType, type: Modal) => void;
+	setModal: (data: PromptType | WordListType, type: Modal) => void;
 	setTab: (tab: string) => void;
 }) {
 	const now = Date.now();
@@ -124,7 +130,9 @@ export default function ValidationSection({
 			const lists = (phrase.match(/<([^>]+)>/g) ?? []).map((match) =>
 				match.slice(1, -1),
 			);
-			const missingLists = lists.filter((list) => !listMap[list]);
+			const missingLists = lists.filter(
+				(list) => !listMap[list] && list !== "PLAYERGUESS",
+			);
 			if (missingLists.length > 0) {
 				validations.push({
 					type: "sentenceStructure",
@@ -243,9 +251,89 @@ export default function ValidationSection({
 
 	console.log(`End: ${Date.now() - now}ms`);
 
+	let promptCount = 0;
+	let wordListCount = 0;
+	let sentenceStructureCount = 0;
+
 	return (
 		<div>
 			<h3 className="text-lg font-semibold">Validation</h3>
+			<div className="grid grid-flow-row gap-2">
+				{validations.map((validation) => {
+					let key = "";
+					switch (validation.type) {
+						case "prompt":
+							key = `prompt-${promptCount}`;
+							promptCount++;
+							break;
+						case "wordList":
+							key = `wordList-${wordListCount}`;
+							wordListCount++;
+							break;
+						case "sentenceStructure":
+							key = `sentenceStructure-${sentenceStructureCount}`;
+							sentenceStructureCount++;
+							break;
+					}
+					return (
+						<div
+							key={key}
+							className={`flex gap-2 items-center p-2 rounded-md bg-slate-300 min-w-0 shadow-sm justify-between ${
+								validation.severity === "error"
+									? "shadow-red-300"
+									: "shadow-yellow-300"
+							}`}
+						>
+							<div className="flex-shrink min-w-0 flex gap-2 items-center">
+								<FontAwesomeIcon
+									icon={
+										validation.severity === "error"
+											? faCircleExclamation
+											: faTriangleExclamation
+									}
+									className={
+										validation.severity === "error"
+											? "text-red-500"
+											: "text-yellow-500"
+									}
+								/>
+								<span className="truncate">{validation.message}</span>
+							</div>
+							<button
+								type="button"
+								onClick={() => {
+									switch (validation.type) {
+										case "sentenceStructure": {
+											setTab("sentenceStructures");
+											break;
+										}
+										case "wordList": {
+											if ((validation as WordListValidation).data) {
+												setModal(
+													(validation as WordListValidation).data!,
+													Modal.WordList,
+												);
+											} else {
+												setTab("wordLists");
+											}
+											break;
+										}
+										case "prompt": {
+											setModal(
+												(validation as PromptValidation).data,
+												Modal.Prompt,
+											);
+											break;
+										}
+									}
+								}}
+							>
+								<FontAwesomeIcon icon={faCircleRight} />
+							</button>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 }

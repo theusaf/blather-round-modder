@@ -13,9 +13,9 @@ import { ProjectTabMenu } from "./_components/ProjectTabMenu";
 import { PromptEditModal } from "./_components/PromptEditModal";
 import PromptSection from "./_components/sections/prompts";
 import SentenceStructureSection from "./_components/sections/sentenceStructures";
+import ValidationSection from "./_components/sections/validation";
 import WordListSection from "./_components/sections/wordLists";
 import { Modal } from "./_util/modal";
-import ValidationSection from "./_components/sections/validation";
 
 export default function ProjectEditPage() {
 	const wordLists = useProjectStore((state) => state.wordLists);
