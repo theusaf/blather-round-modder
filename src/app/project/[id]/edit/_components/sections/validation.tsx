@@ -372,9 +372,9 @@ export default function ValidationSection({
 	};
 
 	return (
-		<div className="h-full">
+		<div className="h-full flex flex-col">
 			<h3 className="text-lg font-semibold">Validation</h3>
-			<div className="h-full">
+			<div className="flex-1">
 				<AutoSizer>
 					{({ height, width }) => (
 						<List
