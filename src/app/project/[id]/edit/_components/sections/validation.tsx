@@ -264,15 +264,16 @@ export default function ValidationSection({
 	for (const prompt of prompts) {
 		const words = new Set<string>();
 		for (const word of prompt.tailoredWords) {
-			if (words.has(word.word)) {
+			const key = `${word.list}/${word.word}`;
+			if (words.has(key)) {
 				validations.push({
 					type: "prompt",
-					severity: "error",
-					message: `Prompt "${prompt.category}/${prompt.password}" has duplicate tailored item "${word.word}"`,
+					severity: "warning",
+					message: `Prompt "${prompt.category}/${prompt.password}" has duplicate tailored item "${key}"`,
 					data: prompt,
 				});
 			}
-			words.add(word.word);
+			words.add(key);
 		}
 	}
 
