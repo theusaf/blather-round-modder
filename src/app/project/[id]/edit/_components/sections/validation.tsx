@@ -12,7 +12,7 @@ import { useMemo } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
 import { Modal } from "../../_util/modal";
-import { newBlankWordList } from "../../_util/newItems";
+import { getNewResponseList, newBlankWordList } from "../../_util/newItems";
 
 interface BaseValidation {
 	message: string;
@@ -151,7 +151,7 @@ export default function ValidationSection({
 			type: "wordList",
 			severity: "error",
 			message: 'Missing "response-sentence" word list',
-			data: produce(newBlankWordList, (draft) => {
+			data: produce(getNewResponseList(null), (draft) => {
 				draft.name = "response-sentence";
 			}),
 		});
@@ -162,7 +162,7 @@ export default function ValidationSection({
 				type: "wordList",
 				severity: "error",
 				message: `Missing "response-sentence-${category}" word list`,
-				data: produce(newBlankWordList, (draft) => {
+				data: produce(getNewResponseList(null), (draft) => {
 					draft.name = `response-sentence-${category}`;
 				}),
 			});
