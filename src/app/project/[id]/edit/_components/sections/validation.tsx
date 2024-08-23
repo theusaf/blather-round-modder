@@ -323,11 +323,12 @@ export default function ValidationSection({
 				for (const list of lists) topLevelListKeys.add(list);
 			}
 		}
-		const combinedTopLevelLists = new Set(
-			Array.from(topLevelListKeys).flatMap((key) =>
+		const combinedTopLevelLists = new Set([
+			...Array.from(topLevelListKeys).flatMap((key) =>
 				Array.from(topLevelListMap[key] ?? []),
 			),
-		);
+			...Array.from(topLevelListKeys),
+		]);
 		for (const word of tailoredWords) {
 			const list = word.list.slice(1, -1);
 			if (!combinedTopLevelLists.has(list)) {
