@@ -10,7 +10,7 @@ export function ProjectTabMenu({
 	onTabSelect: (tab: string) => void;
 }) {
 	return (
-		<menu className="grid grid-cols-3 md:flex md:justify-normal md:flex-col p-4 bg-cyan-500 text-white text-center">
+		<menu className="grid grid-flow-col overflow-x-auto whitespace-nowrap md:flex md:justify-normal md:flex-col p-4 bg-cyan-500 text-white text-center">
 			<ProjectTabMenuItem
 				onClick={() => onTabSelect("prompts")}
 				active={activeTab === "prompts"}
