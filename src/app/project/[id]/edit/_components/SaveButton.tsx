@@ -31,7 +31,7 @@ export function SaveButton() {
 
 	useEffect(() => {
 		const saveHandler = (event: KeyboardEvent) => {
-			if (event.ctrlKey && event.key === "s") {
+			if ((event.ctrlKey || event.metaKey) && event.key === "s") {
 				event.preventDefault();
 				save();
 			}

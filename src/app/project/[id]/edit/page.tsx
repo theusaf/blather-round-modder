@@ -6,7 +6,7 @@ import type {
 	WordListType,
 } from "@/lib/types/blather";
 import { produce } from "immer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ListEditModal } from "./_components/ListEditModal";
 import NavBar from "./_components/NavBar";
 import { ProjectTabMenu } from "./_components/ProjectTabMenu";
@@ -16,6 +16,7 @@ import SentenceStructureSection from "./_components/sections/sentenceStructures"
 import ValidationSection from "./_components/sections/validation";
 import WordListSection from "./_components/sections/wordLists";
 import { Modal } from "./_util/modal";
+import { newBlankWordList, newPromptData } from "./_util/newItems";
 
 export default function ProjectEditPage() {
 	const wordLists = useProjectStore((state) => state.wordLists);
@@ -28,6 +29,21 @@ export default function ProjectEditPage() {
 	const [[modal, modalData], setModal] = useState<
 		[Modal, PromptType | WordListType | null]
 	>([Modal.None, null]);
+
+	useEffect(() => {
+		const listener = (event: KeyboardEvent) => {
+			if ((event.ctrlKey || event.metaKey) && event.key === "m") {
+				event.preventDefault();
+				if (activeTab === "prompts") {
+					setModal([Modal.Prompt, newPromptData]);
+				} else if (activeTab === "wordLists") {
+					setModal([Modal.WordList, newBlankWordList]);
+				}
+			}
+		};
+		window.addEventListener("keydown", listener);
+		return () => window.removeEventListener("keydown", listener);
+	}, [activeTab]);
 
 	return (
 		<>
