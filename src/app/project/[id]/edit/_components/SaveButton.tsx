@@ -4,12 +4,43 @@ import { saveProject } from "@/lib/actions/saveProject";
 import { useProjectStore } from "@/lib/hooks/projectStore";
 import { faCheck, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function SaveButton() {
 	const [saved, setSaved] = useState(false);
 	const [saving, setSaving] = useState(false);
 	const [savedTime, setSavedTime] = useState<number | null>(null);
+
+	const save = useCallback(async () => {
+		setSaving(true);
+		setSaved(false);
+		try {
+			await saveProject(useProjectStore.getState().getProject());
+			useProjectStore
+				.getState()
+				.setVersion(useProjectStore.getState().version + 1);
+			setSavedTime(Date.now());
+		} catch (e) {
+			console.error(e);
+			setSavedTime(-1);
+		} finally {
+			setSaving(false);
+			setSaved(true);
+		}
+	}, []);
+
+	useEffect(() => {
+		const saveHandler = (event: KeyboardEvent) => {
+			if (event.ctrlKey && event.key === "s") {
+				event.preventDefault();
+				save();
+			}
+		};
+		window.addEventListener("keydown", saveHandler);
+		return () => {
+			window.removeEventListener("keydown", saveHandler);
+		};
+	}, [save]);
 
 	return (
 		<>
@@ -33,23 +64,7 @@ export function SaveButton() {
 			<button
 				type="button"
 				className="p-2 rounded-md bg-slate-200 text-black shadow-sm shadow-slate-700"
-				onClick={async () => {
-					setSaving(true);
-					setSaved(false);
-					try {
-						await saveProject(useProjectStore.getState().getProject());
-						useProjectStore
-							.getState()
-							.setVersion(useProjectStore.getState().version + 1);
-						setSavedTime(Date.now());
-					} catch (e) {
-						console.error(e);
-						setSavedTime(-1);
-					} finally {
-						setSaving(false);
-						setSaved(true);
-					}
-				}}
+				onClick={save}
 				disabled={saving}
 			>
 				{saving ? (
