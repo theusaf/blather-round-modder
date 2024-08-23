@@ -49,6 +49,7 @@ export default async function ProfilePage({
 						likes: p.likes,
 						public: p.public,
 						name: p.name,
+						version: p.version,
 						ownerId: p.ownerId,
 						description: p.description,
 						promptCount: p.prompts.length,

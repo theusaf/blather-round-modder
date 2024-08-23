@@ -1,6 +1,6 @@
 {
   "name": "blather-round-modder",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -25,22 +25,22 @@
     "common-tags": "^1.8.2",
     "contrast-color": "^1.0.1",
     "firebase": "^10.13.0",
-    "firebase-admin": "^12.3.1",
+    "firebase-admin": "^12.4.0",
     "immer": "^10.1.1",
     "jose": "^5.7.0",
     "next": "14.2.5",
     "next-nprogress-bar": "^2.3.13",
     "nprogress": "^0.2.0",
+    "postcss": "^8.4.41",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-virtualized-auto-sizer": "^1.0.24",
     "react-window": "^1.8.10",
     "server-only": "^0.0.1",
-    "uuid": "^10.0.0",
-    "zustand": "^4.5.5",
-    "postcss": "^8.4.41",
     "tailwindcss": "^3.4.10",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "uuid": "^10.0.0",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",

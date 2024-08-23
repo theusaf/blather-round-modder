@@ -15,6 +15,7 @@ interface ProjectStoreState extends ProjectType {
 	setSentenceStructures: (sentenceStructures: SentenceStructureType[]) => void;
 	setWordLists: (wordLists: WordListType[]) => void;
 	setName: (name: string) => void;
+	setVersion: (version: number) => void;
 	setDescription: (description: string) => void;
 	setProject: (project: ProjectType) => void;
 	getProject: () => ProjectType;
@@ -30,6 +31,7 @@ export const useProjectStore = create<ProjectStoreState>((set, get) => ({
 	id: null,
 	likes: 0,
 	name: "",
+	version: 0,
 	description: null,
 	public: false,
 	ownerId: null,
@@ -60,6 +62,7 @@ export const useProjectStore = create<ProjectStoreState>((set, get) => ({
 			id: data.id,
 			likes: data.likes,
 			name: data.name,
+			version: data.version,
 			description: data.description,
 			public: data.public,
 			ownerId: data.ownerId,
@@ -72,6 +75,12 @@ export const useProjectStore = create<ProjectStoreState>((set, get) => ({
 		set((state) =>
 			produce(state, (draft) => {
 				draft.public = value;
+			}),
+		),
+	setVersion: (version) =>
+		set((state) =>
+			produce(state, (draft) => {
+				draft.version = version;
 			}),
 		),
 	setPrompts: (prompts) =>

@@ -30,6 +30,7 @@ export async function GET(req: NextRequest) {
 			id: p.id,
 			likes: p.likes,
 			public: p.public,
+			version: p.version,
 			name: p.name,
 			ownerId: p.ownerId,
 			description: p.description,

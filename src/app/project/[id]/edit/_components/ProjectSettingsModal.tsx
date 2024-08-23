@@ -12,6 +12,7 @@ export function ProjectSettingsModal({
 	onClose: () => void;
 }) {
 	const title = useProjectStore((state) => state.name);
+	const projectVersion = useProjectStore((state) => state.version);
 	const setTitle = useProjectStore((state) => state.setName);
 	const description = useProjectStore((state) => state.description);
 	const setDescription = useProjectStore((state) => state.setDescription);
@@ -19,7 +20,7 @@ export function ProjectSettingsModal({
 	const setIsPublic = useProjectStore((state) => state.setPublic);
 
 	return (
-		<CenteredModal open={open} onClose={onClose} className=" min-h-0">
+		<CenteredModal open={open} onClose={onClose} className=" min-h-0 relative">
 			<div className="flex gap-2">
 				<LabeledInput
 					label="Title"
@@ -63,6 +64,9 @@ export function ProjectSettingsModal({
 					</div>
 				</div>
 			</div>
+			<span className="bottom-0 absolute mb-2 text-slate-700 font-semibold">
+				v{projectVersion}
+			</span>
 		</CenteredModal>
 	);
 }

@@ -25,6 +25,7 @@ export interface ShallowProjectType {
 	likes: number;
 	public: boolean;
 	name: string;
+	version: number;
 	ownerId: string | null;
 	description: string | null;
 	promptCount: number;

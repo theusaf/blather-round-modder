@@ -71,6 +71,7 @@ export default async function EditProjectPage({
 		id: id,
 		likes: project.likes,
 		name: project.name,
+		version: project.version,
 		description: project.description,
 		public: project.public,
 		ownerId: project.ownerId,

@@ -59,8 +59,11 @@ export default async function ProjectPage({
 		<main className="p-2">
 			<div className="flex justify-between">
 				<div className="flex-1">
-					<h1 className="text-2xl font-bold">
-						{project.name || "Untitled Project"}
+					<h1 className="text-2xl font-bold flex gap-2">
+						<span>{project.name || "Untitled Project"}</span>
+						<span className="text-slate-500 break-keep">
+							v{project.version}
+						</span>
 					</h1>
 					<p>{project.description}</p>
 				</div>
@@ -69,6 +72,7 @@ export default async function ProjectPage({
 						project={{
 							id: project.id,
 							name: project.name,
+							version: project.version,
 							description: project.description,
 							likes: project.likes,
 							ownerId: project.ownerId,

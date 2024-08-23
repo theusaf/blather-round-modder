@@ -33,7 +33,14 @@ export default function ProjectListing({
 						className="w-[18rem] h-[16rem] rounded-xl p-4 border-2 border-slate-400 flex flex-col"
 					>
 						<div>
-							<h3 className="text-xl font-semibold">{project.name}</h3>
+							<h3 className="text-xl font-semibold flex gap-2">
+								<span title={project.name} className="truncate">
+									{project.name}
+								</span>
+								<span className="whitespace-nowrap break-keep text-slate-500">
+									v{project.version}
+								</span>
+							</h3>
 							<Link href={`/profile/${encodeURIComponent(project.ownerId!)}`}>
 								<p>{project.ownerId}</p>
 							</Link>

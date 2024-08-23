@@ -124,7 +124,10 @@ export function ProjectDownload({ project }: { project: ProjectType }) {
 			>
 				<div className="flex justify-center text-center">
 					{blobLink ? (
-						<a href={blobLink} download="project.zip">
+						<a
+							href={blobLink}
+							download={`${project.name.slice(0, 50)}-v${project.version}.zip`}
+						>
 							<p className="text-lg font-semibold">Download is ready!</p>
 							<button
 								type="button"

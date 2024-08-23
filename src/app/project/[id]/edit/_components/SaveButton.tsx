@@ -38,6 +38,9 @@ export function SaveButton() {
 					setSaved(false);
 					try {
 						await saveProject(useProjectStore.getState().getProject());
+						useProjectStore
+							.getState()
+							.setVersion(useProjectStore.getState().version + 1);
 						setSavedTime(Date.now());
 					} catch (e) {
 						console.error(e);
