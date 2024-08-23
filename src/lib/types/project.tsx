@@ -8,6 +8,7 @@ export interface ProjectType {
 	id: string | null;
 	likes: number;
 	name: string;
+	version: number;
 	description: string | null;
 	public: boolean;
 	ownerId: string | null;

@@ -25,6 +25,7 @@ export async function saveProject(project: ProjectType) {
 	Object.assign(existing, {
 		public: project.public,
 		name: project.name,
+		version: existing.version + 1,
 		description: project.description,
 		prompts: project.prompts,
 		sentenceStructures: project.sentenceStructures,
