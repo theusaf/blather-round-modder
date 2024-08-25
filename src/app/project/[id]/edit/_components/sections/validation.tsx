@@ -175,9 +175,12 @@ export default function ValidationSection({
 						type: "wordList",
 						severity: "error",
 						message: `Missing "response-sentence-${category}-${subcategory}" word list`,
-						data: produce(newBlankWordList, (draft) => {
-							draft.name = `response-sentence-${category}-${subcategory}`;
-						}),
+						data: produce(
+							getNewResponseList(listMap[`response-sentence-${category}`]),
+							(draft) => {
+								draft.name = `response-sentence-${category}-${subcategory}`;
+							},
+						),
 					});
 				}
 			}

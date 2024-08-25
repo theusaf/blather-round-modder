@@ -240,22 +240,27 @@ function SubcategorySuggestion({
 	const [open, setOpen] = useState(false);
 	const prompts = useProjectStore((state) => state.prompts);
 	const subcategories = useMemo(() => {
-		const categories = new Set<string>();
+		const categories: Record<string, Set<string>> = {};
 		for (const prompt of prompts) {
+			if (!categories[prompt.category]) categories[prompt.category] = new Set();
 			if (prompt.subcategory) {
-				categories.add(prompt.subcategory);
+				categories[prompt.category].add(prompt.subcategory);
 			}
 		}
-		return Array.from(categories);
+		const categoriesArray: Record<string, string[]> = {};
+		for (const category in categories) {
+			categoriesArray[category] = Array.from(categories[category]);
+		}
+		return categoriesArray;
 	}, [prompts]);
 
-	// TODO: only filter for the current category
-	const suggestions = subcategories.filter((category) => {
-		return (
-			category.includes(promptData.subcategory) ||
-			similarity(category, promptData.subcategory) > 0.6
-		);
-	});
+	const suggestions =
+		subcategories[promptData.category]?.filter((category) => {
+			return (
+				category.includes(promptData.subcategory) ||
+				similarity(category, promptData.subcategory) > 0.6
+			);
+		}) ?? [];
 
 	return (
 		<div className="flex-1">
@@ -282,6 +287,7 @@ function SubcategorySuggestion({
 							if (
 								event.key === "Tab" &&
 								suggestions.length &&
+								promptData.subcategory !== "" &&
 								promptData.subcategory !== suggestions[0]
 							) {
 								event.preventDefault();
