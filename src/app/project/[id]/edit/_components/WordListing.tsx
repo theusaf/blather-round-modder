@@ -28,9 +28,14 @@ export function WordListing({
 		return (
 			<div style={style} className="p-1">
 				<SectionCard>
-					<div className="flex justify-between">
-						<div>
-							<h4 className="text-md font-semibold">{wordList.name}</h4>
+					<div className="flex justify-between gap-1">
+						<div className="min-w-0">
+							<h4
+								className="text-md font-semibold truncate"
+								title={wordList.name}
+							>
+								{wordList.name}
+							</h4>
 							<div>Words: {wordList.words.length}</div>
 						</div>
 						<div className="flex gap-2 items-center text-white">
