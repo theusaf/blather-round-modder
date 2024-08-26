@@ -1,6 +1,6 @@
 {
   "name": "blather-round-modder",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,14 +21,14 @@
     "@mui/joy": "5.0.0-beta.48",
     "@mui/material": "^5.16.7",
     "@zip.js/zip.js": "^2.7.51",
-    "argon2": "^0.40.3",
+    "argon2": "^0.41.0",
     "common-tags": "^1.8.2",
     "contrast-color": "^1.0.1",
     "firebase": "^10.13.0",
     "firebase-admin": "^12.4.0",
     "immer": "^10.1.1",
-    "jose": "^5.7.0",
-    "next": "14.2.5",
+    "jose": "^5.8.0",
+    "next": "14.2.6",
     "next-nprogress-bar": "^2.3.13",
     "nprogress": "^0.2.0",
     "postcss": "^8.4.41",
@@ -52,6 +52,6 @@
     "@types/react-window": "^1.8.8",
     "@types/uuid": "^10.0.0",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.2.6"
   }
 }

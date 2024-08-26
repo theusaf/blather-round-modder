@@ -207,7 +207,7 @@ function NewWordInput({
 					if (event.key === "Enter") {
 						if (newWord === "") return;
 						onComplete(newWord, alwaysChoose);
-						setAlwaysChoose(false);
+						setAlwaysChoose(isResponseSentence);
 						setNewWord("");
 					}
 				}}
