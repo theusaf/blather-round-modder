@@ -387,7 +387,7 @@ export default function ValidationSection({
 							: "shadow-yellow-300"
 					}`}
 				>
-					<div className="flex-shrink min-w-0 flex gap-2 items-center">
+					<div className="shrink min-w-0 flex gap-2 items-center">
 						<FontAwesomeIcon
 							icon={
 								validation.severity === "error"

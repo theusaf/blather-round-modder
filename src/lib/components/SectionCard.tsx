@@ -9,7 +9,7 @@ export default function SectionCard(
 	return (
 		<div
 			{...props}
-			className={`border-slate-400 border-2 rounded-md shadow-sm shadow-black p-2 ${props.className ?? ""}`}
+			className={`border-slate-400 border-2 rounded-md shadow-xs shadow-black p-2 ${props.className ?? ""}`}
 		/>
 	);
 }

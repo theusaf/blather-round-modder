@@ -26,7 +26,7 @@ export function DeleteButton({ project }: { project: ProjectType }) {
 				Delete
 			</button>
 			<CenteredModal
-				className="!min-h-0"
+				className="min-h-0!"
 				open={modalOpen}
 				onClose={() => {
 					setModalOpen(false);

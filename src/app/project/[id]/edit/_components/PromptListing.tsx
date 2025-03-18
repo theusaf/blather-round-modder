@@ -27,7 +27,7 @@ export function PromptListing({
 		return (
 			<div style={style} className="p-1">
 				<SectionCard className="flex gap-2 w-full justify-between">
-					<div className="flex flex-col gap-2 flex-shrink min-w-0">
+					<div className="flex flex-col gap-2 shrink min-w-0">
 						<div className="flex gap-2 overflow-x-hidden">
 							<CategoryLabel category={prompt.category} />
 							<DifficultyLabel difficulty={prompt.difficulty} />

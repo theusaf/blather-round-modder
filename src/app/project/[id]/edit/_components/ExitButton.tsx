@@ -16,7 +16,7 @@ export function ExitButton() {
 		>
 			<button
 				type="button"
-				className="p-2 rounded-md bg-slate-200 text-black shadow-sm shadow-slate-700"
+				className="p-2 rounded-md bg-slate-200 text-black shadow-xs shadow-slate-700"
 			>
 				Exit
 			</button>

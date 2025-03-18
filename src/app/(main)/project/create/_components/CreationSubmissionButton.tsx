@@ -8,7 +8,7 @@ export function CreationSubmissionButton() {
 	return (
 		<button
 			type="submit"
-			className="p-2 rounded-md bg-emerald-700 text-white shadow-sm shadow-black"
+			className="p-2 rounded-md bg-emerald-700 text-white shadow-xs shadow-black"
 			disabled={pending}
 		>
 			{pending && (
