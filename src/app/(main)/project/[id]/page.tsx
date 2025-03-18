@@ -10,12 +10,13 @@ import { ProjectDownload } from "./_components/ProjectDownload";
 
 export async function generateMetadata(
 	{
-		params: { id },
+		params,
 	}: {
-		params: { id: string };
+		params: Promise<{ id: string }>;
 	},
 	parent: ResolvingMetadata,
 ) {
+	const { id } = await params;
 	const project = await Project.findById(id);
 	if (!project) return;
 	const userDetails = await getUserSession();
@@ -32,9 +33,10 @@ export async function generateMetadata(
 export default async function ProjectPage({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
-	const project = await Project.findById(params.id);
+	const { id } = await params;
+	const project = await Project.findById(id);
 	if (!project) return notFound();
 	const userDetails = await getUserSession();
 	if (!project.public && project.ownerId !== userDetails?.sub) {
@@ -83,7 +85,7 @@ export default async function ProjectPage({
 						}}
 					/>
 					{userDetails?.sub === project.ownerId && (
-						<Link href={`/project/${params.id}/edit`} className="w-full">
+						<Link href={`/project/${id}/edit`} className="w-full">
 							<button
 								type="button"
 								className="p-2 rounded-md bg-emerald-700 text-white w-full"
@@ -93,7 +95,7 @@ export default async function ProjectPage({
 						</Link>
 					)}
 					<Link
-						href={`/project/${params.id}/remix`}
+						href={`/project/${id}/remix`}
 						prefetch={false}
 						className="w-full"
 					>

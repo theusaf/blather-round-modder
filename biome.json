@@ -1,18 +1,23 @@
 {
-  "linter": {
-    "rules": {
-      "style": {
-        "noNonNullAssertion": "off"
-      },
-      "a11y": {
-        "noAutofocus": "off"
-      },
-      "suspicious": {
-        "noArrayIndexKey": "off"
-      },
-      "performance": {
-        "noDelete": "off"
-      }
-    }
-  }
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"linter": {
+		"rules": {
+			"style": {
+				"noNonNullAssertion": "off"
+			},
+			"a11y": {
+				"noAutofocus": "off"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "off"
+			},
+			"performance": {
+				"noDelete": "off"
+			},
+			"correctness": {
+				"noUnusedImports": "warn",
+				"noUnusedVariables": "info"
+			}
+		}
+	}
 }

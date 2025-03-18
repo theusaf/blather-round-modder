@@ -1,10 +1,5 @@
 "use client";
-import React, {
-	useRef,
-	useEffect,
-	type RefObject,
-	type ReactNode,
-} from "react";
+import { type ReactNode, type RefObject, useEffect, useRef } from "react";
 
 // Source: https://stackoverflow.com/a/42234988/
 
@@ -30,7 +25,7 @@ function useOutsideAlerter({
 	onClickOutside,
 	detectEscape = false,
 	includeRefs = [],
-}: OutsideClickDetectorProps & { ref: RefObject<HTMLElement> }) {
+}: OutsideClickDetectorProps & { ref: RefObject<HTMLElement | null> }) {
 	useEffect(() => {
 		function handleClick(event: Event) {
 			if (includeRefs.some((r) => r.current?.contains(event.target as Node)))
@@ -74,7 +69,7 @@ export default function OutsideClickDetector({
 }: {
 	children: ReactNode;
 } & Partial<OutsideClickDetectorProps>) {
-	const wrapperRef = useRef(null);
+	const wrapperRef = useRef<HTMLDivElement>(null);
 	useOutsideAlerter({
 		ref: wrapperRef,
 		onClickOutside: onClickOutside ?? (() => {}),

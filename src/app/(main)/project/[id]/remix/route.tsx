@@ -7,9 +7,9 @@ import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(
 	_: NextRequest,
-	{ params }: { params: { id: string } },
+	{ params }: { params: Promise<{ id: string }> },
 ) {
-	const id = params.id;
+	const { id } = await params;
 	const user = await getUserSession();
 	if (!user) return redirect("/login");
 	const baseProject = await Project.findById(id);

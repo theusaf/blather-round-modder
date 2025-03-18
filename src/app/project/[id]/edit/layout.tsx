@@ -5,17 +5,17 @@ import type { ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
-import NavBar from "./_components/NavBar";
 import ProjectLoadHandler from "./_components/ProjectLoadHandler";
 
 export async function generateMetadata(
 	{
-		params: { id },
+		params,
 	}: {
-		params: { id: string };
+		params: Promise<{ id: string }>;
 	},
 	parent: ResolvingMetadata,
 ) {
+	const { id } = await params;
 	const project = await Project.findById(id);
 	if (!project) return;
 	const userDetails = await getUserSession();
@@ -32,7 +32,7 @@ export default async function EditProjectPage({
 	params,
 	children,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 	children: ReactNode;
 }) {
 	const userDetails = await getUserSession();
@@ -47,7 +47,7 @@ export default async function EditProjectPage({
 			</p>
 		);
 	}
-	const { id } = params;
+	const { id } = await params;
 	const project = await Project.findById(id);
 	if (!project) return notFound();
 	if (project.ownerId !== userDetails.sub) {

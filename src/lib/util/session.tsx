@@ -32,7 +32,7 @@ export async function decrypt(session = ""): Promise<JWTUserLogin | null> {
 			algorithms: ["HS256"],
 		});
 		return payload as JWTUserLogin;
-	} catch (e) {
+	} catch {
 		return null;
 	}
 }
@@ -40,6 +40,6 @@ export async function decrypt(session = ""): Promise<JWTUserLogin | null> {
 /**
  * Removes the user's session cookie.
  */
-export function deleteSession(): void {
-	cookies().delete("session");
+export async function deleteSession(): Promise<void> {
+	(await cookies()).delete("session");
 }

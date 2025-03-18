@@ -30,7 +30,7 @@ export function verify(hash: string, plaintext: string): Promise<boolean> {
  * @returns The user session.
  */
 export async function getUserSession() {
-	const session = cookies().get("session");
+	const session = (await cookies()).get("session");
 	const userDetails = await decrypt(session?.value);
 	return userDetails;
 }

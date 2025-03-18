@@ -13,7 +13,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
 import { produce } from "immer";
-import { type ReactElement, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { newPromptData } from "../_util/newItems";
 import { AlternateSpellingEditSection } from "./AlternateSpellingEditSection";
 import { ForbiddenWordEditSection } from "./ForbiddenWordEditSection";

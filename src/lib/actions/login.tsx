@@ -40,7 +40,7 @@ export async function loginWithPassword(
 
 export async function createSession(user: JWTUserLogin) {
 	const session = await encrypt(user);
-	cookies().set("session", session, {
+	(await cookies()).set("session", session, {
 		maxAge: 60 * 60 * 24 * 7,
 		httpOnly: true,
 		sameSite: "lax",

@@ -14,10 +14,11 @@ export async function generateMetadata(_: unknown, parent: ResolvingMetadata) {
 }
 
 export default async function ProfilePage({
-	params,
+	params: paramsWait,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
+	const params = await paramsWait;
 	const limit = 10;
 	const userDetails = await getUserSession();
 	const options: QueryOptions<ProjectType> = {
