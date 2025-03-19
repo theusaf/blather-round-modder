@@ -67,6 +67,7 @@ export function SearchModal({
 	const [search, setSearch] = useState("");
 	const [searching, setSearching] = useState(false);
 	const [results, setResults] = useState<SearchResult[]>([]);
+	const inputRef = useRef<HTMLInputElement>(null);
 	const timeout = useRef<number | null>(null);
 	const prompts = useProjectStore((state) => state.prompts);
 	const wordLists = useProjectStore((state) => state.wordLists);
@@ -141,6 +142,7 @@ export function SearchModal({
 			if (event.key.toLowerCase() === "k" && (event.ctrlKey || event.metaKey)) {
 				event.preventDefault();
 				changeOpen(true);
+				setTimeout(() => inputRef.current?.focus(), 250);
 			}
 		};
 		window.addEventListener("keydown", callback);
@@ -162,6 +164,7 @@ export function SearchModal({
 					type="text"
 					autoFocus
 					placeholder="Quick Search..."
+					ref={inputRef}
 				/>
 				<hr className="border-1 border-slate-700" />
 				<div>
