@@ -51,7 +51,7 @@ export function WordListTile({
 			>
 				<button
 					type="button"
-					className="text-white bg-blue-500 rounded-md p-1 cursor-pointer"
+					className="text-white bg-blue-500 rounded-md p-1 cursor-pointer truncate w-20 md:w-30"
 					onClick={(event) => {
 						onOpen?.(event);
 						if (event.defaultPrevented) return;

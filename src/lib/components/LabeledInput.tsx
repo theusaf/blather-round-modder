@@ -59,7 +59,7 @@ export function LabeledInput<T extends string | number | string[]>(
 				name={props.name}
 				type={props.type ?? "text"}
 				placeholder={props.placeholder}
-				className="rounded-md text-lg p-2 border-2 border-slate-400"
+				className="rounded-md text-lg p-2 border-2 border-slate-400 bg-white"
 				value={props.value}
 				onChange={(event) => {
 					props.onValueChange(event.currentTarget.value as T);

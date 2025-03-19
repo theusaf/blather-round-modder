@@ -192,38 +192,47 @@ export function PromptEditModal({
 						);
 					}}
 				/>
-				<div className="flex flex-wrap gap-2 mt-2">
-					{promptData.tailoredWords.map((word, index) => (
-						<SectionCard key={index} className="border-slate-400">
-							<div className="flex gap-2 items-center">
-								<WordListTile
-									onClose={(list) => {
-										if (!list) return;
-										setPromptData(
-											produce(promptData, (draft) => {
-												draft.tailoredWords[index].list = `<${list}>`;
-											}),
-										);
-									}}
-									list={word.list.slice(1, -1)}
-								/>
-								<span>{word.word}</span>
-								<button
-									type="button"
-									className="flex items-center h-min"
-									onClick={() => {
-										setPromptData(
-											produce(promptData, (draft) => {
-												draft.tailoredWords.splice(index, 1);
-											}),
-										);
-									}}
-								>
-									<FontAwesomeIcon className="w-6 h-6" icon={faTrash} />
-								</button>
-							</div>
-						</SectionCard>
-					))}
+				<div className="grid grid-cols-3 gap-2 overflow-hidden">
+					<div className="border-r-2 border-slate-600 mt-2">
+						<h4>Suggestions</h4>
+					</div>
+					<div className="grid md:grid-cols-3 gap-2 mt-2 col-span-2">
+						{promptData.tailoredWords.map((word, index) => (
+							<SectionCard key={index} className="overflow-hidden">
+								<div className="flex gap-2 items-center justify-between">
+									<div className="flex gap-2 items-center min-w-0">
+										<WordListTile
+											onClose={(list) => {
+												if (!list) return;
+												setPromptData(
+													produce(promptData, (draft) => {
+														draft.tailoredWords[index].list = `<${list}>`;
+													}),
+												);
+											}}
+											list={word.list.slice(1, -1)}
+										/>
+										<span className="truncate" title={word.word}>
+											{word.word}
+										</span>
+									</div>
+									<button
+										type="button"
+										className="flex items-center h-min"
+										onClick={() => {
+											setPromptData(
+												produce(promptData, (draft) => {
+													draft.tailoredWords.splice(index, 1);
+												}),
+											);
+										}}
+									>
+										<FontAwesomeIcon className="w-6 h-6" icon={faTrash} />
+									</button>
+								</div>
+							</SectionCard>
+						))}
+					</div>
 				</div>
 			</div>
 		</CenteredModal>
