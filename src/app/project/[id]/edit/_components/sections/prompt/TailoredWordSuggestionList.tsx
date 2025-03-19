@@ -19,7 +19,7 @@ export function TailoredWordSuggestionList({
 		listMap[wordList.name] = wordList;
 	}
 
-	const topLevelList = useMemo(() => {
+	const [topLevelList, subLevelList, fullListMap] = useMemo(() => {
 		const topLevelLists = new Set<string>();
 		for (const structure of sentenceStructures) {
 			for (const phrase of structure.structures) {
@@ -75,13 +75,12 @@ export function TailoredWordSuggestionList({
 				for (const list of lists) topLevelListKeys.add(list);
 			}
 		}
-		const combinedTopLevelLists = new Set([
-			...Array.from(topLevelListKeys).flatMap((key) =>
+		const subLevelListKeys = new Set(
+			Array.from(topLevelListKeys).flatMap((key) =>
 				Array.from(topLevelListMap[key] ?? []),
 			),
-			...Array.from(topLevelListKeys),
-		]);
-		return combinedTopLevelLists;
+		);
+		return [topLevelListKeys, subLevelListKeys, topLevelListMap];
 	}, [subcategory, category, sentenceStructures]);
 
 	const usedLists = new Set<string>();
@@ -90,9 +89,28 @@ export function TailoredWordSuggestionList({
 	}
 
 	const topLevelMissing: string[] = [];
-	for (const key of topLevelList) {
-		if (!usedLists.has(key)) topLevelMissing.push(key);
-	}
+	const subLevelMissing: string[] = [];
+	const checkMissing = (
+		input: Iterable<string>,
+		output: string[],
+		ignore: Set<string> = new Set(),
+	) => {
+		for (const key of input) {
+			if (ignore.has(key)) continue;
+			let missing = !usedLists.has(key);
+			if (!missing) {
+				for (const subKey of fullListMap[key] ?? []) {
+					if (usedLists.has(subKey)) {
+						missing = false;
+						break;
+					}
+				}
+			}
+			if (missing) output.push(key);
+		}
+	};
+	checkMissing(topLevelList, topLevelMissing);
+	checkMissing(subLevelList, subLevelMissing, topLevelList);
 
 	return (
 		<div className="border-r-2 border-slate-600 mt-2 p-2">
@@ -102,17 +120,19 @@ export function TailoredWordSuggestionList({
 					<span>No suggestions available.</span>
 				) : (
 					<div className="grid grid-cols-3 gap-2">
-						{[...topLevelMissing].toSorted().map((key) => (
-							<button
-								key={key}
-								type="button"
-								className="bg-blue-400 text-white rounded-md truncate p-1"
-								title={key}
-								onClick={() => onSelect?.(key)}
-							>
-								{key}
-							</button>
-						))}
+						{[...topLevelMissing.toSorted(), ...subLevelMissing.toSorted()].map(
+							(key) => (
+								<button
+									key={key}
+									type="button"
+									className="bg-blue-400 text-white rounded-md truncate p-1"
+									title={key}
+									onClick={() => onSelect?.(key)}
+								>
+									{key}
+								</button>
+							),
+						)}
 					</div>
 				)}
 			</div>
