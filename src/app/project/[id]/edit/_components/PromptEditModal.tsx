@@ -183,26 +183,55 @@ export function PromptEditModal({
 					))}
 				</div>
 				<hr className="my-2" />
-				<TailoredWordEditSection
-					onSubmit={(word, list) => {
-						setPromptData(
-							produce(promptData, (draft) => {
-								draft.tailoredWords.push({ word, list: `<${list}>` });
-							}),
-						);
-					}}
+				<TailoredWordSection
+					setPromptData={setPromptData}
+					promptData={promptData}
 				/>
-				<div className="grid grid-cols-3 gap-2 overflow-hidden">
-					<div className="border-r-2 border-slate-600 mt-2">
-						<h4 className="font-semibold text-lg">Suggestions</h4>
-					</div>
-					<TailoredWordTileList
-						promptData={promptData}
-						setPromptData={setPromptData}
-					/>
-				</div>
 			</div>
 		</CenteredModal>
+	);
+}
+
+function TailoredWordSection({
+	setPromptData,
+	promptData,
+}: { setPromptData: (data: PromptType) => void; promptData: PromptType }) {
+	const [list, setList] = useState("");
+	return (
+		<>
+			<TailoredWordEditSection
+				list={list}
+				setList={setList}
+				onSubmit={(word, list) => {
+					setPromptData(
+						produce(promptData, (draft) => {
+							draft.tailoredWords.push({ word, list: `<${list}>` });
+						}),
+					);
+				}}
+			/>
+			<div className="grid grid-cols-3 gap-2 overflow-hidden">
+				<TailoredWordSuggestionList
+					promptData={promptData}
+					onSelect={setList}
+				/>
+				<TailoredWordTileList
+					promptData={promptData}
+					setPromptData={setPromptData}
+				/>
+			</div>
+		</>
+	);
+}
+
+function TailoredWordSuggestionList({
+	promptData,
+	onSelect,
+}: { promptData: PromptType; onSelect?: (list: string) => void }) {
+	return (
+		<div className="border-r-2 border-slate-600 mt-2">
+			<h4 className="font-semibold text-lg">Suggestions</h4>
+		</div>
 	);
 }
 

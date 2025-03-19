@@ -7,11 +7,14 @@ import { useState } from "react";
 
 export function TailoredWordEditSection({
 	onSubmit,
+	list,
+	setList,
 }: {
 	onSubmit: (word: string, list: string) => void;
+	list: string;
+	setList: (list: string) => void;
 }) {
 	const [word, setWord] = useState("");
-	const [list, setList] = useState("");
 
 	return (
 		<div>
