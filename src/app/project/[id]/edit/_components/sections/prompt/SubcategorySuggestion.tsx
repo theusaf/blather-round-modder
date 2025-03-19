@@ -5,7 +5,7 @@ import { useProjectStore } from "@/lib/hooks/projectStore";
 import type { PromptType } from "@/lib/types/blather";
 import { similarity } from "@/lib/util/similarity";
 import { Tooltip } from "@mui/material";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 
 export function SubcategorySuggestion({
 	promptData,

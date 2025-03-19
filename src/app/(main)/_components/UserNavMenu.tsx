@@ -1,6 +1,7 @@
 "use client";
 import { logout } from "@/lib/actions/logout";
 import { useUserStore } from "@/lib/hooks/userStore";
+import { BProgress } from "@bprogress/core";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
 	faPlusCircle,
@@ -8,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Divider, Menu, MenuItem } from "@mui/material";
-import { BProgress } from "@bprogress/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";

@@ -19,7 +19,7 @@ export function TailoredWordSuggestionList({
 		listMap[wordList.name] = wordList;
 	}
 
-	const [topLevelList, topLevelListMap] = useMemo(() => {
+	const topLevelList = useMemo(() => {
 		const topLevelLists = new Set<string>();
 		for (const structure of sentenceStructures) {
 			for (const phrase of structure.structures) {
@@ -81,7 +81,7 @@ export function TailoredWordSuggestionList({
 			),
 			...Array.from(topLevelListKeys),
 		]);
-		return [combinedTopLevelLists, topLevelListMap];
+		return combinedTopLevelLists;
 	}, [subcategory, category, sentenceStructures]);
 
 	const usedLists = new Set<string>();
