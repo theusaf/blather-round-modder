@@ -46,7 +46,7 @@ export default function ProjectListing({
 							</Link>
 						</div>
 						<hr />
-						<p className="flex-1">{project.description}</p>
+						<p className="flex-1 overflow-auto whitespace-pre-wrap">{project.description}</p>
 						<div className="flex justify-between">
 							<div className="flex gap-2">
 								<Link href={`/project/${project.id}`}>
