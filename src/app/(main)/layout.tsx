@@ -21,7 +21,7 @@ export default async function RootLayout({
 								className="flex gap-1 items-center"
 								href="https://github.com/theusaf/blather-round-modder"
 							>
-								<FontAwesomeIcon icon={faGithub} />
+								<FontAwesomeIcon icon={faGithub} className="h-4" />
 								<span>GitHub</span>
 							</Link>
 						</div>
