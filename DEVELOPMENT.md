@@ -13,6 +13,7 @@ This application requires the following environment variables to work properly:
 
 - `SESSION_SECRET` - A secret key used to sign session cookies.
 - `FIREBASE_CREDENTIALS` - A JSON object containing the admin credentials for your Firebase project.
+- `FIREBASE_CREDENTIALS_DEV` - A JSON object containing the admin credentials for your Firebase project.
 
 In Next.JS, you can place these variables in the `.env.local` file.
 

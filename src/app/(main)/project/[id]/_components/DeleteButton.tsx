@@ -6,7 +6,7 @@ import { LabeledInput } from "@/lib/components/LabeledInput";
 import type { ProjectType } from "@/lib/types/project";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { startProgress } from "next-nprogress-bar";
+import { BProgress } from "@bprogress/core";
 import { useState } from "react";
 
 export function DeleteButton({ project }: { project: ProjectType }) {
@@ -53,7 +53,7 @@ export function DeleteButton({ project }: { project: ProjectType }) {
 					disabled={!doesMatch}
 					onClick={() => {
 						if (loading) return;
-						startProgress();
+						BProgress.start();
 						setLoading(true);
 						deleteProject(project.id!)
 							.then(() => {

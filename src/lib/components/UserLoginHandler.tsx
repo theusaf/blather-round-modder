@@ -1,5 +1,5 @@
 "use client";
-import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
+import { AppProgressProvider } from "@bprogress/next";
 import { type ReactNode, useEffect } from "react";
 import { useUserStore } from "../hooks/userStore";
 import type { UserLogin } from "../types/session";
@@ -22,12 +22,13 @@ export default function UserLoginHandler({
 	}, [loginDetails]);
 	return (
 		<>
-			<ProgressBar
+			<AppProgressProvider
 				options={{
 					showSpinner: false,
 				}}
-			/>
-			{children}
+			>
+				{children}
+			</AppProgressProvider>
 		</>
 	);
 }

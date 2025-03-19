@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Divider, Menu, MenuItem } from "@mui/material";
-import { startProgress, stopProgress } from "next-nprogress-bar";
+import { BProgress } from "@bprogress/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
@@ -54,9 +54,9 @@ export function UserNavMenu() {
 						<Divider />
 						<MenuItem
 							onClick={() => {
-								startProgress();
+								BProgress.start();
 								logout(pathname).then(() => {
-									stopProgress();
+									BProgress.done();
 								});
 							}}
 						>

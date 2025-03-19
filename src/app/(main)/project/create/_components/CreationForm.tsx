@@ -1,7 +1,7 @@
 "use client";
 import { createProject } from "@/lib/actions/createProject";
 import { Tab, TabList, Tabs } from "@mui/joy";
-import { startProgress, stopProgress } from "next-nprogress-bar";
+import { BProgress } from "@bprogress/core";
 import { useState } from "react";
 import { CreationSubmissionButton } from "./CreationSubmissionButton";
 
@@ -12,9 +12,9 @@ export function CreationForm() {
 	return (
 		<form
 			action={() => {
-				startProgress();
+				BProgress.start();
 				createProject(name, selectedTab).then(() => {
-					stopProgress();
+					BProgress.done();
 				});
 			}}
 		>
