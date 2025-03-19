@@ -34,7 +34,7 @@ export function WordListMenu({
 			<div>
 				<input
 					type="text"
-					className="rounded-md p-1 border-2 border-slate-400 w-full mb-2 text-md text-black"
+					className="rounded-md p-1 border-2 border-slate-400 w-full mb-2 text-md text-black bg-white"
 					placeholder="Search"
 					value={search}
 					onChange={(event) => setSearch(event.target.value)}

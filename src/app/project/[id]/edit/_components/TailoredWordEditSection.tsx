@@ -40,17 +40,19 @@ export function TailoredWordEditSection({
 						setList(value);
 					}}
 				/>
-				<WordListTile
-					list="Search!"
-					useValue={false}
-					onClose={(selection) => {
-						if (!selection) return;
-						setList(selection);
-					}}
-				/>
+				<div className="flex items-end">
+					<WordListTile
+						list="Search!"
+						useValue={false}
+						onClose={(selection) => {
+							if (!selection) return;
+							setList(selection);
+						}}
+					/>
+				</div>
 				<button
 					type="button"
-					className="flex items-end mb-2"
+					className="flex items-end mb-2 cursor-pointer"
 					onClick={() => {
 						if (word.trim() === "" || list.trim() === "") return;
 						onSubmit(word, list);
@@ -58,7 +60,7 @@ export function TailoredWordEditSection({
 						setList("");
 					}}
 				>
-					<FontAwesomeIcon className="w-8 h-8" icon={faPlusCircle} />
+					<FontAwesomeIcon className="w-12 h-12" icon={faPlusCircle} />
 				</button>
 			</div>
 		</div>
