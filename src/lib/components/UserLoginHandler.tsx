@@ -1,5 +1,6 @@
 "use client";
 import { AppProgressProvider } from "@bprogress/next";
+import { BProgress } from "@bprogress/core";
 import { type ReactNode, useEffect } from "react";
 import { useUserStore } from "../hooks/userStore";
 import type { UserLogin } from "../types/session";
@@ -20,10 +21,15 @@ export default function UserLoginHandler({
 		const setUser = useUserStore.getState().setUser;
 		setUser(loginDetails);
 	}, [loginDetails]);
+	useEffect(() => {
+		BProgress.start();
+		setTimeout(BProgress.done, 250);
+	}, []);
 	return (
 		<AppProgressProvider
 			options={{
 				showSpinner: false,
+				easing: "ease-in-out"
 			}}
 		>
 			{children}
