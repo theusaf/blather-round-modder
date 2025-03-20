@@ -18,7 +18,7 @@ export function PromptChoiceBlock({
 				<button type="button" onClick={onClick} className="block w-full h-full">
 					<div className="absolute left-[-2rem] top-[-0.5rem]">
 						<div
-							className={`${colors[prompt.category] ?? "bg-orange-400"} text-sm p-1 w-16`}
+							className={`${colors[prompt.category] ?? "bg-orange-400"} text-sm w-16 uppercase`}
 							style={{
 								transform: "rotate(-10deg)",
 							}}
@@ -34,7 +34,7 @@ export function PromptChoiceBlock({
 						</div>
 					)}
 					<div className="p-2 px-16">
-						<span>{prompt.password}</span>
+						<span className="uppercase">{prompt.password}</span>
 					</div>
 				</button>
 			</div>
