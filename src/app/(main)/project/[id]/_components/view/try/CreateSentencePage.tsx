@@ -5,9 +5,9 @@ import type {
 	WordListType,
 } from "@/lib/types/blather";
 import type { ProjectType } from "@/lib/types/project";
+import { toShuffled } from "@/lib/util/shuffle";
 import { useContext, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
-import { toShuffled } from "@/lib/util/shuffle";
 
 const PLAYER_GUESS: WordListType = {
 	amount: "",

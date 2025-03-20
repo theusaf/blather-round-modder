@@ -1,5 +1,5 @@
 "use client";
-import type { PromptType, Category } from "@/lib/types/blather";
+import type { Category, PromptType } from "@/lib/types/blather";
 
 export function PromptChoiceBlock({
 	prompt,

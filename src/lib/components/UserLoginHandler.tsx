@@ -21,14 +21,12 @@ export default function UserLoginHandler({
 		setUser(loginDetails);
 	}, [loginDetails]);
 	return (
-		<>
-			<AppProgressProvider
-				options={{
-					showSpinner: false,
-				}}
-			>
-				{children}
-			</AppProgressProvider>
-		</>
+		<AppProgressProvider
+			options={{
+				showSpinner: false,
+			}}
+		>
+			{children}
+		</AppProgressProvider>
 	);
 }

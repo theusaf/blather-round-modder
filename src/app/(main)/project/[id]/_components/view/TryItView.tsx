@@ -1,9 +1,9 @@
 "use client";
 
+import type { PromptType } from "@/lib/types/blather";
 import dynamic from "next/dynamic";
 import { Neucha } from "next/font/google";
 import { useState } from "react";
-import type { PromptType } from "@/lib/types/blather";
 import { CreateSentencePage } from "./try/CreateSentencePage";
 
 const blockyFont = Neucha({ subsets: ["latin"], weight: "400" });
