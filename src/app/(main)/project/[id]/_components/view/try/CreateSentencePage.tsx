@@ -203,3 +203,5 @@ function CreateSentencePageContent({
 		</div>
 	);
 }
+
+function WordSelectionList({ list }: { list: WordListType }) {}
