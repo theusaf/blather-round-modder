@@ -8,6 +8,7 @@ import type { ProjectType } from "@/lib/types/project";
 import { toShuffled } from "@/lib/util/shuffle";
 import { useContext, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
+import { getListMaps } from "@/lib/util/list";
 
 const PLAYER_GUESS: WordListType = {
 	amount: "",
@@ -91,13 +92,6 @@ function CreateSentencePageContent({
 	let content = "";
 	let isInList = false;
 	const items: (string | [string])[] = [];
-	const lists = items
-		.filter((a) => Array.isArray(a))
-		.map((a) => {
-			if (a[0] === "PLAYERGUESS") return PLAYER_GUESS;
-			return listMap[a[0]];
-		})
-		.filter(Boolean);
 	const usedSentence = isResponse
 		? `<${response}> <PLAYERGUESS>`
 		: currentSentence;
@@ -125,6 +119,19 @@ function CreateSentencePageContent({
 	} else {
 		items.push(content);
 	}
+
+	const lists = items
+		.filter((a) => Array.isArray(a))
+		.map((a) => {
+			if (a[0] === "PLAYERGUESS") return PLAYER_GUESS;
+			return listMap[a[0]];
+		})
+		.filter(Boolean);
+	const { listWordMap } = getListMaps({
+		promptData: prompt,
+		wordLists: project.wordLists,
+		sentenceStructures: project.sentenceStructures,
+	});
 
 	let colorCount = 0;
 	let listCount = 0;
@@ -181,8 +188,10 @@ function CreateSentencePageContent({
 				</div>
 			</div>
 			<div className="flex gap-2 overflow-auto h-full">
-				<div className="flex-1">test</div>
-				<div className="flex-1">test</div>
+				<WordSelectionList
+					list={isResponse ? listMap[response] : lists[activeListIndex]}
+					listWordMap={listWordMap}
+				/>
 			</div>
 			<div className="text-center">
 				<button
@@ -204,4 +213,16 @@ function CreateSentencePageContent({
 	);
 }
 
-function WordSelectionList({ list }: { list: WordListType }) {}
+function WordSelectionList({
+	list,
+	listWordMap,
+}: { list: WordListType; listWordMap: Record<string, WordListType["words"]> }) {
+	if (!list) return;
+	return (
+		<div className="flex-1">
+			{listWordMap[list.name].map((a, i) => {
+				return <p key={i}>{a.word}</p>;
+			})}
+		</div>
+	);
+}

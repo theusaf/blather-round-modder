@@ -89,9 +89,29 @@ export function getListMaps({
 			Array.from(topLevelListMap[key] ?? []),
 		),
 	);
+
+	// TODO: this doesn't work. might need to be recursive.
 	for (const key in listMap) {
-		const strings = [...listMap[key].words];
-		// TODO: filter out sublists and flatten all individual words
+		const strings = [];
+		for (const word of listMap[key].words) {
+			if (word.word.startsWith("<") && word.word.endsWith(">")) {
+				const list = word.word.slice(1, -1);
+				const listRelatives = topLevelListMap[list];
+				if (!listRelatives) continue;
+				for (const relative of listRelatives) {
+					const relativeWords = listMap[relative]?.words;
+					if (!relativeWords) continue;
+					strings.push(
+						...relativeWords.filter(
+							(a) => !(a.word.startsWith("<") && a.word.endsWith(">")),
+						),
+					);
+				}
+			} else {
+				strings.push(word);
+			}
+		}
+		listWordMap[key] = strings;
 	}
 	return {
 		topLevelListKeys,
