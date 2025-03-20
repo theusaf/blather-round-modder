@@ -1,5 +1,4 @@
 import "server-only";
-import SectionCard from "@/lib/components/SectionCard";
 import Project from "@/lib/database/models/project";
 import { getUserSession } from "@/lib/util/auth";
 import type { ResolvingMetadata } from "next";
@@ -7,6 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DeleteButton } from "./_components/DeleteButton";
 import { ProjectDownload } from "./_components/ProjectDownload";
+import { ProjectDataView } from "./_components/view/ProjectDataView";
 
 export async function generateMetadata(
 	{
@@ -67,7 +67,9 @@ export default async function ProjectPage({
 							v{project.version}
 						</span>
 					</h1>
-					<p>{project.description}</p>
+					<p className="whitespace-pre-wrap max-h-40 overflow-auto">
+						{project.description}
+					</p>
 				</div>
 				<div className="grid grid-cols-1 md:flex gap-2 h-min">
 					<ProjectDownload
@@ -112,78 +114,7 @@ export default async function ProjectPage({
 				</div>
 			</div>
 			<hr className="my-2" />
-			<div className="flex flex-col md:flex-row gap-4">
-				<div className="flex flex-col gap-2 flex-1">
-					<SectionCard>
-						<h2 className="text-xl font-bold">Sentence Structures</h2>
-						<div className="flex flex-col gap-2">
-							{project.sentenceStructures.map((sentenceStructure) => (
-								<div
-									key={sentenceStructure.id}
-									className="border-slate-300 border-2 rounded-md p-2"
-								>
-									<h3 className="text-lg font-semibold">
-										Category: {sentenceStructure.category}
-									</h3>
-									<ul className="list-inside list-disc">
-										{sentenceStructure.structures.map((structure, i) => (
-											<li key={`${project.id}-${i}`}>{structure}</li>
-										))}
-									</ul>
-								</div>
-							))}
-						</div>
-					</SectionCard>
-					<SectionCard>
-						<h2 className="text-xl font-bold">Word Lists</h2>
-						<div className="flex flex-col gap-2">
-							{project.wordLists.map((wordList) => (
-								<div
-									key={wordList.id}
-									className="border-slate-300 border-2 rounded-md p-2"
-								>
-									<h3 className="text-lg font-semibold">{wordList.name}</h3>
-									<details>
-										<summary>View Words</summary>
-										<ul className="list-inside list-disc">
-											{wordList.words.map((word, i) => (
-												<li key={`${wordList.id}-${i}`}>{word.word}</li>
-											))}
-										</ul>
-									</details>
-								</div>
-							))}
-						</div>
-					</SectionCard>
-				</div>
-				<SectionCard className="flex-1">
-					<h2 className="text-xl font-bold">Prompts</h2>
-					<div className="flex flex-col gap-2">
-						{project.prompts.map((prompt) => (
-							<div
-								key={prompt.id}
-								className="border-slate-300 border-2 rounded-md p-2"
-							>
-								<h3 className="text-lg font-semibold">{prompt.password}</h3>
-								<p>Difficulty: {prompt.difficulty}</p>
-								<p>Forbidden Words: {prompt.forbiddenWords.join(", ")}</p>
-								<p>Category: {prompt.category}</p>
-								<p>US-Centric: {prompt.us ? "Yes" : "No"}</p>
-								<details>
-									<summary>View Tailored Words</summary>
-									<ul className="list-inside list-disc">
-										{prompt.tailoredWords.map((tailoredWord, i) => (
-											<li key={`${prompt.id}-${i}`}>
-												{tailoredWord.list} - {tailoredWord.word}
-											</li>
-										))}
-									</ul>
-								</details>
-							</div>
-						))}
-					</div>
-				</SectionCard>
-			</div>
+			<ProjectDataView project={project.toJSON()} />
 		</main>
 	);
 }
