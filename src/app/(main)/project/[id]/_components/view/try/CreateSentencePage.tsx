@@ -80,7 +80,7 @@ function CreateSentencePageContent({
 		structure.structures[0] ?? "",
 	);
 	const [activeStructureIndex, setActiveStructureIndex] = useState(0);
-	const [activeListIndex, setActiveListIndex] = useState(0);
+	let [activeListIndex, setActiveListIndex] = useState(-1);
 	const [isResponse, setIsResponse] = useState(false);
 	const [response, setResponse] = useState(responseLists[0]);
 	const [filled, setFilled] = useState<string[][]>([]);
@@ -127,6 +127,15 @@ function CreateSentencePageContent({
 			return listMap[a[0]];
 		})
 		.filter(Boolean);
+	const firstNonOptionalListIndices = lists
+		.map<[WordListType, number]>((list, i) => [list, i])
+		.filter(([list]) => !list.optional)
+		.map(([, index]) => index)
+		.slice(0, 2);
+	if (activeListIndex === -1) {
+		activeListIndex = firstNonOptionalListIndices[0] ?? 0;
+	}
+
 	const { listWordMap } = getListMaps({
 		promptData: prompt,
 		wordLists: project.wordLists,
@@ -187,11 +196,26 @@ function CreateSentencePageContent({
 					})}
 				</div>
 			</div>
-			<div className="flex gap-2 overflow-auto h-full">
-				<WordSelectionList
-					list={isResponse ? listMap[response] : lists[activeListIndex]}
-					listWordMap={listWordMap}
-				/>
+			<div className="flex gap-2 overflow-hidden h-full">
+				{isResponse ? (
+					<WordSelectionList
+						list={listMap[response]}
+						listWordMap={listWordMap}
+					/>
+				) : firstNonOptionalListIndices.includes(activeListIndex) ? (
+					firstNonOptionalListIndices.map((index) => (
+						<WordSelectionList
+							key={index}
+							list={lists[index]}
+							listWordMap={listWordMap}
+						/>
+					))
+				) : (
+					<WordSelectionList
+						list={lists[activeListIndex]}
+						listWordMap={listWordMap}
+					/>
+				)}
 			</div>
 			<div className="text-center">
 				<button
@@ -199,7 +223,7 @@ function CreateSentencePageContent({
 					type="button"
 					onClick={() => {
 						setIsResponse(!isResponse);
-						setActiveListIndex(0);
+						setActiveListIndex(-1);
 						setFilled([]);
 						if (!isResponse) {
 							setResponse(toShuffled(responseLists)[0]);
@@ -219,10 +243,20 @@ function WordSelectionList({
 }: { list: WordListType; listWordMap: Record<string, WordListType["words"]> }) {
 	if (!list) return;
 	return (
-		<div className="flex-1">
-			{listWordMap[list.name].map((a, i) => {
-				return <p key={i}>{a.word}</p>;
-			})}
+		<div className="flex-1 flex justify-center overflow-auto">
+			<div className="grid grid-cols-1 flex-1 max-w-[20rem]">
+				{listWordMap[list.name].map((a, i) => {
+					return (
+						<button
+							type="button"
+							key={i}
+							className="uppercase font-semibold text-lg border-x-6 border-y-3 first:border-t-6 last:border-b-6 p-1  bg-black border-slate-400"
+						>
+							{a.word}
+						</button>
+					);
+				})}
+			</div>
 		</div>
 	);
 }
