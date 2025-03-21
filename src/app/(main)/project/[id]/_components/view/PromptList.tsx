@@ -6,7 +6,7 @@ import { ItemBlock } from "./ItemBlock";
 
 export function PromptList({ prompts }: { prompts: PromptType[] }) {
 	return (
-		<div className="flex flex-col gap-2 mt-2 overflow-auto max-h-[50rem]">
+		<div className="flex flex-col gap-2 mt-2 overflow-auto h-full">
 			{prompts.map((prompt) => {
 				const {
 					id,
