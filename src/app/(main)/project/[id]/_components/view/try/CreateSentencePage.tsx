@@ -278,21 +278,20 @@ function WordSelectionList({
 	color?: ColorStrings;
 	onSelect?: (selected: string[]) => void;
 }) {
+	// TODO: move this into parent component
 	const [selected, setSelected] = useState<string[]>([]);
 	if (!list) return;
-	const colors: Record<ColorStrings, string> = {
-		pink: "border-pink-400",
-		orange: "border-orange-400",
-		blue: "border-blue-400",
-		"": "border-gray-400",
+	const colors: Record<ColorStrings, [string, string]> = {
+		pink: ["border-pink-400", "bg-pink-400"],
+		orange: ["border-orange-400", "bg-orange-400"],
+		blue: ["border-blue-400", "bg-blue-400"],
+		"": ["border-gray-400", "bg-gray-400"],
 	};
 	const disabled = !!list.maxChoices && selected.length >= +list.maxChoices;
 
 	return (
 		<div className="flex-1 flex justify-center overflow-auto items-start">
-			<div
-				className={`grid grid-cols-1 flex-1 max-w-[20rem] ${disabled ? "opacity-70" : ""}`}
-			>
+			<div className={"grid grid-cols-1 flex-1 max-w-[20rem]"}>
 				{(listWordMap[list.name] ?? list.words).map((wordItem, i) => (
 					<WordSelectionListButton
 						key={i}
@@ -324,24 +323,34 @@ function WordSelectionListButton({
 	onToggle,
 	disabled,
 }: {
-	color: string;
+	color: [string, string];
 	word: string;
 	onToggle?: (newState: boolean) => void;
 	disabled: boolean;
 }) {
 	const [isSelected, setIsSelected] = useState(false);
 	return (
-		<button
-			type="button"
-			className={`uppercase font-semibold text-lg border-x-6 border-y-3 first:border-t-6 last:border-b-6 p-1  bg-black ${color}`}
-			onClick={() => {
-				if (disabled && !isSelected) return;
-				setIsSelected(!isSelected);
-				onToggle?.(!isSelected);
-			}}
-		>
-
-			{word}
-		</button>
+		<div className="relative first:*:border-t-6 last:*:border-b-6">
+			{isSelected && (
+				<div className="absolute left-[0.5rem] top-[0.5rem] w-6 h-6 text-center bg-black text-white rounded-full pointer-events-none z-10">
+					x
+				</div>
+			)}
+			<div
+				className={`uppercase ${disabled ? "opacity-70" : ""} font-semibold text-lg border-x-6 border-y-3 p-1 ${isSelected ? "text-black" : ""}  ${isSelected ? color[1] : "bg-black"} ${color[0]}`}
+			>
+				<button
+					type="button"
+					className="uppercase w-full"
+					onClick={() => {
+						if (disabled && !isSelected) return;
+						setIsSelected(!isSelected);
+						onToggle?.(!isSelected);
+					}}
+				>
+					{word}
+				</button>
+			</div>
+		</div>
 	);
 }
