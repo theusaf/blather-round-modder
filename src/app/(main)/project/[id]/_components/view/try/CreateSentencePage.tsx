@@ -336,11 +336,11 @@ function WordSelectionListButton({
 }) {
 	const [isSelected, setIsSelected] = useState(initialToggle);
 	return (
-		<div className="relative first:*:border-t-6 last:*:border-b-6">
+		<div className="relative first:[&.div]:border-t-6 last:[&.div]:border-b-6">
 			{isSelected && (
-				<div className="absolute left-[0.5rem] top-[0.5rem] w-6 h-6 text-center bg-black text-white rounded-full pointer-events-none z-10">
+				<span className="absolute left-[0.5rem] top-[0.5rem] w-6 h-6 text-center bg-black text-white rounded-full pointer-events-none z-10">
 					x
-				</div>
+				</span>
 			)}
 			<div
 				className={`uppercase ${disabled ? "opacity-70" : ""} font-semibold text-lg border-x-6 border-y-3 p-1 ${isSelected ? "text-black" : ""}  ${isSelected ? color[1] : "bg-black"} ${color[0]}`}
