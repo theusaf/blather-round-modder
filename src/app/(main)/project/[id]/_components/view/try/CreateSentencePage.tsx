@@ -132,11 +132,11 @@ function CreateSentencePageContent({
 			return listMap[a[0]];
 		})
 		.filter(Boolean);
-	const firstNonOptionalListIndices = lists
+	const nonOptionalListIndices = lists
 		.map<[WordListType, number]>((list, i) => [list, i])
 		.filter(([list]) => !list.optional)
-		.map(([, index]) => index)
-		.slice(0, 2);
+		.map(([, index]) => index);
+	const firstNonOptionalListIndices = nonOptionalListIndices.slice(0, 2);
 	if (activeListIndex === -1) {
 		activeListIndex = firstNonOptionalListIndices[0] ?? 0;
 	}
@@ -161,6 +161,10 @@ function CreateSentencePageContent({
 			}),
 		);
 	};
+
+	const isReadyForSubmit = nonOptionalListIndices.every(
+		(index) => !!filled[index],
+	);
 
 	return (
 		<div className="md:w-[40rem] md:mx-auto overflow-hidden h-full flex flex-col gap-2">
@@ -235,7 +239,7 @@ function CreateSentencePageContent({
 				) : firstNonOptionalListIndices.includes(activeListIndex) ? (
 					firstNonOptionalListIndices.map((listIndex, i) => (
 						<WordSelectionList
-							key={listIndex}
+							key={`${activeStructureIndex}-${listIndex}`}
 							list={lists[listIndex]}
 							listWordMap={listWordMap}
 							color={i ? "orange" : "pink"}
@@ -245,6 +249,7 @@ function CreateSentencePageContent({
 					))
 				) : (
 					<WordSelectionList
+						key={`${activeStructureIndex}-${lists[activeListIndex]}`}
 						list={lists[activeListIndex]}
 						listWordMap={listWordMap}
 						color={lists[activeListIndex].optional ? "" : "blue"}
@@ -258,15 +263,24 @@ function CreateSentencePageContent({
 					className="text-3xl font-semibold uppercase p-4 w-full bg-emerald-600 rounded-lg"
 					type="button"
 					onClick={() => {
-						setIsResponse(!isResponse);
-						setActiveListIndex(-1);
-						setFilled([]);
-						if (!isResponse) {
-							setResponse(toShuffled(responseLists)[0]);
+						if (isReadyForSubmit && !isResponse) {
+							let newIndex = activeStructureIndex + 1;
+							if (structure.structures.length === activeStructureIndex + 1) {
+								newIndex = 0;
+							}
+							setActiveStructureIndex(newIndex);
+							setCurrentSentence(structure.structures[newIndex]);
+						} else {
+							setIsResponse(!isResponse);
+							if (!isResponse) {
+								setResponse(toShuffled(responseLists)[0]);
+							}
 						}
+						setFilled([]);
+						setActiveListIndex(-1);
 					}}
 				>
-					skip
+					{isReadyForSubmit ? "submit" : "skip"}
 				</button>
 			</div>
 		</div>
