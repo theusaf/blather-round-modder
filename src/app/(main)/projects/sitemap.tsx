@@ -13,7 +13,6 @@ export async function generateSitemaps() {
 	for (let i = 0; i < Math.ceil(projectCount / 50000); i++) {
 		sitemaps.push({ id: i + 1 });
 	}
-	console.log(projectCount, sitemaps);
 	return sitemaps;
 }
 
@@ -29,6 +28,6 @@ export default async function sitemap({
 		},
 	});
 	return projects.map((project) => ({
-		url: `https://blather-mod.theusaf.org/projects/${project.id}`,
+		url: `https://blather-mod.theusaf.org/project/${project.id}`,
 	}));
 }
