@@ -6,9 +6,10 @@ import type {
 } from "@/lib/types/blather";
 import type { ProjectType } from "@/lib/types/project";
 import { toShuffled } from "@/lib/util/shuffle";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
 import { getListMaps } from "@/lib/util/list";
+import { produce } from "immer";
 
 const PLAYER_GUESS: WordListType = {
 	amount: "",
@@ -83,7 +84,7 @@ function CreateSentencePageContent({
 	let [activeListIndex, setActiveListIndex] = useState(-1);
 	const [isResponse, setIsResponse] = useState(false);
 	const [response, setResponse] = useState(responseLists[0]);
-	const [filled, setFilled] = useState<string[][]>([]);
+	const [filled, setFilled] = useState<(string[] | null)[]>([]);
 	const listMap: Record<string, WordListType> = {};
 	for (const list of project.wordLists) {
 		listMap[list.name] = list;
@@ -145,6 +146,18 @@ function CreateSentencePageContent({
 	let colorCount = 0;
 	let listCount = 0;
 
+	const getFiller = (index: number) => (value: string[]) => {
+		setFilled(
+			produce((filled) => {
+				if (value.length === 0) {
+					filled[index] = null;
+				} else {
+					filled[index] = value;
+				}
+			}),
+		);
+	};
+
 	return (
 		<div className="md:w-[40rem] md:mx-auto overflow-hidden h-full flex flex-col gap-2">
 			<h3 className="text-2xl font-black text-center">
@@ -163,7 +176,7 @@ function CreateSentencePageContent({
 								let content = list.name;
 								const isFilled = !!filled[listCount];
 								if (list.placeholder) content = list.placeholder;
-								if (isFilled) content = filled[listCount].join(" ");
+								if (isFilled) content = filled[listCount]!.join(" ");
 								if (list.optional) {
 									color = "border-gray-400";
 								} else {
@@ -204,11 +217,13 @@ function CreateSentencePageContent({
 							list={listMap[response]}
 							listWordMap={listWordMap}
 							color="pink"
+							onSelect={getFiller(0)}
 						/>
 						<WordSelectionList
 							list={PLAYER_GUESS}
 							listWordMap={listWordMap}
 							color="orange"
+							onSelect={getFiller(1)}
 						/>
 					</>
 				) : firstNonOptionalListIndices.includes(activeListIndex) ? (
@@ -218,6 +233,7 @@ function CreateSentencePageContent({
 							list={lists[listIndex]}
 							listWordMap={listWordMap}
 							color={i ? "orange" : "pink"}
+							onSelect={getFiller(listIndex)}
 						/>
 					))
 				) : (
@@ -225,6 +241,7 @@ function CreateSentencePageContent({
 						list={lists[activeListIndex]}
 						listWordMap={listWordMap}
 						color={lists[activeListIndex].optional ? "" : "blue"}
+						onSelect={getFiller(activeListIndex)}
 					/>
 				)}
 			</div>
@@ -254,11 +271,14 @@ function WordSelectionList({
 	list,
 	listWordMap,
 	color = "",
+	onSelect,
 }: {
 	list: WordListType;
 	listWordMap: Record<string, WordListType["words"]>;
 	color?: ColorStrings;
+	onSelect?: (selected: string[]) => void;
 }) {
+	const selected = useRef<string[]>([]);
 	if (!list) return;
 	const colors: Record<ColorStrings, string> = {
 		pink: "border-pink-400",
@@ -269,18 +289,45 @@ function WordSelectionList({
 	return (
 		<div className="flex-1 flex justify-center overflow-auto items-start">
 			<div className="grid grid-cols-1 flex-1 max-w-[20rem]">
-				{(listWordMap[list.name] ?? list.words).map((a, i) => {
-					return (
-						<button
-							type="button"
-							key={i}
-							className={`uppercase font-semibold text-lg border-x-6 border-y-3 first:border-t-6 last:border-b-6 p-1  bg-black ${colors[color]}`}
-						>
-							{a.word}
-						</button>
-					);
-				})}
+				{(listWordMap[list.name] ?? list.words).map((wordItem, i) => (
+					<WordSelectionListButton
+						key={i}
+						color={colors[color]}
+						word={wordItem.word}
+						onToggle={(state) => {
+							selected.current = produce((selection) => {
+								if (state) {
+									selection.push(wordItem.word);
+								} else {
+									// deletion
+									selection.splice(selection.indexOf(wordItem.word), 1);
+								}
+							})(selected.current);
+							onSelect?.(selected.current);
+						}}
+					/>
+				))}
 			</div>
 		</div>
+	);
+}
+
+function WordSelectionListButton({
+	color,
+	word,
+	onToggle,
+}: { color: string; word: string; onToggle?: (newState: boolean) => void }) {
+	const [isSelected, setIsSelected] = useState(false);
+	return (
+		<button
+			type="button"
+			className={`uppercase font-semibold text-lg border-x-6 border-y-3 first:border-t-6 last:border-b-6 p-1  bg-black ${color}`}
+			onClick={() => {
+				setIsSelected(!isSelected);
+				onToggle?.(!isSelected);
+			}}
+		>
+			{word}
+		</button>
 	);
 }
