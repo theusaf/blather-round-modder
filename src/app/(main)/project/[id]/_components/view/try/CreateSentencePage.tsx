@@ -23,6 +23,10 @@ const PLAYER_GUESS: WordListType = {
 			alwaysChoose: true,
 			word: "EXAMPLE",
 		},
+		{
+			alwaysChoose: true,
+			word: "THING",
+		},
 	],
 };
 
@@ -292,11 +296,18 @@ function WordSelectionList({
 		"": ["border-gray-400", "bg-gray-400"],
 	};
 	const disabled = !!list.maxChoices && selected.length >= +list.maxChoices;
+	const initWords = listWordMap[list.name] ?? list.words;
+	const filterSet = new Set<string>();
+	const words = initWords.filter((word) => {
+		if (filterSet.has(word.word)) return false;
+		filterSet.add(word.word);
+		return true;
+	});
 
 	return (
 		<div className="flex-1 flex justify-center overflow-auto items-start">
 			<div className={"grid grid-cols-1 flex-1 max-w-[20rem]"}>
-				{(listWordMap[list.name] ?? list.words).map((wordItem, i) => (
+				{words.map((wordItem, i) => (
 					<WordSelectionListButton
 						key={i}
 						color={colors[color]}
