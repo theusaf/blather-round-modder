@@ -2,8 +2,8 @@
 import type { ProjectType } from "@/lib/types/project";
 import { ProjectContext } from "./ProjectContext";
 import { PromptView } from "./PromptView";
-import { TryItView } from "./TryItView";
 import { SentenceView } from "./SentenceView";
+import { TryItView } from "./TryItView";
 import { WordListView } from "./WordListView";
 
 export function ProjectDataView({ project }: { project: ProjectType }) {
