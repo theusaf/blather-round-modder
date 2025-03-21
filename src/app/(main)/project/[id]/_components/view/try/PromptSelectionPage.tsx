@@ -1,5 +1,6 @@
 "use client";
 import type { PromptType } from "@/lib/types/blather";
+import type { ProjectType } from "@/lib/types/project";
 import { toShuffled } from "@/lib/util/shuffle";
 import { useContext, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
@@ -10,6 +11,18 @@ export function PromptSelectionPage({
 }: { onPromptSelect: (prompt: PromptType) => void }) {
 	const project = useContext(ProjectContext);
 	if (!project) return;
+	return (
+		<PromptSelectionPageContent
+			onPromptSelect={onPromptSelect}
+			project={project}
+		/>
+	);
+}
+
+function PromptSelectionPageContent({
+	project,
+	onPromptSelect,
+}: { project: ProjectType; onPromptSelect: (prompt: PromptType) => void }) {
 	const { prompts } = project;
 	const [easy, setEasy] = useState(
 		toShuffled(prompts.filter((p) => p.difficulty === "easy")),

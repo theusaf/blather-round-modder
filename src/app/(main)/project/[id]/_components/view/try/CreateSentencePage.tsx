@@ -5,11 +5,11 @@ import type {
 	WordListType,
 } from "@/lib/types/blather";
 import type { ProjectType } from "@/lib/types/project";
+import { getListMaps } from "@/lib/util/list";
 import { toShuffled } from "@/lib/util/shuffle";
+import { produce } from "immer";
 import { useContext, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
-import { getListMaps } from "@/lib/util/list";
-import { produce } from "immer";
 
 const PLAYER_GUESS: WordListType = {
 	amount: "",

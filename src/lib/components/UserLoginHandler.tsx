@@ -1,6 +1,6 @@
 "use client";
-import { AppProgressProvider } from "@bprogress/next";
 import { BProgress } from "@bprogress/core";
+import { AppProgressProvider } from "@bprogress/next";
 import { type ReactNode, useEffect } from "react";
 import { useUserStore } from "../hooks/userStore";
 import type { UserLogin } from "../types/session";
@@ -29,7 +29,7 @@ export default function UserLoginHandler({
 		<AppProgressProvider
 			options={{
 				showSpinner: false,
-				easing: "ease-in-out"
+				easing: "ease-in-out",
 			}}
 		>
 			{children}
