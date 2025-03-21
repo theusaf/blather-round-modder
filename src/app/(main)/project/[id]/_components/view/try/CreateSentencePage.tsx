@@ -161,8 +161,9 @@ function CreateSentencePageContent({
 							if (list) {
 								let color = "b-black";
 								let content = list.name;
+								const isFilled = !!filled[listCount];
 								if (list.placeholder) content = list.placeholder;
-								if (filled[listCount]) content = filled[listCount].join(" ");
+								if (isFilled) content = filled[listCount].join(" ");
 								if (list.optional) {
 									color = "border-gray-400";
 								} else {
@@ -175,7 +176,7 @@ function CreateSentencePageContent({
 									}
 									colorCount++;
 								}
-								if (filled[listCount]) color += " text-black!";
+								if (isFilled) color += " text-black!";
 								const count = listCount;
 								listCount++;
 								return (
@@ -198,22 +199,32 @@ function CreateSentencePageContent({
 			</div>
 			<div className="flex gap-2 overflow-hidden h-full">
 				{isResponse ? (
-					<WordSelectionList
-						list={listMap[response]}
-						listWordMap={listWordMap}
-					/>
-				) : firstNonOptionalListIndices.includes(activeListIndex) ? (
-					firstNonOptionalListIndices.map((index) => (
+					<>
 						<WordSelectionList
-							key={index}
-							list={lists[index]}
+							list={listMap[response]}
 							listWordMap={listWordMap}
+							color="pink"
+						/>
+						<WordSelectionList
+							list={PLAYER_GUESS}
+							listWordMap={listWordMap}
+							color="orange"
+						/>
+					</>
+				) : firstNonOptionalListIndices.includes(activeListIndex) ? (
+					firstNonOptionalListIndices.map((listIndex, i) => (
+						<WordSelectionList
+							key={listIndex}
+							list={lists[listIndex]}
+							listWordMap={listWordMap}
+							color={i ? "orange" : "pink"}
 						/>
 					))
 				) : (
 					<WordSelectionList
 						list={lists[activeListIndex]}
 						listWordMap={listWordMap}
+						color={lists[activeListIndex].optional ? "" : "blue"}
 					/>
 				)}
 			</div>
@@ -237,20 +248,33 @@ function CreateSentencePageContent({
 	);
 }
 
+type ColorStrings = "" | "pink" | "orange" | "blue";
+
 function WordSelectionList({
 	list,
 	listWordMap,
-}: { list: WordListType; listWordMap: Record<string, WordListType["words"]> }) {
+	color = "",
+}: {
+	list: WordListType;
+	listWordMap: Record<string, WordListType["words"]>;
+	color?: ColorStrings;
+}) {
 	if (!list) return;
+	const colors: Record<ColorStrings, string> = {
+		pink: "border-pink-400",
+		orange: "border-orange-400",
+		blue: "border-blue-400",
+		"": "border-gray-400",
+	};
 	return (
-		<div className="flex-1 flex justify-center overflow-auto">
+		<div className="flex-1 flex justify-center overflow-auto items-start">
 			<div className="grid grid-cols-1 flex-1 max-w-[20rem]">
-				{listWordMap[list.name].map((a, i) => {
+				{(listWordMap[list.name] ?? list.words).map((a, i) => {
 					return (
 						<button
 							type="button"
 							key={i}
-							className="uppercase font-semibold text-lg border-x-6 border-y-3 first:border-t-6 last:border-b-6 p-1  bg-black border-slate-400"
+							className={`uppercase font-semibold text-lg border-x-6 border-y-3 first:border-t-6 last:border-b-6 p-1  bg-black ${colors[color]}`}
 						>
 							{a.word}
 						</button>
