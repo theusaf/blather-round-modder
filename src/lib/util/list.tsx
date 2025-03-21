@@ -39,7 +39,7 @@ export function getListMaps({
 			}
 		}
 	}
-	const topLevelListMap: Record<string, Set<string>> = {};
+	const listMapSet: Record<string, Set<string>> = {};
 	const recursiveAddList = (listName: string, listsFound: Set<string>) => {
 		const list = listMap[listName];
 		if (!list) return [];
@@ -59,8 +59,8 @@ export function getListMaps({
 		}
 		return result;
 	};
-	for (const topList of Array.from(topLevelLists)) {
-		topLevelListMap[topList] = new Set(
+	for (const topList of topLevelLists) {
+		listMapSet[topList] = new Set(
 			recursiveAddList(topList, new Set([topList])),
 		);
 	}
@@ -86,11 +86,13 @@ export function getListMaps({
 	}
 	const subLevelListKeys = new Set(
 		Array.from(topLevelListKeys).flatMap((key) =>
-			Array.from(topLevelListMap[key] ?? []),
+			Array.from(listMapSet[key] ?? []),
 		),
 	);
+	for (const list of subLevelListKeys) {
+		listMapSet[list] = new Set(recursiveAddList(list, new Set([list])));
+	}
 
-	// TODO: this doesn't work. might need to be recursive.
 	const recursiveAddWord = (
 		listName: string,
 		discoveredLists = new Set<string>(),
@@ -121,6 +123,7 @@ export function getListMaps({
 		topLevelListKeys,
 		subLevelListKeys,
 		listKeyMap: listMap,
+		listKeyMapSet: listMapSet,
 		listWordMap,
 	};
 }

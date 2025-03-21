@@ -1,6 +1,7 @@
 "use client";
 import { useProjectStore } from "@/lib/hooks/projectStore";
 import type { PromptType, WordListType } from "@/lib/types/blather";
+import { getListMaps } from "@/lib/util/list";
 import { useMemo } from "react";
 
 export function TailoredWordSuggestionList({
@@ -11,77 +12,32 @@ export function TailoredWordSuggestionList({
 		(state) => state.sentenceStructures,
 	);
 	const wordLists = useProjectStore((state) => state.wordLists);
-
-	// TODO: refactor duplicate code from validation
-	const { subcategory, category, tailoredWords } = promptData;
+	const { tailoredWords } = promptData;
 	const listMap: Record<string, WordListType> = {};
 	for (const wordList of wordLists) {
 		listMap[wordList.name] = wordList;
 	}
 
-	const [topLevelList, subLevelList, fullListMap] = useMemo(() => {
-		const topLevelLists = new Set<string>();
-		for (const structure of sentenceStructures) {
-			for (const phrase of structure.structures) {
-				const lists = (phrase.match(/<([^>]+)>/g) ?? []).map((match) =>
-					match.slice(1, -1),
-				);
-				for (const list of lists) {
-					topLevelLists.add(list);
-				}
+	const { topLevelListKeys, subLevelListKeys, listKeyMapSet } = useMemo(() => {
+		const { topLevelListKeys, subLevelListKeys, listKeyMapSet } = getListMaps({
+			promptData,
+			wordLists,
+			sentenceStructures,
+		});
+		const inverseListKeyMapSet: Record<string, Set<string>> = {};
+		for (const key in listKeyMapSet) {
+			for (const subKey of listKeyMapSet[key]) {
+				if (!inverseListKeyMapSet[subKey])
+					inverseListKeyMapSet[subKey] = new Set();
+				inverseListKeyMapSet[subKey].add(key);
 			}
 		}
-		const topLevelListMap: Record<string, Set<string>> = {};
-		const recursiveAddList = (listName: string, listsFound: Set<string>) => {
-			const list = listMap[listName];
-			if (!list) return [];
-			const lists = [];
-			for (const word of list.words) {
-				if (/^<[^>]+>$/.test(word.word)) {
-					lists.push(word.word.slice(1, -1));
-				}
-			}
-			if (lists.length === 0) return [];
-			const result: string[] = [];
-			for (const sublist of lists) {
-				if (listsFound.has(sublist)) continue; // prevent infinite recursion
-				result.push(sublist);
-				listsFound.add(sublist);
-				result.push(...recursiveAddList(sublist, listsFound));
-			}
-			return result;
+		return {
+			topLevelListKeys,
+			subLevelListKeys,
+			listKeyMapSet: inverseListKeyMapSet,
 		};
-		for (const topList of Array.from(topLevelLists)) {
-			topLevelListMap[topList] = new Set(
-				recursiveAddList(topList, new Set([topList])),
-			);
-		}
-
-		const relevantStructure = sentenceStructures.find(
-			(structure) => structure.category === category,
-		);
-		const topLevelListKeys = new Set([
-			`response-sentence-${category}`,
-			"response-sentence",
-		]);
-		if (subcategory) {
-			topLevelListKeys.add(`response-sentence-${category}-${subcategory}`);
-		}
-		if (relevantStructure) {
-			for (const phrase of relevantStructure.structures) {
-				const lists = (phrase.match(/<([^>]+)>/g) ?? []).map((match) =>
-					match.slice(1, -1),
-				);
-				for (const list of lists) topLevelListKeys.add(list);
-			}
-		}
-		const subLevelListKeys = new Set(
-			Array.from(topLevelListKeys).flatMap((key) =>
-				Array.from(topLevelListMap[key] ?? []),
-			),
-		);
-		return [topLevelListKeys, subLevelListKeys, topLevelListMap];
-	}, [subcategory, category, sentenceStructures]);
+	}, [promptData, wordLists, sentenceStructures]);
 
 	const usedLists = new Set<string>();
 	for (const word of tailoredWords) {
@@ -99,18 +55,21 @@ export function TailoredWordSuggestionList({
 			if (ignore.has(key)) continue;
 			let missing = !usedLists.has(key);
 			if (!missing) {
-				for (const subKey of fullListMap[key] ?? []) {
+				for (const subKey of listKeyMapSet[key] ?? []) {
 					if (usedLists.has(subKey)) {
 						missing = false;
 						break;
 					}
 				}
+				for (const subKey of listKeyMapSet[key] ?? []) {
+					usedLists.add(subKey);
+				}
 			}
 			if (missing) output.push(key);
 		}
 	};
-	checkMissing(topLevelList, topLevelMissing);
-	checkMissing(subLevelList, subLevelMissing, topLevelList);
+	checkMissing(subLevelListKeys, subLevelMissing);
+	checkMissing(topLevelListKeys, topLevelMissing, subLevelListKeys);
 
 	return (
 		<div className="border-r-2 border-slate-600 mt-2 p-2">
