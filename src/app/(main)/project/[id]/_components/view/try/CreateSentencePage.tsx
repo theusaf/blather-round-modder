@@ -6,7 +6,7 @@ import type {
 } from "@/lib/types/blather";
 import type { ProjectType } from "@/lib/types/project";
 import { toShuffled } from "@/lib/util/shuffle";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
 import { getListMaps } from "@/lib/util/list";
 import { produce } from "immer";
@@ -278,7 +278,7 @@ function WordSelectionList({
 	color?: ColorStrings;
 	onSelect?: (selected: string[]) => void;
 }) {
-	const selected = useRef<string[]>([]);
+	const [selected, setSelected] = useState<string[]>([]);
 	if (!list) return;
 	const colors: Record<ColorStrings, string> = {
 		pink: "border-pink-400",
@@ -286,25 +286,31 @@ function WordSelectionList({
 		blue: "border-blue-400",
 		"": "border-gray-400",
 	};
+	const disabled = !!list.maxChoices && selected.length >= +list.maxChoices;
+
 	return (
 		<div className="flex-1 flex justify-center overflow-auto items-start">
-			<div className="grid grid-cols-1 flex-1 max-w-[20rem]">
+			<div
+				className={`grid grid-cols-1 flex-1 max-w-[20rem] ${disabled ? "opacity-70" : ""}`}
+			>
 				{(listWordMap[list.name] ?? list.words).map((wordItem, i) => (
 					<WordSelectionListButton
 						key={i}
 						color={colors[color]}
 						word={wordItem.word}
 						onToggle={(state) => {
-							selected.current = produce((selection) => {
+							const newValue = produce((selection) => {
 								if (state) {
 									selection.push(wordItem.word);
 								} else {
 									// deletion
 									selection.splice(selection.indexOf(wordItem.word), 1);
 								}
-							})(selected.current);
-							onSelect?.(selected.current);
+							})(selected);
+							setSelected(newValue);
+							onSelect?.(newValue);
 						}}
+						disabled={disabled}
 					/>
 				))}
 			</div>
@@ -316,17 +322,25 @@ function WordSelectionListButton({
 	color,
 	word,
 	onToggle,
-}: { color: string; word: string; onToggle?: (newState: boolean) => void }) {
+	disabled,
+}: {
+	color: string;
+	word: string;
+	onToggle?: (newState: boolean) => void;
+	disabled: boolean;
+}) {
 	const [isSelected, setIsSelected] = useState(false);
 	return (
 		<button
 			type="button"
 			className={`uppercase font-semibold text-lg border-x-6 border-y-3 first:border-t-6 last:border-b-6 p-1  bg-black ${color}`}
 			onClick={() => {
+				if (disabled && !isSelected) return;
 				setIsSelected(!isSelected);
 				onToggle?.(!isSelected);
 			}}
 		>
+
 			{word}
 		</button>
 	);
