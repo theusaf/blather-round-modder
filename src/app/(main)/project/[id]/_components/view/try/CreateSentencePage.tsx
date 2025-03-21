@@ -218,12 +218,14 @@ function CreateSentencePageContent({
 							listWordMap={listWordMap}
 							color="pink"
 							onSelect={getFiller(0)}
+							selected={filled[0] ?? []}
 						/>
 						<WordSelectionList
 							list={PLAYER_GUESS}
 							listWordMap={listWordMap}
 							color="orange"
 							onSelect={getFiller(1)}
+							selected={filled[1] ?? []}
 						/>
 					</>
 				) : firstNonOptionalListIndices.includes(activeListIndex) ? (
@@ -233,6 +235,7 @@ function CreateSentencePageContent({
 							list={lists[listIndex]}
 							listWordMap={listWordMap}
 							color={i ? "orange" : "pink"}
+							selected={filled[listIndex] ?? []}
 							onSelect={getFiller(listIndex)}
 						/>
 					))
@@ -242,6 +245,7 @@ function CreateSentencePageContent({
 						listWordMap={listWordMap}
 						color={lists[activeListIndex].optional ? "" : "blue"}
 						onSelect={getFiller(activeListIndex)}
+						selected={filled[activeListIndex] ?? []}
 					/>
 				)}
 			</div>
@@ -272,14 +276,14 @@ function WordSelectionList({
 	listWordMap,
 	color = "",
 	onSelect,
+	selected,
 }: {
 	list: WordListType;
 	listWordMap: Record<string, WordListType["words"]>;
 	color?: ColorStrings;
 	onSelect?: (selected: string[]) => void;
+	selected: string[];
 }) {
-	// TODO: move this into parent component
-	const [selected, setSelected] = useState<string[]>([]);
 	if (!list) return;
 	const colors: Record<ColorStrings, [string, string]> = {
 		pink: ["border-pink-400", "bg-pink-400"],
@@ -297,6 +301,7 @@ function WordSelectionList({
 						key={i}
 						color={colors[color]}
 						word={wordItem.word}
+						initialToggle={selected.includes(wordItem.word)}
 						onToggle={(state) => {
 							const newValue = produce((selection) => {
 								if (state) {
@@ -306,7 +311,6 @@ function WordSelectionList({
 									selection.splice(selection.indexOf(wordItem.word), 1);
 								}
 							})(selected);
-							setSelected(newValue);
 							onSelect?.(newValue);
 						}}
 						disabled={disabled}
@@ -322,13 +326,15 @@ function WordSelectionListButton({
 	word,
 	onToggle,
 	disabled,
+	initialToggle,
 }: {
 	color: [string, string];
 	word: string;
 	onToggle?: (newState: boolean) => void;
 	disabled: boolean;
+	initialToggle: boolean;
 }) {
-	const [isSelected, setIsSelected] = useState(false);
+	const [isSelected, setIsSelected] = useState(initialToggle);
 	return (
 		<div className="relative first:*:border-t-6 last:*:border-b-6">
 			{isSelected && (
