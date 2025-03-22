@@ -10,6 +10,7 @@ import { toShuffled } from "@/lib/util/shuffle";
 import { produce } from "immer";
 import { useCallback, useContext, useMemo, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
+import { chance } from "@/lib/util/chance";
 
 const PLAYER_GUESS: WordListType = {
 	amount: "",
@@ -148,7 +149,7 @@ function CreateSentencePageContent({
 		activeListIndex = firstNonOptionalListIndices[0] ?? 0;
 	}
 
-	const { listWordMap } = useMemo(
+	const { listWordMap, listKeyMapSet } = useMemo(
 		() =>
 			getListMaps({
 				promptData: prompt,
@@ -182,19 +183,38 @@ function CreateSentencePageContent({
 			);
 			let remaining = 9 - words.size;
 			if (remaining <= 0) remaining = 1;
-			console.log(list.name);
-			const selectionList = toShuffled(
-				(listWordMap[list.name] ?? []).filter((word) => !word.alwaysChoose),
+			const tailored = new Set(
+				prompt.tailoredWords
+					.filter((w) => {
+						const listName = w.list.slice(1, -1);
+						return (
+							listName === list.name ||
+							listKeyMapSet[list.name]?.has(listName) ||
+							listKeyMapSet[listName].has(list.name)
+						);
+					})
+					.map((w) => w.word),
 			);
+			const available: string[] = (listWordMap[list.name] ?? [])
+				.filter((word) => !word.alwaysChoose)
+				.map((w) => w.word);
+			const weights = available.map((w) => (tailored.has(w) ? 5 : 1));
 			for (let i = 0; i < remaining; i++) {
-				const word = selectionList.pop();
+				if (available.length === 0) break;
+				const word = chance.weighted(available, weights);
 				if (!word) break;
-				if (words.has(word.word)) i--;
-				words.add(word.word);
+				if (words.has(word)) {
+					i--;
+					// remove the word!
+					const index = available.indexOf(word);
+					available.splice(index, 1);
+					weights.splice(index, 1);
+				}
+				words.add(word);
 			}
 			return Array.from(words);
 		},
-		[listWordMap],
+		[listWordMap, listKeyMapSet, prompt.tailoredWords],
 	);
 	const listWords = useMemo(
 		() => lists.map((list) => selectWords(list)),

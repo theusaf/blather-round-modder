@@ -2,6 +2,7 @@ import type {
 	PromptType,
 	SentenceStructureType,
 	WordListType,
+	WordListWordType,
 } from "../types/blather";
 
 export function getListMaps({
@@ -16,7 +17,7 @@ export function getListMaps({
 	const { subcategory, category, tailoredWords } = promptData;
 	const wordLists = structuredClone(inputWordLists);
 	const listMap: Record<string, WordListType> = {};
-	const listWordMap: Record<string, WordListType["words"]> = {};
+	const listWordMap: Record<string, WordListWordType[]> = {};
 	for (const wordList of wordLists) {
 		listMap[wordList.name] = wordList;
 	}
@@ -97,7 +98,7 @@ export function getListMaps({
 		listName: string,
 		discoveredLists = new Set<string>(),
 	) => {
-		const strings: WordListType["words"] = [];
+		const strings: WordListWordType[] = [];
 		const list = listMap[listName];
 		if (!list) return [];
 		const lists = [];

@@ -23,8 +23,10 @@
 		"@mui/joy": "5.0.0-beta.52",
 		"@mui/material": "^6.4.8",
 		"@tailwindcss/postcss": "^4.0.14",
+		"@types/chance": "^1.1.6",
 		"@zip.js/zip.js": "^2.7.51",
 		"argon2": "^0.41.0",
+		"chance": "^1.1.12",
 		"common-tags": "^1.8.2",
 		"contrast-color": "^1.0.1",
 		"firebase": "^11.4.0",
@@ -56,6 +58,9 @@
 		"eslint-config-next": "15.2.3"
 	},
 	"pnpm": {
-		"onlyBuiltDependencies": ["@firebase/util", "sharp"]
+		"onlyBuiltDependencies": [
+			"@firebase/util",
+			"sharp"
+		]
 	}
 }

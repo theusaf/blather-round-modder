@@ -36,16 +36,18 @@ export interface WordListType {
 	/**
 	 * The words in the list. Can link to other lists.
 	 */
-	words: {
-		/**
-		 * TODO: Determine what `alwaysChoose` does and how linked lists work.
-		 */
-		alwaysChoose: boolean;
-		/**
-		 * The word or list name.
-		 */
-		word: string | ListString;
-	}[];
+	words: WordListWordType[];
+}
+
+export interface WordListWordType {
+	/**
+	 * TODO: Determine what `alwaysChoose` does and how linked lists work.
+	 */
+	alwaysChoose: boolean;
+	/**
+	 * The word or list name.
+	 */
+	word: string | ListString;
 }
 
 /**
