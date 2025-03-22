@@ -8,7 +8,7 @@ import type { ProjectType } from "@/lib/types/project";
 import { getListMaps } from "@/lib/util/list";
 import { toShuffled } from "@/lib/util/shuffle";
 import { produce } from "immer";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
 
 const PLAYER_GUESS: WordListType = {
@@ -94,44 +94,51 @@ function CreateSentencePageContent({
 		listMap[list.name] = list;
 	}
 
-	let content = "";
-	let isInList = false;
-	const items: (string | [string])[] = [];
 	const usedSentence = isResponse
 		? `<${response}> <PLAYERGUESS>`
 		: currentSentence;
-	for (let i = 0; i < usedSentence.length; i++) {
-		if (usedSentence[i] === "<") {
-			if (content) items.push(content);
-			isInList = true;
-			content = "";
-		} else if (usedSentence[i] === ">" && isInList) {
-			isInList = false;
-			items.push([content]);
-			content = "";
-		} else {
-			if (content === " ") continue;
-			content += usedSentence[i];
-			if (content === "PLAYERGUESS" && !isInList) {
+	const items = useMemo(() => {
+		let content = "";
+		let isInList = false;
+		const items: (string | [string])[] = [];
+		for (let i = 0; i < usedSentence.length; i++) {
+			if (usedSentence[i] === "<") {
+				if (content) items.push(content);
+				isInList = true;
+				content = "";
+			} else if (usedSentence[i] === ">" && isInList) {
+				isInList = false;
 				items.push([content]);
 				content = "";
+			} else {
+				if (content === " ") continue;
+				content += usedSentence[i];
+				if (content === "PLAYERGUESS" && !isInList) {
+					items.push([content]);
+					content = "";
+				}
 			}
 		}
-	}
-	if (isInList) content = `<${content}`;
-	if (content === "PLAYERGUESS" && !isInList) {
-		items.push([content]);
-	} else {
-		items.push(content);
-	}
+		if (isInList) content = `<${content}`;
+		if (content === "PLAYERGUESS" && !isInList) {
+			items.push([content]);
+		} else {
+			items.push(content);
+		}
+		return items;
+	}, [usedSentence]);
 
-	const lists = items
-		.filter((a) => Array.isArray(a))
-		.map((a) => {
-			if (a[0] === "PLAYERGUESS") return PLAYER_GUESS;
-			return listMap[a[0]];
-		})
-		.filter(Boolean);
+	const lists = useMemo(
+		() =>
+			items
+				.filter((a) => Array.isArray(a))
+				.map((a) => {
+					if (a[0] === "PLAYERGUESS") return PLAYER_GUESS;
+					return listMap[a[0]];
+				})
+				.filter(Boolean),
+		[items],
+	);
 	const nonOptionalListIndices = lists
 		.map<[WordListType, number]>((list, i) => [list, i])
 		.filter(([list]) => !list.optional)
@@ -141,11 +148,15 @@ function CreateSentencePageContent({
 		activeListIndex = firstNonOptionalListIndices[0] ?? 0;
 	}
 
-	const { listWordMap } = getListMaps({
-		promptData: prompt,
-		wordLists: project.wordLists,
-		sentenceStructures: project.sentenceStructures,
-	});
+	const { listWordMap } = useMemo(
+		() =>
+			getListMaps({
+				promptData: prompt,
+				wordLists: project.wordLists,
+				sentenceStructures: project.sentenceStructures,
+			}),
+		[prompt, project.wordLists, project.sentenceStructures],
+	);
 
 	let colorCount = 0;
 	let listCount = 0;
@@ -161,6 +172,34 @@ function CreateSentencePageContent({
 			}),
 		);
 	};
+
+	const selectWords = useCallback(
+		(list: WordListType) => {
+			const words: Set<string> = new Set(
+				(listWordMap[list.name] ?? [])
+					.filter((word) => word.alwaysChoose)
+					.map((word) => word.word),
+			);
+			let remaining = 9 - words.size;
+			if (remaining <= 0) remaining = 1;
+			console.log(list.name);
+			const selectionList = toShuffled(
+				(listWordMap[list.name] ?? []).filter((word) => !word.alwaysChoose),
+			);
+			for (let i = 0; i < remaining; i++) {
+				const word = selectionList.pop();
+				if (!word) break;
+				if (words.has(word.word)) i--;
+				words.add(word.word);
+			}
+			return Array.from(words);
+		},
+		[listWordMap],
+	);
+	const listWords = useMemo(
+		() => lists.map((list) => selectWords(list)),
+		[lists, selectWords],
+	);
 
 	const isReadyForSubmit = nonOptionalListIndices.every(
 		(index) => !!filled[index],
@@ -223,17 +262,17 @@ function CreateSentencePageContent({
 					<>
 						<WordSelectionList
 							list={listMap[response]}
-							listWordMap={listWordMap}
 							color="pink"
 							onSelect={getFiller(0)}
 							selected={filled[0] ?? []}
+							words={listWords[0]}
 						/>
 						<WordSelectionList
 							list={PLAYER_GUESS}
-							listWordMap={listWordMap}
 							color="orange"
 							onSelect={getFiller(1)}
-							selected={filled[1] ?? []}
+							words={PLAYER_GUESS.words.map((w) => w.word)}
+							selected={listWords[1] ?? []}
 						/>
 					</>
 				) : firstNonOptionalListIndices.includes(activeListIndex) ? (
@@ -241,20 +280,20 @@ function CreateSentencePageContent({
 						<WordSelectionList
 							key={`${activeStructureIndex}-${listIndex}`}
 							list={lists[listIndex]}
-							listWordMap={listWordMap}
 							color={i ? "orange" : "pink"}
 							selected={filled[listIndex] ?? []}
 							onSelect={getFiller(listIndex)}
+							words={listWords[listIndex]}
 						/>
 					))
 				) : (
 					<WordSelectionList
 						key={`${activeStructureIndex}-${lists[activeListIndex]}`}
 						list={lists[activeListIndex]}
-						listWordMap={listWordMap}
 						color={lists[activeListIndex].optional ? "" : "blue"}
 						onSelect={getFiller(activeListIndex)}
 						selected={filled[activeListIndex] ?? []}
+						words={listWords[activeListIndex]}
 					/>
 				)}
 			</div>
@@ -291,16 +330,16 @@ type ColorStrings = "" | "pink" | "orange" | "blue";
 
 function WordSelectionList({
 	list,
-	listWordMap,
 	color = "",
 	onSelect,
 	selected,
+	words,
 }: {
 	list: WordListType;
-	listWordMap: Record<string, WordListType["words"]>;
 	color?: ColorStrings;
 	onSelect?: (selected: string[]) => void;
 	selected: string[];
+	words: string[];
 }) {
 	if (!list) return;
 	const colors: Record<ColorStrings, [string, string]> = {
@@ -310,30 +349,23 @@ function WordSelectionList({
 		"": ["border-gray-400", "bg-gray-400"],
 	};
 	const disabled = !!list.maxChoices && selected.length >= +list.maxChoices;
-	const initWords = listWordMap[list.name] ?? list.words;
-	const filterSet = new Set<string>();
-	const words = initWords.filter((word) => {
-		if (filterSet.has(word.word)) return false;
-		filterSet.add(word.word);
-		return true;
-	});
 
 	return (
 		<div className="flex-1 flex justify-center overflow-auto items-start">
 			<div className={"grid grid-cols-1 flex-1 max-w-[20rem]"}>
-				{words.map((wordItem, i) => (
+				{words.map((word) => (
 					<WordSelectionListButton
-						key={i}
+						key={word}
 						color={colors[color]}
-						word={wordItem.word}
-						initialToggle={selected.includes(wordItem.word)}
+						word={word}
+						initialToggle={selected.includes(word)}
 						onToggle={(state) => {
 							const newValue = produce((selection) => {
 								if (state) {
-									selection.push(wordItem.word);
+									selection.push(word);
 								} else {
 									// deletion
-									selection.splice(selection.indexOf(wordItem.word), 1);
+									selection.splice(selection.indexOf(word), 1);
 								}
 							})(selected);
 							onSelect?.(newValue);
