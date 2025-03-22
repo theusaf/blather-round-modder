@@ -36,6 +36,21 @@ type SearchResult =
 			id: "new-prompt" | "new-list" | "new-list-response";
 	  };
 
+const CREATE_ACTIONS = [
+	{
+		term: "Create New Prompt",
+		id: "new-prompt",
+	},
+	{
+		term: "Create New Word List",
+		id: "new-list",
+	},
+	{
+		term: "Create New Response Word List",
+		id: "new-list-response",
+	},
+];
+
 export function SearchModal({
 	setModal,
 	open: inputOpen,
@@ -71,20 +86,6 @@ export function SearchModal({
 	const timeout = useRef<number | null>(null);
 	const prompts = useProjectStore((state) => state.prompts);
 	const wordLists = useProjectStore((state) => state.wordLists);
-	const actions = [
-		{
-			term: "Create New Prompt",
-			id: "new-prompt",
-		},
-		{
-			term: "Create New Word List",
-			id: "new-list",
-		},
-		{
-			term: "Create New Response Word List",
-			id: "new-list-response",
-		},
-	];
 
 	const executeSearch = useCallback(() => {
 		if (search === "") {
@@ -98,7 +99,7 @@ export function SearchModal({
 		const filteredWordLists = wordLists.filter((list) =>
 			filterWordList(list, search),
 		);
-		const filteredActions = actions.filter((action) => {
+		const filteredActions = CREATE_ACTIONS.filter((action) => {
 			return (
 				action.term.toLowerCase().includes(search.toLowerCase()) ||
 				similarity(action.term, search) >= 0.6
@@ -228,8 +229,9 @@ export function SearchModal({
 												? result.data.password
 												: result.type === "list"
 													? result.data.name
-													: actions.find((action) => action.id === result.id)
-															?.term}
+													: CREATE_ACTIONS.find(
+															(action) => action.id === result.id,
+														)?.term}
 										</span>
 									</div>
 									<FontAwesomeIcon icon={faArrowRight} />

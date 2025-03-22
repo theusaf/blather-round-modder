@@ -90,10 +90,13 @@ function CreateSentencePageContent({
 	const [isResponse, setIsResponse] = useState(false);
 	const [response, setResponse] = useState(responseLists[0]);
 	const [filled, setFilled] = useState<(string[] | null)[]>([]);
-	const listMap: Record<string, WordListType> = {};
-	for (const list of project.wordLists) {
-		listMap[list.name] = list;
-	}
+	const listMap: Record<string, WordListType> = useMemo(() => {
+		const listMap: Record<string, WordListType> = {};
+		for (const list of project.wordLists) {
+			listMap[list.name] = list;
+		}
+		return listMap;
+	}, [project.wordLists]);
 
 	const usedSentence = isResponse
 		? `<${response}> <PLAYERGUESS>`
@@ -138,7 +141,7 @@ function CreateSentencePageContent({
 					return listMap[a[0]];
 				})
 				.filter(Boolean),
-		[items],
+		[items, listMap],
 	);
 	const nonOptionalListIndices = lists
 		.map<[WordListType, number]>((list, i) => [list, i])
