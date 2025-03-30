@@ -5,12 +5,12 @@ import type {
 	WordListType,
 } from "@/lib/types/blather";
 import type { ProjectType } from "@/lib/types/project";
+import { chance } from "@/lib/util/chance";
 import { getListMaps } from "@/lib/util/list";
 import { toShuffled } from "@/lib/util/shuffle";
 import { produce } from "immer";
 import { useCallback, useContext, useMemo, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
-import { chance } from "@/lib/util/chance";
 
 const PLAYER_GUESS: WordListType = {
 	amount: "",
