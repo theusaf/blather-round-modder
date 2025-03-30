@@ -3,16 +3,18 @@ import { LabeledInput } from "@/lib/components/LabeledInput";
 import { WordListTile } from "@/lib/components/WordListTile";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { type RefObject, useState } from "react";
 
 export function TailoredWordEditSection({
 	onSubmit,
 	list,
 	setList,
+	inputRef,
 }: {
 	onSubmit: (word: string, list: string) => void;
 	list: string;
 	setList: (list: string) => void;
+	inputRef: RefObject<HTMLInputElement | null>;
 }) {
 	const [word, setWord] = useState("");
 
@@ -30,6 +32,7 @@ export function TailoredWordEditSection({
 			>
 				<div className="flex gap-2">
 					<LabeledInput
+						inputRef={inputRef}
 						label="Add Tailored Word"
 						name="modal-list-tailored-word"
 						inputId="modal-list-tailored-word"

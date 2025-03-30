@@ -2,7 +2,7 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
-import type { DetailedHTMLProps, HTMLAttributes } from "react";
+import type { DetailedHTMLProps, HTMLAttributes, RefObject } from "react";
 
 /**
  * A styled input with a label and optional tooltip.
@@ -26,6 +26,7 @@ export function LabeledInput<T extends string | number | string[]>(
 		type?: string;
 		placeholder?: string;
 		tooltip?: string;
+		inputRef?: RefObject<HTMLInputElement | null>;
 	},
 ) {
 	const divProps: Record<string, unknown> = { ...props };
@@ -37,6 +38,7 @@ export function LabeledInput<T extends string | number | string[]>(
 	delete divProps.type;
 	delete divProps.placeholder;
 	delete divProps.tooltip;
+	delete divProps.inputRef;
 
 	return (
 		<div
@@ -55,6 +57,7 @@ export function LabeledInput<T extends string | number | string[]>(
 				)}
 			</div>
 			<input
+				ref={props.inputRef}
 				id={props.inputId}
 				name={props.name}
 				type={props.type ?? "text"}
