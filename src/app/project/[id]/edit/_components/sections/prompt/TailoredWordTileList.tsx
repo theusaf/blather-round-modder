@@ -11,7 +11,7 @@ export function TailoredWordTileList({
 	setPromptData,
 }: { promptData: PromptType; setPromptData: (data: PromptType) => void }) {
 	return (
-		<div className="grid md:grid-cols-3 auto-rows-max gap-2 mt-2 col-span-2">
+		<div className="grid md:grid-cols-3 auto-rows-max gap-2 mt-2 flex-2">
 			{promptData.tailoredWords.map((word, index) => (
 				<SectionCard key={index} className="overflow-hidden">
 					<div className="flex gap-2 items-center justify-between">

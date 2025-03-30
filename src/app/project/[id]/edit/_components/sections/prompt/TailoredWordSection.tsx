@@ -23,7 +23,7 @@ export function TailoredWordSection({
 					);
 				}}
 			/>
-			<div className="grid grid-cols-3 gap-2 overflow-hidden">
+			<div className="flex flex-col-reverse md:flex-row gap-2 overflow-hidden">
 				<TailoredWordSuggestionList
 					promptData={promptData}
 					onSelect={setList}

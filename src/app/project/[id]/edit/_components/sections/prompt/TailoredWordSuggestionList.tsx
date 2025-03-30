@@ -72,13 +72,13 @@ export function TailoredWordSuggestionList({
 	checkMissing(topLevelListKeys, topLevelMissing, subLevelListKeys);
 
 	return (
-		<div className="border-r-2 border-slate-600 mt-2 p-2">
+		<div className="border-r-2 border-slate-600 mt-2 p-2 flex-1">
 			<h4 className="font-semibold text-lg">Suggestions</h4>
 			<div>
 				{topLevelMissing.length === 0 ? (
 					<span>No suggestions available.</span>
 				) : (
-					<div className="grid grid-cols-3 gap-2">
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
 						{[...topLevelMissing.toSorted(), ...subLevelMissing.toSorted()].map(
 							(key) => (
 								<button
