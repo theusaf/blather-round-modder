@@ -193,7 +193,7 @@ function CreateSentencePageContent({
 						return (
 							listName === list.name ||
 							listKeyMapSet[list.name]?.has(listName) ||
-							listKeyMapSet[listName].has(list.name)
+							listKeyMapSet[listName]?.has(list.name)
 						);
 					})
 					.map((w) => w.word),
