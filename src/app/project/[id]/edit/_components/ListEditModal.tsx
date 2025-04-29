@@ -145,9 +145,17 @@ export function ListEditModal({
 					);
 				}}
 			/>
-			<div className="flex flex-wrap gap-2 mt-2">
+			<div
+				className="flex flex-wrap gap-2 mt-2"
+				data-id="modal-list-item-container"
+			>
 				{listData.words.map((word, index) => (
-					<SectionCard key={index}>
+					<SectionCard
+						key={index}
+						data-id="list-item"
+						data-value={word.word}
+						data-choose={word.alwaysChoose}
+					>
 						<div className="flex gap-2">
 							<div className="font-semibold">{word.word}</div>
 							<div>

@@ -31,7 +31,13 @@ export default function PromptSection({
 
 	return (
 		<>
-			<h3 className="text-lg font-semibold">Prompts ({prompts.length})</h3>
+			<h3
+				className="text-lg font-semibold"
+				data-id="prompt-count"
+				data-value={prompts.length}
+			>
+				Prompts ({prompts.length})
+			</h3>
 			<div className="flex-1 flex flex-col">
 				<div className="flex flex-wrap md:flex-nowrap gap-2 justify-between">
 					<input
@@ -41,6 +47,7 @@ export default function PromptSection({
 						placeholder="Search..."
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
+						data-id="prompt-search-input"
 					/>
 					<select
 						className="p-2"
@@ -48,6 +55,7 @@ export default function PromptSection({
 						onChange={(event) => {
 							setFilterCategory(event.target.value as Category | "");
 						}}
+						data-id="prompt-filter-category"
 					>
 						<SelectOption value="">Choose Category</SelectOption>
 						<SelectOption value="thing">Thing</SelectOption>
@@ -61,6 +69,7 @@ export default function PromptSection({
 						onChange={(event) => {
 							setFilterDifficulty(event.target.value as Difficulty | "");
 						}}
+						data-id="prompt-filter-difficulty"
 					>
 						<SelectOption value="">Choose Difficulty</SelectOption>
 						<SelectOption value="easy">Easy</SelectOption>
@@ -74,6 +83,7 @@ export default function PromptSection({
 							onClick={() => {
 								setModal(newPromptData);
 							}}
+							data-id="button-prompt-create"
 						>
 							<FontAwesomeIcon className="w-8 h-8" icon={faPlusCircle} />
 						</button>

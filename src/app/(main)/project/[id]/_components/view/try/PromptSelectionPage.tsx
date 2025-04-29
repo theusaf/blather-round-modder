@@ -42,7 +42,10 @@ function PromptSelectionPageContent({
 			<h4 className="text-lg font-medium text-center">
 				easy prompts are worth less
 			</h4>
-			<div className="flex-1 flex-col h-full max-w-[25rem] m-auto">
+			<div
+				className="flex-1 flex-col h-full max-w-[25rem] m-auto"
+				data-id="try-prompt-selection"
+			>
 				<div className="p-2 flex flex-col items-center gap-4">
 					<div className="flex gap-6 text-center flex-col">
 						<PromptChoiceBlock

@@ -21,7 +21,10 @@ export default function WordListSection({
 	return (
 		<>
 			<h3 className="text-lg font-semibold">Word Lists ({wordLists.length})</h3>
-			<div className="flex-1 flex flex-col">
+			<div
+				className="flex-1 flex flex-col"
+				data-id="project-word-list-container"
+			>
 				<div className="flex gap-2 justify-between">
 					<div className="flex-1">
 						<input

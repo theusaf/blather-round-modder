@@ -13,7 +13,7 @@ export function PromptChoiceBlock({
 		place: "bg-green-400",
 	};
 	return (
-		<div className="md:w-[20rem]">
+		<div className="md:w-[20rem]" data-id="try-prompt-choice">
 			<div className="bg-black text-2xl relative block">
 				<button type="button" onClick={onClick} className="block w-full h-full">
 					<div className="absolute left-[-2rem] top-[-0.5rem]">
@@ -22,18 +22,26 @@ export function PromptChoiceBlock({
 							style={{
 								transform: "rotate(-10deg)",
 							}}
+							data-id="choice-category"
 						>
 							{prompt.category}
 						</div>
 					</div>
 					{prompt.difficulty === "easy" && (
 						<div className="overflow-hidden absolute w-full h-full">
-							<span className="bg-green-500 absolute top-[0.5rem] right-[-3rem] text-sm rotate-45 text-black w-32">
+							<span
+								className="bg-green-500 absolute top-[0.5rem] right-[-3rem] text-sm rotate-45 text-black w-32"
+								data-id="choice-easy-difficulty"
+							>
 								EASY
 							</span>
 						</div>
 					)}
-					<div className="p-2 px-16">
+					<div
+						className="p-2 px-16"
+						data-id="choice-password"
+						data-value={prompt.password}
+					>
 						<span className="uppercase">{prompt.password}</span>
 					</div>
 				</button>

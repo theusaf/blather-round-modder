@@ -6,7 +6,10 @@ import { ItemBlock } from "./ItemBlock";
 
 export function PromptList({ prompts }: { prompts: PromptType[] }) {
 	return (
-		<div className="flex flex-col gap-2 mt-2 overflow-auto h-full">
+		<div
+			className="flex flex-col gap-2 mt-2 overflow-auto h-full"
+			data-id="project-prompt"
+		>
 			{prompts.map((prompt) => {
 				const {
 					id,
@@ -23,24 +26,34 @@ export function PromptList({ prompts }: { prompts: PromptType[] }) {
 						<details>
 							<summary>
 								<div className="inline-flex gap-2">
-									<div className="w-14 text-center">
+									<div
+										className="w-14 text-center"
+										data-id="prompt-category"
+										data-value={category}
+									>
 										<CategoryLabel category={category} />
 									</div>
-									<div className="w-14 text-center">
+									<div
+										className="w-14 text-center"
+										data-id="prompt-difficulty"
+										data-value={difficulty}
+									>
 										<DifficultyLabel difficulty={difficulty} />
 									</div>
-									<span className="font-medium">{password}</span>
+									<span className="font-medium" data-id="prompt-password">
+										{password}
+									</span>
 								</div>
 							</summary>
 							<div className="grid gap-1 grid-cols-1">
 								{!!subcategory && (
-									<p>
+									<p data-id="prompt-subcategory" data-value={subcategory}>
 										<span className="font-medium">Subcategory:</span>{" "}
 										{subcategory}
 									</p>
 								)}
 								{!!alternateSpellings.length && (
-									<div>
+									<div data-id="prompt-spelling-container">
 										<h6 className="font-medium">Alternate Spellings:</h6>
 										<div className="flex gap-1 flex-wrap">
 											{alternateSpellings.map((spelling, i) => (
@@ -52,7 +65,7 @@ export function PromptList({ prompts }: { prompts: PromptType[] }) {
 									</div>
 								)}
 								{!!tailoredWords.length && (
-									<div>
+									<div data-id="prompt-tailored-word-container">
 										<h6 className="font-medium">Tailored Words</h6>
 										<div className="flex gap-1 flex-wrap">
 											{tailoredWords.map((word, i) => (
@@ -64,7 +77,7 @@ export function PromptList({ prompts }: { prompts: PromptType[] }) {
 									</div>
 								)}
 								{!!forbiddenWords.length && (
-									<div>
+									<div data-id="prompt-forbidden-word-container">
 										<h6 className="font-medium">Forbidden Words</h6>
 										<div className="flex gap-1 flex-wrap">
 											{forbiddenWords.map((word, i) => (

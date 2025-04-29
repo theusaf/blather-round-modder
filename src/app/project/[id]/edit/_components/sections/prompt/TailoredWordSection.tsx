@@ -30,7 +30,6 @@ export function TailoredWordSection({
 					promptData={promptData}
 					onSelect={(data) => {
 						setList(data);
-						console.log(inputRef.current);
 						inputRef.current?.focus();
 					}}
 				/>

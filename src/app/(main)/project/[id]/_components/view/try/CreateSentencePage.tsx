@@ -64,7 +64,12 @@ export function CreateSentencePage({
 	);
 	return (
 		<div className="bg-slate-600 p-2 h-full flex flex-col gap-2 uppercase">
-			<button type="button" className="underline" onClick={onBack}>
+			<button
+				type="button"
+				className="underline"
+				onClick={onBack}
+				data-id="button-switch-prompt"
+			>
 				Select a different prompt
 			</button>
 			{content}
@@ -230,10 +235,17 @@ function CreateSentencePageContent({
 
 	return (
 		<div className="md:w-[40rem] md:mx-auto overflow-hidden h-full flex flex-col gap-2">
-			<h3 className="text-2xl font-black text-center">
+			<h3
+				className="text-2xl font-black text-center"
+				data-id="create-password"
+				data-value={prompt.password}
+			>
 				describe {prompt.password}
 			</h3>
-			<div className="bg-white p-8 flex items-center content-center flex-col text-black text-3xl font-bold">
+			<div
+				className="bg-white p-8 flex items-center content-center flex-col text-black text-3xl font-bold"
+				data-id="create-sentence-container"
+			>
 				<div>
 					{items.map((item, i) => {
 						if (Array.isArray(item)) {
@@ -270,13 +282,19 @@ function CreateSentencePageContent({
 										onClick={() => {
 											setActiveListIndex(count);
 										}}
+										data-id="sentence-text"
+										data-active={activeListIndex === count}
 									>
 										{content}
 									</button>
 								);
 							}
 						}
-						return <span key={i}>{item}</span>;
+						return (
+							<span key={i} data-id="sentence-text">
+								{item}
+							</span>
+						);
 					})}
 				</div>
 			</div>
@@ -341,6 +359,8 @@ function CreateSentencePageContent({
 						setFilled([]);
 						setActiveListIndex(-1);
 					}}
+					data-id="button-create-submit"
+					data-ready={isReadyForSubmit}
 				>
 					{isReadyForSubmit ? "submit" : "skip"}
 				</button>
@@ -374,7 +394,10 @@ function WordSelectionList({
 	const disabled = !!list.maxChoices && selected.length >= +list.maxChoices;
 
 	return (
-		<div className="flex-1 flex justify-center overflow-auto items-start">
+		<div
+			className="flex-1 flex justify-center overflow-auto items-start"
+			data-id="create-selection-list"
+		>
 			<div className={"grid grid-cols-1 flex-1 max-w-[20rem]"}>
 				{words.map((word) => (
 					<WordSelectionListButton
@@ -416,7 +439,11 @@ function WordSelectionListButton({
 }) {
 	const [isSelected, setIsSelected] = useState(initialToggle);
 	return (
-		<div className="relative first:[&.div]:border-t-6 last:[&.div]:border-b-6">
+		<div
+			className="relative first:[&.div]:border-t-6 last:[&.div]:border-b-6"
+			data-id="selection-list-item"
+			data-selected={isSelected}
+		>
 			{isSelected && (
 				<span className="absolute left-[0.5rem] top-[0.5rem] w-6 h-6 text-center bg-black text-white rounded-full pointer-events-none z-10">
 					x
@@ -433,6 +460,7 @@ function WordSelectionListButton({
 						setIsSelected(!isSelected);
 						onToggle?.(!isSelected);
 					}}
+					data-id="selection-list-word"
 				>
 					{word}
 				</button>

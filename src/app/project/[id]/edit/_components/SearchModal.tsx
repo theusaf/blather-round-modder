@@ -154,7 +154,7 @@ export function SearchModal({
 
 	return (
 		<CenteredModal open={open} onClose={() => changeOpen(false)}>
-			<div className="flex flex-col gap-2">
+			<div className="flex flex-col gap-2" data-id="edit-search-container">
 				<input
 					onInput={(event) => {
 						setSearch((event.target as HTMLInputElement).value);
@@ -166,6 +166,7 @@ export function SearchModal({
 					autoFocus
 					placeholder="Quick Search..."
 					ref={inputRef}
+					data-id="search-input"
 				/>
 				<hr className="border-1 border-slate-700" />
 				<div>
@@ -174,7 +175,7 @@ export function SearchModal({
 						<div className="text-center">No results found.</div>
 					)}
 					{!searching && results.length > 0 && (
-						<div className="grid grid-flow-row gap-2">
+						<div className="grid grid-flow-row gap-2" data-id="search-results">
 							{results.map((result) => (
 								<button
 									type="button"
@@ -213,6 +214,8 @@ export function SearchModal({
 										}
 										changeOpen(false);
 									}}
+									data-id="search-result-item"
+									data-value={result.type}
 								>
 									<div className="flex gap-2 items-center">
 										<FontAwesomeIcon
@@ -224,7 +227,7 @@ export function SearchModal({
 														: faBolt
 											}
 										/>
-										<span>
+										<span data-id="search-result-text">
 											{result.type === "prompt"
 												? result.data.password
 												: result.type === "list"

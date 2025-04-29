@@ -21,7 +21,7 @@ export function PromptView() {
 			})
 		: project.prompts;
 	return (
-		<div className="h-full overflow-hidden">
+		<div className="h-full overflow-hidden" data-id="project-prompt-container">
 			<h4 className="text-lg font-bold">Prompts</h4>
 			<input
 				placeholder="Search"

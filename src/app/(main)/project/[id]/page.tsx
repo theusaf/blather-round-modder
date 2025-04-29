@@ -59,19 +59,33 @@ export default async function ProjectPage({
 
 	return (
 		<main className="p-2">
-			<div className="flex justify-between">
+			<div className="flex justify-between" data-project-id={project.id}>
 				<div className="flex-1">
-					<h1 className="text-2xl font-bold flex gap-2">
-						<span>{project.name || "Untitled Project"}</span>
-						<span className="text-slate-500 break-keep">
+					<h1
+						className="text-2xl font-bold flex gap-2"
+						data-id="project-header"
+					>
+						<span data-id="project-name">
+							{project.name || "Untitled Project"}
+						</span>
+						<span
+							className="text-slate-500 break-keep"
+							data-id="project-version"
+						>
 							v{project.version}
 						</span>
 					</h1>
-					<p className="whitespace-pre-wrap max-h-40 overflow-auto">
+					<p
+						className="whitespace-pre-wrap max-h-40 overflow-auto"
+						data-id="project-description"
+					>
 						{project.description}
 					</p>
 				</div>
-				<div className="grid grid-cols-1 md:flex gap-2 h-min">
+				<div
+					className="grid grid-cols-1 md:flex gap-2 h-min"
+					data-id="project-actions"
+				>
 					<ProjectDownload
 						project={{
 							id: project.id,

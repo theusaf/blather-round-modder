@@ -37,7 +37,7 @@ export function StructureSection({
 	const getNextId = useProjectStore((state) => state.getNextId);
 
 	return (
-		<SectionCard>
+		<SectionCard data-id="sentence-container" data-value={category}>
 			<h4 className="capitalize">{category}</h4>
 			<div className="flex flex-col gap-2">
 				{filteredStructures.length === 0 && (
@@ -57,6 +57,7 @@ export function StructureSection({
 									}),
 								);
 							}}
+							data-id="sentence-input-container"
 						/>
 						<button
 							type="button"

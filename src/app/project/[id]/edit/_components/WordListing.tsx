@@ -26,13 +26,14 @@ export function WordListing({
 		const wordList = wordLists[index];
 		if (!wordList) return null;
 		return (
-			<div style={style} className="p-1">
+			<div style={style} className="p-1" data-id="word-list-container">
 				<SectionCard>
 					<div className="flex justify-between gap-1">
 						<div className="min-w-0">
 							<h4
 								className="text-md font-semibold truncate"
 								title={wordList.name}
+								data-id="word-list-name"
 							>
 								{wordList.name}
 							</h4>

@@ -36,7 +36,12 @@ export default async function ProjectsPage() {
 		<main className="p-4">
 			{userProjects.length > 0 && (
 				<>
-					<h1 className="text-2xl font-bold mb-2">My Projects</h1>
+					<h1
+						className="text-2xl font-bold mb-2"
+						data-id="project-header-personal"
+					>
+						My Projects
+					</h1>
 					<ProjectListing
 						options={{
 							limit,
@@ -58,7 +63,9 @@ export default async function ProjectsPage() {
 					/>
 				</>
 			)}
-			<h1 className="text-2xl font-bold mb-2">Projects</h1>
+			<h1 className="text-2xl font-bold mb-2" data-id="project-header-public">
+				Projects
+			</h1>
 			<ProjectListing
 				options={{
 					limit,

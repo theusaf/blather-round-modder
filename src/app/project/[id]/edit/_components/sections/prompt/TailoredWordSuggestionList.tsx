@@ -74,7 +74,7 @@ export function TailoredWordSuggestionList({
 	return (
 		<div className="border-r-2 border-slate-600 mt-2 p-2 flex-1">
 			<h4 className="font-semibold text-lg">Suggestions</h4>
-			<div>
+			<div data-id="modal-tailored-suggestion-container">
 				{topLevelMissing.length === 0 ? (
 					<span>No suggestions available.</span>
 				) : (

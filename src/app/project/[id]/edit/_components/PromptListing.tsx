@@ -26,13 +26,21 @@ export function PromptListing({
 		if (!prompt) return null;
 		return (
 			<div style={style} className="p-1">
-				<SectionCard className="flex gap-2 w-full justify-between">
+				<SectionCard
+					className="flex gap-2 w-full justify-between"
+					data-id="prompt-item"
+					data-category={prompt.category}
+					data-difficulty={prompt.difficulty}
+				>
 					<div className="flex flex-col gap-2 shrink min-w-0">
 						<div className="flex gap-2 overflow-x-hidden">
 							<CategoryLabel category={prompt.category} />
 							<DifficultyLabel difficulty={prompt.difficulty} />
 						</div>
-						<div className="font-semibold whitespace-nowrap max-w-48 truncate">
+						<div
+							className="font-semibold whitespace-nowrap max-w-48 truncate"
+							data-id="item-password"
+						>
 							{prompt.password}
 						</div>
 					</div>
@@ -43,6 +51,7 @@ export function PromptListing({
 							onClick={() => {
 								setModal(prompt);
 							}}
+							data-id="button-item-edit"
 						>
 							<FontAwesomeIcon
 								className="w-6 h-6 rounded-md text-white bg-emerald-700 p-2"
@@ -63,6 +72,7 @@ export function PromptListing({
 									}),
 								);
 							}}
+							data-id="button-item-delete"
 						>
 							<FontAwesomeIcon
 								className="w-6 h-6  rounded-md text-white bg-red-600 p-2"

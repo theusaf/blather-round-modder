@@ -20,7 +20,11 @@ export function TryItView() {
 	const [page, setPage] = useState("prompt");
 	const [selectedPrompt, setSelectedPrompt] = useState<PromptType | null>(null);
 	return (
-		<div className="md:col-span-2 h-[40rem] bg-slate-700 p-2 text-white flex flex-col overflow-hidden">
+		<div
+			className="md:col-span-2 h-[40rem] bg-slate-700 p-2 text-white flex flex-col overflow-hidden"
+			data-id="project-try-view"
+			data-value={page}
+		>
 			<h4 className="font-bold text-lg">Try It</h4>
 			<div className={`flex-1 overflow-hidden ${blockyFont.className}`}>
 				{page === "prompt" && (

@@ -64,7 +64,12 @@ export function PromptEditModal({
 					</button>
 				</div>
 			</div>
-			<div className="flex flex-wrap gap-2 mt-2">
+			<div
+				className="flex flex-wrap gap-2 mt-2"
+				data-id="prompt-modal-container"
+				data-category={promptData.category}
+				data-difficulty={promptData.difficulty}
+			>
 				<HorizontalRadioSelector
 					values={["thing", "person", "place", "story"]}
 					value={promptData.category}

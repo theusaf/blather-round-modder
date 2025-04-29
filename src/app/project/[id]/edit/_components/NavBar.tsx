@@ -38,6 +38,7 @@ export default function NavBar({
 								onClick={() => {
 									setSettingsModalOpen(true);
 								}}
+								data-id="button-edit-settings-toggle"
 							>
 								<div className="flex justify-between">
 									<span className="hidden md:inline p-2 text-black text-ellipsis truncate mr-2">
@@ -46,6 +47,8 @@ export default function NavBar({
 										) : (
 											<span
 												className={`text-slate-700 ${title ? "" : "text-slate-500"}`}
+												data-id="edit-project-title"
+												data-value={title}
 											>
 												{title ? title : "Enter Title..."}
 											</span>

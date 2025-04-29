@@ -23,7 +23,7 @@ export default function ProjectListing({
 
 	return (
 		<>
-			<div className="flex flex-wrap gap-4">
+			<div className="flex flex-wrap gap-4" data-id="project-listing">
 				{projects.length === 0 && (
 					<div className="p-2 text-center">No projects found</div>
 				)}
@@ -31,22 +31,40 @@ export default function ProjectListing({
 					<div
 						key={project.id}
 						className="w-[18rem] h-[16rem] rounded-xl p-4 border-2 border-slate-400 flex flex-col"
+						data-id="project-container"
+						data-project-id={project.id}
 					>
 						<div>
-							<h3 className="text-xl font-semibold flex gap-2">
-								<span title={project.name} className="truncate">
+							<h3
+								className="text-xl font-semibold flex gap-2"
+								data-id="project-header"
+							>
+								<span
+									title={project.name}
+									className="truncate"
+									data-id="project-name"
+								>
 									{project.name}
 								</span>
-								<span className="whitespace-nowrap break-keep text-slate-500">
+								<span
+									className="whitespace-nowrap break-keep text-slate-500"
+									data-id="project-version"
+								>
 									v{project.version}
 								</span>
 							</h3>
-							<Link href={`/profile/${encodeURIComponent(project.ownerId!)}`}>
+							<Link
+								href={`/profile/${encodeURIComponent(project.ownerId!)}`}
+								data-id="project-owner"
+							>
 								<p>{project.ownerId}</p>
 							</Link>
 						</div>
 						<hr />
-						<p className="flex-1 overflow-auto whitespace-pre-wrap">
+						<p
+							className="flex-1 overflow-auto whitespace-pre-wrap"
+							data-id="project-description"
+						>
 							{project.description}
 						</p>
 						<div className="flex justify-between">
@@ -68,7 +86,7 @@ export default function ProjectListing({
 									</button>
 								</Link>
 							</div>
-							<div className="flex items-center">
+							<div className="flex items-center" data-id="project-prompt-count">
 								<span>Prompts: {project.promptCount}</span>
 							</div>
 						</div>

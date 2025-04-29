@@ -379,7 +379,12 @@ export default function ValidationSection({
 	}: { index: number; style: React.CSSProperties }) => {
 		const validation = validations[index];
 		return (
-			<div style={style}>
+			<div
+				style={style}
+				data-id="validation-item"
+				data-severity={validation.severity}
+				data-type={validation.type}
+			>
 				<div
 					className={`flex gap-2 items-center p-2 rounded-md bg-slate-300 min-w-0 shadow-sm justify-between ${
 						validation.severity === "error"
@@ -441,6 +446,7 @@ export default function ValidationSection({
 		<div className="h-full flex flex-col">
 			<h3 className="text-lg font-semibold">Validation</h3>
 			<div className="flex-1">
+				{validations.length === 0 && <span>No issues found.</span>}
 				<AutoSizer>
 					{({ height, width }) => (
 						<List
