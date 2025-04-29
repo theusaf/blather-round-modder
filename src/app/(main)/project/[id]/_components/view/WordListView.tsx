@@ -21,7 +21,10 @@ export function WordListView() {
 			})
 		: project.wordLists;
 	return (
-		<div className="h-full overflow-hidden" data-id="project-word-list-container">
+		<div
+			className="h-full overflow-hidden"
+			data-id="project-word-list-container"
+		>
 			<h4 className="text-lg font-bold">Word Lists</h4>
 			<input
 				placeholder="Search"
