@@ -6,10 +6,13 @@ import { getUserSession } from "@/lib/util/auth";
 import type { ResolvingMetadata } from "next";
 import ProjectListing from "../../_components/ProjectListing";
 
-export async function generateMetadata(_: unknown, parent: ResolvingMetadata) {
-	const userDetails = await getUserSession();
+export async function generateMetadata(
+	{ params }: { params: Promise<{ id: string }> },
+	parent: ResolvingMetadata,
+) {
+	const { id } = await params;
 	return {
-		title: `${(await parent).title?.absolute} - ${userDetails?.sub}'s Profile`,
+		title: `${(await parent).title?.absolute} - ${id}'s Profile`,
 	};
 }
 

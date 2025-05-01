@@ -29,7 +29,7 @@ export default async function RootLayout({
 							</div>
 						</div>
 						<div className="flex flex-wrap flex-col gap-4">
-							<div>Version {process.env.npm_package_version}</div>
+							<div>Version {process.env.version}</div>
 						</div>
 					</div>
 					<div className="md:w-1/2">
