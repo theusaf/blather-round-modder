@@ -185,9 +185,13 @@ function CreateSentencePageContent({
 	const selectWords = useCallback(
 		(list: WordListType) => {
 			const words: Set<string> = new Set(
-				list.words
-					.filter((word) => word.alwaysChoose && !/<([^>]+)>/.test(word.word))
-					.map((word) => word.word),
+				list.name === "PLAYERGUESS"
+					? []
+					: list.words
+							.filter(
+								(word) => word.alwaysChoose && !/<([^>]+)>/.test(word.word),
+							)
+							.map((word) => word.word),
 			);
 			let remaining = 9 - words.size;
 			if (remaining <= 0) remaining = 1;
