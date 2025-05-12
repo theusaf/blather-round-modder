@@ -33,6 +33,7 @@ export default function ProjectListing({
 						className="w-[18rem] h-[16rem] rounded-xl p-4 border-2 border-slate-400 flex flex-col"
 						data-id="project-container"
 						data-project-id={project.id}
+						data-public={project.public}
 					>
 						<div>
 							<h3

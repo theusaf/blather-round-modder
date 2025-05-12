@@ -64,6 +64,7 @@ export default async function ProjectPage({
 					<h1
 						className="text-2xl font-bold flex gap-2"
 						data-id="project-header"
+						data-public={project.public}
 					>
 						<span data-id="project-name">
 							{project.name || "Untitled Project"}
