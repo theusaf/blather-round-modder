@@ -2,9 +2,8 @@
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
-import type { CSSProperties } from "react";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { FixedSizeGrid } from "react-window";
+import { useState } from "react";
+import { type CellComponentProps, Grid } from "react-window";
 import SectionCard from "@/lib/components/SectionCard";
 import { useProjectStore } from "@/lib/hooks/projectStore";
 import type { WordListType } from "@/lib/types/blather";
@@ -18,11 +17,15 @@ export function WordListing({
 }) {
 	const allWordLists = useProjectStore((state) => state.wordLists);
 	const setWordLists = useProjectStore((state) => state.setWordLists);
+	const [columnCount, setColumnCount] = useState(1);
 
 	const Cell = ({
 		index,
 		style,
-	}: { index: number; style: React.CSSProperties }) => {
+	}: {
+		index: number;
+		style: React.CSSProperties;
+	}) => {
 		const wordList = wordLists[index];
 		if (!wordList) return null;
 		return (
@@ -72,44 +75,33 @@ export function WordListing({
 		);
 	};
 
+	const WordGridCell = ({
+		columnIndex,
+		rowIndex,
+		style,
+		columnCount,
+	}: CellComponentProps<{ columnCount: number }>) => {
+		const index = rowIndex * columnCount + columnIndex;
+		return <Cell index={index} style={style} />;
+	};
+
 	return (
 		<section className="flex-1">
-			<AutoSizer>
-				{({ height, width }) => {
-					const columnWidth = 300;
-					const columnCount = Math.floor(width / columnWidth);
-					const getIndex = (col: number, row: number) =>
-						row * columnCount + col;
-					return (
-						<FixedSizeGrid
-							height={height}
-							width={width}
-							rowHeight={85}
-							columnWidth={width / columnCount}
-							columnCount={Math.floor(width / columnWidth)}
-							rowCount={Math.ceil(wordLists.length / columnCount)}
-							itemKey={
-								({ columnIndex, rowIndex }) =>
-									wordLists[getIndex(columnIndex, rowIndex)]?.id ??
-									Math.random() // This prevents a crash when the grid item is undefined
-							}
-						>
-							{({
-								columnIndex,
-								rowIndex,
-								style,
-							}: {
-								columnIndex: number;
-								rowIndex: number;
-								style: CSSProperties;
-							}) => {
-								const index = getIndex(columnIndex, rowIndex);
-								return <Cell index={index} style={style} />;
-							}}
-						</FixedSizeGrid>
-					);
+			<Grid
+				style={{
+					width: "100%",
+					height: "100%"
 				}}
-			</AutoSizer>
+				rowHeight={85}
+				columnWidth={`${100 / columnCount}%`}
+				columnCount={columnCount}
+				rowCount={Math.ceil(wordLists.length / columnCount)}
+				cellComponent={WordGridCell}
+				cellProps={{ columnCount }}
+				onResize={({ width }) => {
+					setColumnCount(Math.max(1, Math.floor(width / 300)));
+				}}
+			/>
 		</section>
 	);
 }

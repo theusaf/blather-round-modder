@@ -2,9 +2,8 @@
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
-import type { CSSProperties } from "react";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { FixedSizeGrid } from "react-window";
+import { type CSSProperties, useState } from "react";
+import { type CellComponentProps, Grid } from "react-window";
 import { CategoryLabel } from "@/lib/components/CategoryLabel";
 import { DifficultyLabel } from "@/lib/components/DifficultyLabel";
 import SectionCard from "@/lib/components/SectionCard";
@@ -20,6 +19,7 @@ export function PromptListing({
 }) {
 	const allPrompts = useProjectStore((state) => state.prompts);
 	const setPrompts = useProjectStore((state) => state.setPrompts);
+	const [columnCount, setColumnCount] = useState(1);
 
 	const Cell = ({ index, style }: { index: number; style: CSSProperties }) => {
 		const prompt = prompts[index];
@@ -85,43 +85,33 @@ export function PromptListing({
 		);
 	};
 
+	const PromptGridCell = ({
+		columnIndex,
+		rowIndex,
+		style,
+		columnCount,
+	}: CellComponentProps<{ columnCount: number }>) => {
+		const index = rowIndex * columnCount + columnIndex;
+		return <Cell index={index} style={style} />;
+	};
+
 	return (
 		<div className="flex-1">
-			<AutoSizer>
-				{({ height, width }) => {
-					const columnWidth = 250;
-					const columnCount = Math.floor(width / columnWidth);
-					const getIndex = (col: number, row: number) =>
-						row * columnCount + col;
-					return (
-						<FixedSizeGrid
-							height={height}
-							width={width}
-							rowHeight={85}
-							columnWidth={width / columnCount}
-							columnCount={Math.floor(width / columnWidth)}
-							rowCount={Math.ceil(prompts.length / columnCount)}
-							itemKey={
-								({ columnIndex, rowIndex }) =>
-									prompts[getIndex(columnIndex, rowIndex)]?.id ?? Math.random() // This prevents a crash when the grid item is undefined
-							}
-						>
-							{({
-								columnIndex,
-								rowIndex,
-								style,
-							}: {
-								columnIndex: number;
-								rowIndex: number;
-								style: CSSProperties;
-							}) => {
-								const index = getIndex(columnIndex, rowIndex);
-								return <Cell index={index} style={style} />;
-							}}
-						</FixedSizeGrid>
-					);
+			<Grid
+				style={{
+					width: "100%",
+					height: "100%"
 				}}
-			</AutoSizer>
+				rowHeight={85}
+				columnWidth={`${100 / columnCount}%`}
+				columnCount={columnCount}
+				rowCount={Math.ceil(prompts.length / columnCount)}
+				cellComponent={PromptGridCell}
+				cellProps={{ columnCount }}
+				onResize={({ width }) => {
+					setColumnCount(Math.max(1, Math.floor(width / 300)));
+				}}
+			/>
 		</div>
 	);
 }
