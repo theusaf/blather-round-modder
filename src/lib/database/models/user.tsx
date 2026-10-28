@@ -1,7 +1,7 @@
 import "server-only";
 import type { QueryOptions } from "@/lib/types/database";
-import { Model, executeQuery } from ".";
 import { firestore } from "../firebase";
+import { executeQuery, Model } from ".";
 
 export default class User extends Model {
 	username: string;

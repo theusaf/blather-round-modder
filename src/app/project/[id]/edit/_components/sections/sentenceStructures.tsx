@@ -1,12 +1,12 @@
 "use client";
-import { ListInputField } from "@/lib/components/ListInputField";
-import SectionCard from "@/lib/components/SectionCard";
-import { useProjectStore } from "@/lib/hooks/projectStore";
-import type { Category, NumberedString } from "@/lib/types/blather";
 import { faPlusCircle, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
 import { useState } from "react";
+import { ListInputField } from "@/lib/components/ListInputField";
+import SectionCard from "@/lib/components/SectionCard";
+import { useProjectStore } from "@/lib/hooks/projectStore";
+import type { Category, NumberedString } from "@/lib/types/blather";
 
 export default function SentenceStructureSection() {
 	return (

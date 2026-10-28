@@ -1,10 +1,10 @@
 "use client";
-import SectionCard from "@/lib/components/SectionCard";
-import { WordListTile } from "@/lib/components/WordListTile";
-import type { PromptType } from "@/lib/types/blather";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
+import SectionCard from "@/lib/components/SectionCard";
+import { WordListTile } from "@/lib/components/WordListTile";
+import type { PromptType } from "@/lib/types/blather";
 
 export function TailoredWordTileList({
 	promptData,

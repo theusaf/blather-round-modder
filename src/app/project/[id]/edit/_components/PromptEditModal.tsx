@@ -1,14 +1,14 @@
 "use client";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { produce } from "immer";
+import { useEffect, useState } from "react";
 import CenteredModal from "@/lib/components/CenteredModal";
 import { HorizontalRadioSelector } from "@/lib/components/HorizontalRadioSelector";
 import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
 import { LabeledInput } from "@/lib/components/LabeledInput";
 import SectionCard from "@/lib/components/SectionCard";
 import type { Category, Difficulty, PromptType } from "@/lib/types/blather";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { produce } from "immer";
-import { useEffect, useState } from "react";
 import { newPromptData } from "../_util/newItems";
 import { AlternateSpellingEditSection } from "./AlternateSpellingEditSection";
 import { ForbiddenWordEditSection } from "./ForbiddenWordEditSection";

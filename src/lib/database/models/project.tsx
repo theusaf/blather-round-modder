@@ -7,8 +7,8 @@ import type {
 import type { QueryOptions } from "@/lib/types/database";
 import type { ProjectType } from "@/lib/types/project";
 import { getRandomId } from "@/lib/util/getRandomId";
-import { Model, executeQuery } from ".";
 import { firestore } from "../firebase";
+import { executeQuery, Model } from ".";
 
 export default class Project extends Model implements ProjectType {
 	id: string | null;

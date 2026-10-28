@@ -1,11 +1,11 @@
 "use client";
-import type { ProjectListingAPIOptions } from "@/lib/types/api";
-import type { ShallowProjectType } from "@/lib/types/project";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import type { ProjectListingAPIOptions } from "@/lib/types/api";
+import type { ShallowProjectType } from "@/lib/types/project";
 
 export default function ProjectListing({
 	projects: initialProjects,
@@ -30,7 +30,7 @@ export default function ProjectListing({
 				{projects.map((project) => (
 					<div
 						key={project.id}
-						className="w-[18rem] h-[16rem] rounded-xl p-4 border-2 border-slate-400 flex flex-col"
+						className="w-[18rem] h-64 rounded-xl p-4 border-2 border-slate-400 flex flex-col"
 						data-id="project-container"
 						data-project-id={project.id}
 						data-public={project.public}

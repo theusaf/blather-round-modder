@@ -57,12 +57,12 @@ export default class Prompt extends Model implements PromptType {
 		throw new Error("Method not implemented.");
 	}
 
-	static async findById(id: string): Promise<Project> {
+	static async findById(_id: string): Promise<Project> {
 		throw new Error("Method not implemented.");
 	}
 
 	static async findAll(
-		queryOptions?: QueryOptions<PromptType>,
+		_queryOptions?: QueryOptions<PromptType>,
 	): Promise<Project[]> {
 		throw new Error("Method not implemented.");
 	}

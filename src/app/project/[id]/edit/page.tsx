@@ -1,12 +1,12 @@
 "use client";
+import { produce } from "immer";
+import { useEffect, useState } from "react";
 import { useProjectStore } from "@/lib/hooks/projectStore";
 import type {
 	NumberedString,
 	PromptType,
 	WordListType,
 } from "@/lib/types/blather";
-import { produce } from "immer";
-import { useEffect, useState } from "react";
 import { ListEditModal } from "./_components/ListEditModal";
 import NavBar from "./_components/NavBar";
 import { ProjectTabMenu } from "./_components/ProjectTabMenu";

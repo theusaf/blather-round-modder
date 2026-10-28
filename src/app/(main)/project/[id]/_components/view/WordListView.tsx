@@ -18,6 +18,7 @@ export function WordListView() {
 				) {
 					return true;
 				}
+				return false;
 			})
 		: project.wordLists;
 	return (

@@ -1,13 +1,13 @@
 "use client";
 
-import { deleteProject } from "@/lib/actions/deleteProject";
-import CenteredModal from "@/lib/components/CenteredModal";
-import { LabeledInput } from "@/lib/components/LabeledInput";
-import type { ProjectType } from "@/lib/types/project";
 import { BProgress } from "@bprogress/core";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { deleteProject } from "@/lib/actions/deleteProject";
+import CenteredModal from "@/lib/components/CenteredModal";
+import { LabeledInput } from "@/lib/components/LabeledInput";
+import type { ProjectType } from "@/lib/types/project";
 
 export function DeleteButton({ project }: { project: ProjectType }) {
 	const [modalOpen, setModalOpen] = useState(false);

@@ -1,8 +1,4 @@
 "use client";
-import CenteredModal from "@/lib/components/CenteredModal";
-import { useProjectStore } from "@/lib/hooks/projectStore";
-import type { PromptType, WordListType } from "@/lib/types/blather";
-import { similarity } from "@/lib/util/similarity";
 import {
 	faArrowRight,
 	faBolt,
@@ -11,6 +7,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useEffect, useRef, useState } from "react";
+import CenteredModal from "@/lib/components/CenteredModal";
+import { useProjectStore } from "@/lib/hooks/projectStore";
+import type { PromptType, WordListType } from "@/lib/types/blather";
+import { similarity } from "@/lib/util/similarity";
 import { filterPrompt } from "../_util/filterPrompt";
 import { filterWordList } from "../_util/filterWordList";
 import { Modal } from "../_util/modal";
@@ -168,7 +168,7 @@ export function SearchModal({
 					ref={inputRef}
 					data-id="search-input"
 				/>
-				<hr className="border-1 border-slate-700" />
+				<hr className="border border-slate-700" />
 				<div>
 					{searching && <div className="text-center">Searching...</div>}
 					{!searching && results.length === 0 && (

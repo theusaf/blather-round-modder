@@ -1,8 +1,8 @@
 "use client";
-import { registerWithPasswordAction } from "@/lib/actions/register";
 import { BProgress } from "@bprogress/core";
 import Link from "next/link";
 import { useActionState } from "react";
+import { registerWithPasswordAction } from "@/lib/actions/register";
 
 export default function LoginPage() {
 	const [formState, formAction, pending] = useActionState(

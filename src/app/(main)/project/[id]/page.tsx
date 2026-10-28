@@ -1,9 +1,9 @@
 import "server-only";
-import Project from "@/lib/database/models/project";
-import { getUserSession } from "@/lib/util/auth";
 import type { ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Project from "@/lib/database/models/project";
+import { getUserSession } from "@/lib/util/auth";
 import { DeleteButton } from "./_components/DeleteButton";
 import { ProjectDownload } from "./_components/ProjectDownload";
 import { ProjectDataView } from "./_components/view/ProjectDataView";

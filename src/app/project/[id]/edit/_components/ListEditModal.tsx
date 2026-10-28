@@ -1,9 +1,4 @@
 "use client";
-import CenteredModal from "@/lib/components/CenteredModal";
-import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
-import { LabeledInput } from "@/lib/components/LabeledInput";
-import SectionCard from "@/lib/components/SectionCard";
-import type { WordListType } from "@/lib/types/blather";
 import {
 	faList,
 	faListCheck,
@@ -14,6 +9,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
 import { produce } from "immer";
 import { useEffect, useState } from "react";
+import CenteredModal from "@/lib/components/CenteredModal";
+import { LabeledCheckbox } from "@/lib/components/LabeledCheckbox";
+import { LabeledInput } from "@/lib/components/LabeledInput";
+import SectionCard from "@/lib/components/SectionCard";
+import type { WordListType } from "@/lib/types/blather";
 
 export function ListEditModal({
 	listModal,

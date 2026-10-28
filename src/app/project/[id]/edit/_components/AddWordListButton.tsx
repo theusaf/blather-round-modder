@@ -1,11 +1,11 @@
 "use client";
-import OutsideClickDetector from "@/lib/components/OutsideClickDetector";
-import { useProjectStore } from "@/lib/hooks/projectStore";
-import type { WordListType } from "@/lib/types/blather";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
 import { useState } from "react";
+import OutsideClickDetector from "@/lib/components/OutsideClickDetector";
+import { useProjectStore } from "@/lib/hooks/projectStore";
+import type { WordListType } from "@/lib/types/blather";
 import { getNewResponseList, newBlankWordList } from "../_util/newItems";
 
 export function AddWordListButton({

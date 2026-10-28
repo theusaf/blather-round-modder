@@ -1,6 +1,4 @@
 "use client";
-import { useProjectStore } from "@/lib/hooks/projectStore";
-import type { PromptType, WordListType } from "@/lib/types/blather";
 import {
 	faCircleExclamation,
 	faCircleRight,
@@ -11,6 +9,8 @@ import { produce } from "immer";
 import { useMemo } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
+import { useProjectStore } from "@/lib/hooks/projectStore";
+import type { PromptType, WordListType } from "@/lib/types/blather";
 import { Modal } from "../../_util/modal";
 import { getNewResponseList } from "../../_util/newItems";
 

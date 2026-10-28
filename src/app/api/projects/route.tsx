@@ -1,14 +1,14 @@
+import { type NextRequest, NextResponse } from "next/server";
 import Project from "@/lib/database/models/project";
 import type { ProjectListingAPIOptions } from "@/lib/types/api";
 import type { QueryOptions } from "@/lib/types/database";
 import type { ProjectType, ShallowProjectType } from "@/lib/types/project";
-import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
 	const { searchParams } = req.nextUrl;
 	const options: ProjectListingAPIOptions = {
-		limit: Number.parseInt(searchParams.get("limit") ?? "10") || 10,
-		cursor: Number.parseInt(searchParams.get("cursor") ?? "0") || 0,
+		limit: Number.parseInt(searchParams.get("limit") ?? "10", 10) || 10,
+		cursor: Number.parseInt(searchParams.get("cursor") ?? "0", 10) || 0,
 		userId: searchParams.get("userId") ?? "",
 	};
 

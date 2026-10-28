@@ -1,4 +1,5 @@
 import "server-only";
+import { Model } from "firebase-admin/machine-learning";
 import type {
 	NumberedString,
 	OptionalNumberedString,
@@ -6,7 +7,6 @@ import type {
 } from "@/lib/types/blather";
 import type { QueryOptions } from "@/lib/types/database";
 import type { ProjectType } from "@/lib/types/project";
-import { Model } from "firebase-admin/machine-learning";
 import type Project from "./project";
 
 export default class WordList extends Model implements WordListType {
@@ -39,12 +39,12 @@ export default class WordList extends Model implements WordListType {
 		throw new Error("Method not implemented.");
 	}
 
-	static async findById(id: string): Promise<Project> {
+	static async findById(_id: string): Promise<Project> {
 		throw new Error("Method not implemented.");
 	}
 
 	static async findAll(
-		options?: QueryOptions<ProjectType>,
+		_options?: QueryOptions<ProjectType>,
 	): Promise<Project[]> {
 		throw new Error("Method not implemented.");
 	}

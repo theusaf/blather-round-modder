@@ -37,31 +37,29 @@ export function WordListTile({
 	}
 
 	return (
-		<>
-			<Tooltip
-				title={
-					<WordListMenu
-						onClose={handleClose}
-						initialValue={useValue ? list : ""}
-					/>
-				}
-				open={menuOpen}
-				disableFocusListener
-				disableHoverListener
+		<Tooltip
+			title={
+				<WordListMenu
+					onClose={handleClose}
+					initialValue={useValue ? list : ""}
+				/>
+			}
+			open={menuOpen}
+			disableFocusListener
+			disableHoverListener
+		>
+			<button
+				type="button"
+				className="text-white bg-blue-500 rounded-md p-1 cursor-pointer truncate w-20 md:w-30"
+				onClick={(event) => {
+					onOpen?.(event);
+					if (event.defaultPrevented) return;
+					setMenuOpen(true);
+				}}
+				ref={ref}
 			>
-				<button
-					type="button"
-					className="text-white bg-blue-500 rounded-md p-1 cursor-pointer truncate w-20 md:w-30"
-					onClick={(event) => {
-						onOpen?.(event);
-						if (event.defaultPrevented) return;
-						setMenuOpen(true);
-					}}
-					ref={ref}
-				>
-					{list}
-				</button>
-			</Tooltip>
-		</>
+				{list}
+			</button>
+		</Tooltip>
 	);
 }

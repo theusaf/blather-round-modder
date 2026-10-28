@@ -1,9 +1,9 @@
 "use client";
 
-import type { PromptType } from "@/lib/types/blather";
 import dynamic from "next/dynamic";
 import { Neucha } from "next/font/google";
 import { useState } from "react";
+import type { PromptType } from "@/lib/types/blather";
 import { CreateSentencePage } from "./try/CreateSentencePage";
 
 const blockyFont = Neucha({ subsets: ["latin"], weight: "400" });
@@ -21,7 +21,7 @@ export function TryItView() {
 	const [selectedPrompt, setSelectedPrompt] = useState<PromptType | null>(null);
 	return (
 		<div
-			className="md:col-span-2 h-[40rem] bg-slate-700 p-2 text-white flex flex-col overflow-hidden"
+			className="md:col-span-2 h-160 bg-slate-700 p-2 text-white flex flex-col overflow-hidden"
 			data-id="project-try-view"
 			data-value={page}
 		>

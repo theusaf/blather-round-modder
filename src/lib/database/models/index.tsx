@@ -1,6 +1,6 @@
 import "server-only";
-import type { QueryOptions, QueryWhereOptions } from "@/lib/types/database";
 import type { Query } from "firebase-admin/firestore";
+import type { QueryOptions, QueryWhereOptions } from "@/lib/types/database";
 
 export abstract class Model {
 	abstract save(): Promise<this>;

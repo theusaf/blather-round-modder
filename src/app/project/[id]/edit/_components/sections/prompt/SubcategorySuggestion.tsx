@@ -1,11 +1,11 @@
 "use client";
+import { Tooltip } from "@mui/material";
+import { useMemo, useState } from "react";
 import { LabeledInput } from "@/lib/components/LabeledInput";
 import OutsideClickDetector from "@/lib/components/OutsideClickDetector";
 import { useProjectStore } from "@/lib/hooks/projectStore";
 import type { PromptType } from "@/lib/types/blather";
 import { similarity } from "@/lib/util/similarity";
-import { Tooltip } from "@mui/material";
-import { useMemo, useState } from "react";
 
 export function SubcategorySuggestion({
 	promptData,
@@ -60,6 +60,7 @@ export function SubcategorySuggestion({
 					disableHoverListener
 				>
 					<div
+						role="none"
 						onKeyDown={(event) => {
 							if (
 								event.key === "Tab" &&

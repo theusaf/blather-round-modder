@@ -1,13 +1,13 @@
 "use client";
-import SectionCard from "@/lib/components/SectionCard";
-import { useProjectStore } from "@/lib/hooks/projectStore";
-import type { WordListType } from "@/lib/types/blather";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
 import type { CSSProperties } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeGrid } from "react-window";
+import SectionCard from "@/lib/components/SectionCard";
+import { useProjectStore } from "@/lib/hooks/projectStore";
+import type { WordListType } from "@/lib/types/blather";
 
 export function WordListing({
 	setModal,
