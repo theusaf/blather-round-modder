@@ -1,11 +1,11 @@
 import "server-only";
+import { Model } from "firebase-admin/machine-learning";
 import type {
 	Category,
 	NumberedString,
 	SentenceStructureType,
 } from "@/lib/types/blather";
 import type { QueryOptions } from "@/lib/types/database";
-import { Model } from "firebase-admin/machine-learning";
 import type Project from "./project";
 
 export default class SentenceStructure
@@ -41,12 +41,12 @@ export default class SentenceStructure
 		throw new Error("Method not implemented.");
 	}
 
-	static async findById(id: string): Promise<Project> {
+	static async findById(_id: string): Promise<Project> {
 		throw new Error("Method not implemented.");
 	}
 
 	static async findAll(
-		queryOptions?: QueryOptions<SentenceStructureType>,
+		_queryOptions?: QueryOptions<SentenceStructureType>,
 	): Promise<Project[]> {
 		throw new Error("Method not implemented.");
 	}

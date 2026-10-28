@@ -1,7 +1,7 @@
 "use client";
+import { type ReactNode, useEffect } from "react";
 import { useProjectStore } from "@/lib/hooks/projectStore";
 import type { ProjectType } from "@/lib/types/project";
-import { type ReactNode, useEffect } from "react";
 
 export default function ProjectLoadHandler({
 	project,

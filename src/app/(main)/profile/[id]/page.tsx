@@ -1,9 +1,9 @@
 import "server-only";
+import type { ResolvingMetadata } from "next";
 import Project from "@/lib/database/models/project";
 import type { QueryOptions } from "@/lib/types/database";
 import type { ProjectType, ShallowProjectType } from "@/lib/types/project";
 import { getUserSession } from "@/lib/util/auth";
-import type { ResolvingMetadata } from "next";
 import ProjectListing from "../../_components/ProjectListing";
 
 export async function generateMetadata(

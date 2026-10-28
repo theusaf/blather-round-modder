@@ -1,10 +1,10 @@
-import Project from "@/lib/database/models/project";
-import type { ProjectType } from "@/lib/types/project";
-import { getUserSession } from "@/lib/util/auth";
 import type { ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
+import Project from "@/lib/database/models/project";
+import type { ProjectType } from "@/lib/types/project";
+import { getUserSession } from "@/lib/util/auth";
 import ProjectLoadHandler from "./_components/ProjectLoadHandler";
 
 export async function generateMetadata(

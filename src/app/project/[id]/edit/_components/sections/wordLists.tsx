@@ -1,7 +1,7 @@
 "use client";
+import { useMemo, useState } from "react";
 import { useProjectStore } from "@/lib/hooks/projectStore";
 import type { WordListType } from "@/lib/types/blather";
-import { useMemo, useState } from "react";
 import { filterWordList } from "../../_util/filterWordList";
 import { AddWordListButton } from "../AddWordListButton";
 import { WordListing } from "../WordListing";

@@ -1,6 +1,4 @@
 "use client";
-import { useProjectStore } from "@/lib/hooks/projectStore";
-import type { PromptType, WordListType } from "@/lib/types/blather";
 import {
 	faCircleExclamation,
 	faCircleRight,
@@ -9,8 +7,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { produce } from "immer";
 import { useMemo } from "react";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { FixedSizeList as List } from "react-window";
+import { List, type RowComponentProps } from "react-window";
+import { useProjectStore } from "@/lib/hooks/projectStore";
+import type { PromptType, WordListType } from "@/lib/types/blather";
 import { Modal } from "../../_util/modal";
 import { getNewResponseList } from "../../_util/newItems";
 
@@ -375,8 +374,11 @@ export default function ValidationSection({
 
 	const Row = ({
 		index,
+		validations,
 		style,
-	}: { index: number; style: React.CSSProperties }) => {
+	}: RowComponentProps<{
+		validations: Validation[];
+	}>) => {
 		const validation = validations[index];
 		return (
 			<div
@@ -447,19 +449,13 @@ export default function ValidationSection({
 			<h3 className="text-lg font-semibold">Validation</h3>
 			<div className="flex-1">
 				{validations.length === 0 && <span>No issues found.</span>}
-				<AutoSizer>
-					{({ height, width }) => (
-						<List
-							height={height}
-							width={width}
-							itemCount={validations.length}
-							itemSize={50}
-							itemKey={getItemKey}
-						>
-							{Row}
-						</List>
-					)}
-				</AutoSizer>
+				<List
+					rowHeight={50} // todo: identify correct size
+					rowComponent={Row}
+					rowProps={{ validations }}
+					rowKey={getItemKey}
+					rowCount={validations.length}
+				/>
 			</div>
 		</div>
 	);

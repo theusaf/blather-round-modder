@@ -1,6 +1,6 @@
-import type { PromptType } from "@/lib/types/blather";
 import { produce } from "immer";
 import { useRef, useState } from "react";
+import type { PromptType } from "@/lib/types/blather";
 import { TailoredWordEditSection } from "../../TailoredWordEditSection";
 import { TailoredWordSuggestionList } from "./TailoredWordSuggestionList";
 import { TailoredWordTileList } from "./TailoredWordTileList";

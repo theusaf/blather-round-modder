@@ -1,8 +1,8 @@
 "use client";
+import { useMemo } from "react";
 import { useProjectStore } from "@/lib/hooks/projectStore";
 import type { PromptType, WordListType } from "@/lib/types/blather";
 import { getListMaps } from "@/lib/util/list";
-import { useMemo } from "react";
 
 export function TailoredWordSuggestionList({
 	promptData,

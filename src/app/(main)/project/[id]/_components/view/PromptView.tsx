@@ -18,6 +18,7 @@ export function PromptView() {
 				) {
 					return true;
 				}
+				return false;
 			})
 		: project.prompts;
 	return (

@@ -16,7 +16,7 @@ export function PromptChoiceBlock({
 		<div className="md:w-[20rem]" data-id="try-prompt-choice">
 			<div className="bg-black text-2xl relative block">
 				<button type="button" onClick={onClick} className="block w-full h-full">
-					<div className="absolute left-[-2rem] top-[-0.5rem]">
+					<div className="absolute -left-8 -top-2">
 						<div
 							className={`${colors[prompt.category] ?? "bg-orange-400"} text-sm w-16 uppercase`}
 							style={{
@@ -30,7 +30,7 @@ export function PromptChoiceBlock({
 					{prompt.difficulty === "easy" && (
 						<div className="overflow-hidden absolute w-full h-full">
 							<span
-								className="bg-green-500 absolute top-[0.5rem] right-[-3rem] text-sm rotate-45 text-black w-32"
+								className="bg-green-500 absolute top-2 -right-12 text-sm rotate-45 text-black w-32"
 								data-id="choice-easy-difficulty"
 							>
 								EASY

@@ -1,8 +1,8 @@
 "use client";
+import { useContext, useState } from "react";
 import type { PromptType } from "@/lib/types/blather";
 import type { ProjectType } from "@/lib/types/project";
 import { toShuffled } from "@/lib/util/shuffle";
-import { useContext, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
 import { PromptChoiceBlock } from "./PromptChoiceBlock";
 
@@ -43,7 +43,7 @@ function PromptSelectionPageContent({
 				easy prompts are worth less
 			</h4>
 			<div
-				className="flex-1 flex-col h-full max-w-[25rem] m-auto"
+				className="flex-1 flex-col h-full max-w-100 m-auto"
 				data-id="try-prompt-selection"
 			>
 				<div className="p-2 flex flex-col items-center gap-4">

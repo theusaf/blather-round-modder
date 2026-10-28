@@ -1,0 +1,6 @@
+allowBuilds:
+  '@biomejs/biome': true
+  '@firebase/util': true
+  argon2: true
+  protobufjs: true
+  unrs-resolver: true

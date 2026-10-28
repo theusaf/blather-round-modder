@@ -1,7 +1,7 @@
-import SectionCard from "@/lib/components/SectionCard";
-import type { WordListType } from "@/lib/types/blather";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SectionCard from "@/lib/components/SectionCard";
+import type { WordListType } from "@/lib/types/blather";
 import { ItemBlock } from "./ItemBlock";
 
 export function WordListList({ wordLists }: { wordLists: WordListType[] }) {

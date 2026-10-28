@@ -1,6 +1,6 @@
 "use client";
-import { LabeledInput } from "@/lib/components/LabeledInput";
 import { useState } from "react";
+import { LabeledInput } from "@/lib/components/LabeledInput";
 
 export function AlternateSpellingEditSection({
 	onSubmit,

@@ -1,10 +1,10 @@
 "use client";
 
-import { saveProject } from "@/lib/actions/saveProject";
-import { useProjectStore } from "@/lib/hooks/projectStore";
 import { faCheck, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useEffect, useState } from "react";
+import { saveProject } from "@/lib/actions/saveProject";
+import { useProjectStore } from "@/lib/hooks/projectStore";
 
 export function SaveButton() {
 	const [saved, setSaved] = useState(false);

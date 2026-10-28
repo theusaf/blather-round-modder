@@ -1,4 +1,6 @@
 "use client";
+import { produce } from "immer";
+import { useCallback, useContext, useMemo, useState } from "react";
 import type {
 	PromptType,
 	SentenceStructureType,
@@ -8,8 +10,6 @@ import type { ProjectType } from "@/lib/types/project";
 import { chance } from "@/lib/util/chance";
 import { getListMaps } from "@/lib/util/list";
 import { toShuffled } from "@/lib/util/shuffle";
-import { produce } from "immer";
-import { useCallback, useContext, useMemo, useState } from "react";
 import { ProjectContext } from "../ProjectContext";
 
 const PLAYER_GUESS: WordListType = {
@@ -238,7 +238,7 @@ function CreateSentencePageContent({
 	);
 
 	return (
-		<div className="md:w-[40rem] md:mx-auto overflow-hidden h-full flex flex-col gap-2">
+		<div className="md:w-160 md:mx-auto overflow-hidden h-full flex flex-col gap-2">
 			<h3
 				className="text-2xl font-black text-center"
 				data-id="create-password"
@@ -449,7 +449,7 @@ function WordSelectionListButton({
 			data-selected={isSelected}
 		>
 			{isSelected && (
-				<span className="absolute left-[0.5rem] top-[0.5rem] w-6 h-6 text-center bg-black text-white rounded-full pointer-events-none z-10">
+				<span className="absolute left-2 top-2 w-6 h-6 text-center bg-black text-white rounded-full pointer-events-none z-10">
 					x
 				</span>
 			)}

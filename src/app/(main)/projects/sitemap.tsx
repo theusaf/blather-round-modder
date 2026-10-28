@@ -1,5 +1,5 @@
-import Project from "@/lib/database/models/project";
 import type { MetadataRoute } from "next";
+import Project from "@/lib/database/models/project";
 
 export async function generateSitemaps() {
 	const projectCount = (

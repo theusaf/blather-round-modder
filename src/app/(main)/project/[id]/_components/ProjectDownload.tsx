@@ -1,11 +1,11 @@
 "use client";
-import CenteredModal from "@/lib/components/CenteredModal";
-import type { FieldType } from "@/lib/types/blather";
-import type { ProjectType } from "@/lib/types/project";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { BlobWriter, TextReader, ZipWriter } from "@zip.js/zip.js";
 import { useState } from "react";
+import CenteredModal from "@/lib/components/CenteredModal";
+import type { FieldType } from "@/lib/types/blather";
+import type { ProjectType } from "@/lib/types/project";
 
 function stringify(obj: unknown, indent = 1) {
 	return JSON.stringify(obj, null, indent);

@@ -1,6 +1,6 @@
 "use client";
-import { useProjectStore } from "@/lib/hooks/projectStore";
 import Link from "next/link";
+import { useProjectStore } from "@/lib/hooks/projectStore";
 
 export function ExitButton() {
 	const id = useProjectStore((state) => state.id);

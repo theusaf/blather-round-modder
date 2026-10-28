@@ -1,9 +1,9 @@
 import "server-only";
+import { redirect } from "next/navigation";
+import { type NextRequest, NextResponse } from "next/server";
 import Project from "@/lib/database/models/project";
 import { getUserSession } from "@/lib/util/auth";
 import revalidateProjectPaths from "@/lib/util/revalidateProjectPaths";
-import { redirect } from "next/navigation";
-import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(
 	_: NextRequest,
